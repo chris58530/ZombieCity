@@ -1,0 +1,715 @@
+fileFormatVersion: 2
+guid: 36802625ad1ee9e4fa590ed3eb12303a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_0
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 1190
+        width: 234
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f136141ecace96429dec1a29ea582b2
+      internalID: -2097793432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_1
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 1190
+        width: 235
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c8df1bd0cbdd1140910ab5c4b697ab8
+      internalID: 354950092
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_2
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 1190
+        width: 235
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abafec50c9df1c240afb0f090f2daf48
+      internalID: -2027398194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_3
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 1190
+        width: 236
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aaf666f7ba28d648984244bef4df102
+      internalID: -376308627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_4
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 1182
+        width: 187
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fc64fbf4101a2f4596b4b8a8a9fc8ef
+      internalID: 1594882979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_5
+      rect:
+        serializedVersion: 2
+        x: 1278
+        y: 1182
+        width: 235
+        height: 467
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab1c5fab41467e84ea17654d1d33321c
+      internalID: 1256092497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_6
+      rect:
+        serializedVersion: 2
+        x: 1542
+        y: 1182
+        width: 235
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3da8bf4d4f7ebb468b258eb2f4740f6
+      internalID: -2070881938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_7
+      rect:
+        serializedVersion: 2
+        x: 1822
+        y: 1182
+        width: 220
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb3ac6a11cd20654582eb11d8e6bfab1
+      internalID: -450816721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_8
+      rect:
+        serializedVersion: 2
+        x: 2046
+        y: 1182
+        width: 219
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f499a1c961ccfa48af030a74766b20a
+      internalID: -1546979164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_9
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 646
+        width: 235
+        height: 443
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c1ddb45ae834e347b21c16b149185c2
+      internalID: 623133653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_10
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 646
+        width: 235
+        height: 451
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9fe70f398a0c814ea0ce4d27f86e67b
+      internalID: 753217851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_11
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 646
+        width: 234
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 635648261a1a17e45a3ed4cabea2f5b5
+      internalID: -411779371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_12
+      rect:
+        serializedVersion: 2
+        x: 839
+        y: 646
+        width: 234
+        height: 459
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 151855568a20527438ccc2578cafc7bc
+      internalID: 1772710082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_13
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 638
+        width: 203
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6898bd93ce061246bf28506ee846cf3
+      internalID: 1516107951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_14
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 638
+        width: 203
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5945eea64baeeaa428141192b3a983ca
+      internalID: 75126972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_15
+      rect:
+        serializedVersion: 2
+        x: 1775
+        y: 638
+        width: 186
+        height: 428
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 494398848067da8449af7c2e157ff489
+      internalID: -1578571847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_16
+      rect:
+        serializedVersion: 2
+        x: 1991
+        y: 638
+        width: 195
+        height: 420
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633863039a75b8844a7447d3a80a1e26
+      internalID: -1621498167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_17
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 103
+        width: 202
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 946a2dc0acf61db488af7ebdd8bddf83
+      internalID: 1567443378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_18
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 103
+        width: 171
+        height: 411
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63ddfc567c92591449fe2edb8d5ab538
+      internalID: -367556827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_19
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 103
+        width: 170
+        height: 435
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a33fcc8e8979f42a960fed576cfb51
+      internalID: 2070396481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_20
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 95
+        width: 179
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4830094eaf425b04790d4606a42da59d
+      internalID: 1869086503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_21
+      rect:
+        serializedVersion: 2
+        x: 959
+        y: 95
+        width: 234
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70088d8df2a79fd44930170d2a80b60a
+      internalID: 715096466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_22
+      rect:
+        serializedVersion: 2
+        x: 1223
+        y: 95
+        width: 195
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94df3eff1ae1c854797dcbca43d84cbf
+      internalID: -1755640253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_23
+      rect:
+        serializedVersion: 2
+        x: 1503
+        y: 95
+        width: 195
+        height: 410
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dca300ab18daf94c8c910ff3f267d1c
+      internalID: -569043076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_24
+      rect:
+        serializedVersion: 2
+        x: 1727
+        y: 95
+        width: 195
+        height: 427
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c5a818a5e13bed4abf81562a8f0de03
+      internalID: 1274391515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombies-for-dead-ahead-v0-gh7tjevav2fd1_25
+      rect:
+        serializedVersion: 2
+        x: 1967
+        y: 95
+        width: 219
+        height: 451
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd7f5ef6538a4cf4bbc0f85ebe6caa73
+      internalID: 527817613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 518d7fe54a5b24141a4ec2fc8b295d7f
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_0: -2097793432
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_1: 354950092
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_10: 753217851
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_11: -411779371
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_12: 1772710082
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_13: 1516107951
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_14: 75126972
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_15: -1578571847
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_16: -1621498167
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_17: 1567443378
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_18: -367556827
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_19: 2070396481
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_2: -2027398194
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_20: 1869086503
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_21: 715096466
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_22: -1755640253
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_23: -569043076
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_24: 1274391515
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_25: 527817613
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_3: -376308627
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_4: 1594882979
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_5: 1256092497
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_6: -2070881938
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_7: -450816721
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_8: -1546979164
+      zombies-for-dead-ahead-v0-gh7tjevav2fd1_9: 623133653
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
