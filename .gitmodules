@@ -1,3 +1,6 @@
 [submodule "Assets/ThirdParty"]
 	path = Assets/ThirdParty
 	url = git@github.com:chris58530/ThridParty.git
+[submodule "Assets/ThirdPartyTest"]
+	path = Assets/ThirdPartyTest
+	url = git@github.com:chris58530/ThridParty.git
