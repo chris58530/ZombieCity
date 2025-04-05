@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da5eb29887574ca7b08afc026f436e8, type: 3}
+  m_Name: FloorDataSetting
+  m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: -12}
+  floorHeight: 2.6
+  floorData:
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 100
+    isLocked: 0
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 300
+    isLocked: 0
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 600
+    isLocked: 0
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 300
+    isLocked: 1
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 300
+    isLocked: 1
+  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+    unlockPrice: 300
+    isLocked: 1

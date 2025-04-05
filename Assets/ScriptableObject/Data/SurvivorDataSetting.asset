@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fae7996e56a6447a3b6981b32a3ee825, type: 3}
+  m_Name: SurvivorDataSetting
+  m_EditorClassIdentifier: 
+  survivorData:
+  - survivorInfo:
+      name: chris
+      icon: {fileID: 1115589891, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+      survivorBasePrefab: {fileID: 8278536482078377743, guid: c63204cc0731c4d26ba30bf14d56eaf4, type: 3}
+    level: 0
+    isLock: 0
