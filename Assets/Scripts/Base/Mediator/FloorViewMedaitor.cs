@@ -16,10 +16,12 @@ public class FloorViewMedaitor : IMediator
         floorView = view as FloorView;
     }
     [Listener(FloorEvent.ON_FLOOR_INIT)]
-    public void InitFloor()
+    public void Init()
     {
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
+        SurvivorDataSetting survivorDataSetting = floorProxy.survivorDataSetting;
         floorView.InitFloor(floorDataSetting);
+        floorView.InitSurvivor(survivorDataSetting);
         // Additional initialization logic for the floor view can be added here
     }
 

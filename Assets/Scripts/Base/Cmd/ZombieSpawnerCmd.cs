@@ -1,0 +1,29 @@
+using UnityEngine;
+using Zenject;
+
+public class ZombieSpawnerCmd : ICommand
+{
+    [Inject] private ZombieSpawnerProxy proxy;
+    [SerializeField] private ZombieDataSetting zombieDataSetting;
+    public override void Execute(MonoBehaviour mono)
+    {
+        isLazy = true;
+    }
+    [Listener(GameEvent.ON_INIT_GAME)]
+    public void StartZombieSpawn()
+    {
+        proxy.SetZombieInit(zombieDataSetting);
+    }
+    [Listener(DebugEvent.ON_ZOMBIE_SPAWN)]
+    public void SpawnZombie()
+    {
+        int data = Random.Range(0, zombieDataSetting.zombieData.Length);
+        LogService.Instance.Log($"Data ID: {data}");
+
+        ZombieData zombieData = zombieDataSetting.zombieData[data];
+        LogService.Instance.Log($"Zombie ID: {zombieData.zombieInfo.zombieBasePrefab.id}");
+
+        proxy.OnSpawnZombie(zombieData.zombieInfo.zombieBasePrefab.id);
+    }
+
+}

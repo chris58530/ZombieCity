@@ -13,9 +13,16 @@ public class FloorEvent
 public class DebugEvent
 {
     public const string ON_DEBUG_EVENT = "DebugEvent.ON_DEBUG_EVENT";
+    public const string ON_ZOMBIE_SPAWN = "DebugEvent.ON_ZOMBIE_SPAWN";
 }
 public class CameraEvent
 {
     public const string OPEN_CAMERA_SWIPE = "CameraEvent.OPEN_CAMERA_SWIPE";
     public const string CLOSE_CAMERA_SWIPE = "CameraEvent.CLOSE_CAMERA_SWIPE";
+}
+public class ZombieSpawnerEvent
+{
+    public const string ON_ZOMBIE_INIT = "ZombieSpawner.ON_ZOMBIE_INIT";
+    public const string ON_ZOMBIE_SPAWN = "ZombieSpawner.ON_ZOMBIE_SPAWN";
+
 }

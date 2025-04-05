@@ -15,7 +15,19 @@ MonoBehaviour:
   survivorData:
   - survivorInfo:
       name: chris
-      icon: {fileID: 1115589891, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
-      survivorBasePrefab: {fileID: 8278536482078377743, guid: c63204cc0731c4d26ba30bf14d56eaf4, type: 3}
+      icon: {fileID: 547209609, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+      survivorBasePrefab: {fileID: 21954560590295344, guid: c63204cc0731c4d26ba30bf14d56eaf4, type: 3}
+    level: 0
+    isLock: 0
+  - survivorInfo:
+      name: ben
+      icon: {fileID: -596829564, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+      survivorBasePrefab: {fileID: 21954560590295344, guid: 67fa7ec9512b94ea18ca8815e4d0489b, type: 3}
+    level: 0
+    isLock: 0
+  - survivorInfo:
+      name: jack
+      icon: {fileID: 2130681974, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+      survivorBasePrefab: {fileID: 21954560590295344, guid: 78145df268d0e4177baceb13fda2294a, type: 3}
     level: 0
     isLock: 0

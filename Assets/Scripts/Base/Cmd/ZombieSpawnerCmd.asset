@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e4d808013d484c7cb8fd1a1cfe79d86, type: 3}
-  m_Name: FloorCmd
+  m_Script: {fileID: 11500000, guid: 58c78124b1136408f95e673ddc1149c0, type: 3}
+  m_Name: ZombieSpawnerCmd
   m_EditorClassIdentifier: 
   isLazy: 1
-  floorDataSetting: {fileID: 11400000, guid: 066ca8b7f104141b4a4d4a3ad5d7e644, type: 2}
-  survivorDataSetting: {fileID: 11400000, guid: 699612add55c7442ea4e1ea01987459e, type: 2}
+  zombieDataSetting: {fileID: 11400000, guid: d48880c825442471086b9d5cc9643e16, type: 2}

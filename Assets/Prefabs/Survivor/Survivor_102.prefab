@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2945057785712842316}
   - component: {fileID: 2890693631627019002}
   m_Layer: 0
-  m_Name: Survivor_101_Sprite
+  m_Name: Survivor_102_Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
-  m_ConstrainProportionsScale: 1
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2899889474833423517}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -108,7 +108,7 @@ SpriteRenderer:
   m_SortingLayerID: -1946737595
   m_SortingLayer: 10
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1115589891, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+  m_Sprite: {fileID: 547209609, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 7095366021230197537}
   - component: {fileID: 21954560590295344}
   m_Layer: 0
-  m_Name: Survivor_101
+  m_Name: Survivor_102
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -211,4 +211,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2527b3796d0f84ae09d8bed6163ad9d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 101
+  id: 102
