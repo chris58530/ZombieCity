@@ -15,4 +15,3 @@ MonoBehaviour:
   isLazy: 0
   sceneNames:
   - BaseScene
-  - UIScene

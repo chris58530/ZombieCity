@@ -14,5 +14,9 @@ public class DebugView : MonoBehaviour, IView
         {
             listener.BroadCast(DebugEvent.ON_DEBUG_EVENT);
         }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            listener.BroadCast(DebugEvent.ON_ZOMBIE_SPAWN);
+        }
     }
 }
