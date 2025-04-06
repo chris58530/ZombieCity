@@ -15,10 +15,10 @@ MonoBehaviour:
   startPosition: {x: 0, y: -12}
   floorHeight: 2.6
   floorData:
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 5f37c0aeec8a12d4aba4a92ac6f8f866, type: 3}
     unlockPrice: 100
     isLocked: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: b06bef7075d5f4a488b3ef117f18d921, type: 3}
     unlockPrice: 300
     isLocked: 0
   - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
