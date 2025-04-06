@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89efe8b09e3a34acdb666b062f903cbd, type: 3}
-  m_Name: LoadSceneCmd
+  m_Script: {fileID: 11500000, guid: dfbf6380340464778a1f13cd9b9a8015, type: 3}
+  m_Name: ClickHitCmd
   m_EditorClassIdentifier: 
-  isLazy: 0
-  sceneNames:
-  - BaseScene
+  isLazy: 1

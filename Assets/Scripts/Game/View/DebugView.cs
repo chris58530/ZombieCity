@@ -7,6 +7,8 @@ public class DebugView : MonoBehaviour, IView
     private void OnEnable()
     {
         listener.RegisterListener(this);
+        InvokeRepeating("SpawnZombie", 0, 1f);
+
     }
     private void Update()
     {
@@ -18,5 +20,9 @@ public class DebugView : MonoBehaviour, IView
         {
             listener.BroadCast(DebugEvent.ON_ZOMBIE_SPAWN);
         }
+    }
+    public void SpawnZombie()
+    {
+        listener.BroadCast(DebugEvent.ON_ZOMBIE_SPAWN);
     }
 }

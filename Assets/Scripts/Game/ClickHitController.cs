@@ -1,0 +1,31 @@
+using System;
+using UnityEngine;
+
+public class ClickHitController : MonoBehaviour
+{
+    public Action<ZombieBase> onClickZombie;
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Vector3 mouseScreenPos = Input.mousePosition;
+            mouseScreenPos.z = 10f;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
+            Vector2 rayPos = new Vector2(mouseWorldPos.x, mouseWorldPos.y);
+            RaycastHit2D hit = Physics2D.Raycast(rayPos, Vector2.zero);
+            if (hit.collider != null)
+            {
+                ZombieBase zombie = hit.collider.GetComponent<ZombieBase>();
+                if (zombie != null)
+                {
+                    OnClickZombie(zombie);
+                }
+            }
+        }
+    }
+    private void OnClickZombie(ZombieBase zombie)
+    {
+        onClickZombie?.Invoke(zombie);
+    }
+}
