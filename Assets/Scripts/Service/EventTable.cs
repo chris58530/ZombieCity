@@ -17,6 +17,8 @@ public class DebugEvent
 }
 public class CameraEvent
 {
+    public const string MOVE_TO_GAME_VIEW = "CameraEvent.MOVE_TO_GAME_VIEW";
+    public const string INIT_CAMERA_SWIPE = "CameraEvent.INIT_CAMERA_SWIPE";
     public const string OPEN_CAMERA_SWIPE = "CameraEvent.OPEN_CAMERA_SWIPE";
     public const string CLOSE_CAMERA_SWIPE = "CameraEvent.CLOSE_CAMERA_SWIPE";
 }

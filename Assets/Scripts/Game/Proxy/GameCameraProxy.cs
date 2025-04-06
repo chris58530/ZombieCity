@@ -12,7 +12,7 @@ public class GameCameraProxy : IProxy
     public void EnabelSwipe()
     {
         canSwipe = true;
-        listener.BroadCast(CameraEvent.OPEN_CAMERA_SWIPE);
+        listener.BroadCast(CameraEvent.INIT_CAMERA_SWIPE);
     }
     public void DisableSwipe()
     {

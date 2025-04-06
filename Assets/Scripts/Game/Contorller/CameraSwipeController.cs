@@ -8,17 +8,25 @@ public class CameraSwipeController : MonoBehaviour
     public float scrollSpeed = 5f;
     public float minY = -30f;
     public float maxY = -5f;
-
+    public bool openSwipe;
     private Vector2 lastMousePosition;
-    public void Init(GameCamera camera,float minY)
+
+
+    public void Init(GameCamera camera, float minY)
     {
         gameCamera = camera;
         camera.transform.parent = this.transform;
         this.minY = minY;
-    }   
+    }
+
+    
 
     void Update()
     {
+        SwipeCamera();
+    }
+    private void SwipeCamera(){
+        if (!openSwipe) return;
         if (LeanTouch.Fingers.Count > 0)
         {
             LeanFinger finger = LeanTouch.Fingers[0];
@@ -39,7 +47,7 @@ public class CameraSwipeController : MonoBehaviour
                 lastMousePosition = currentPosition;
             }
         }
-        // 2. 滑鼠滾輪輸入（電腦測試）
+        //  滑鼠滾輪輸入（電腦測試）
         else
         {
             float scrollInput = Input.GetAxis("Mouse ScrollWheel");

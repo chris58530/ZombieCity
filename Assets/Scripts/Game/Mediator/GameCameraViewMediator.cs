@@ -10,23 +10,34 @@ public class GameCameraViewMediator : IMediator
         base.Register(view);
         this.view = view as GameCameraView;
     }
-    [Listener(CameraEvent.OPEN_CAMERA_SWIPE)]
+    [Listener(CameraEvent.MOVE_TO_GAME_VIEW)]
+    public void MoveToGameView()
+    {
+        view.MoveToGameView();
+    }
+    [Listener(CameraEvent.INIT_CAMERA_SWIPE)]
     public void OpenSwipe()
     {
         GameCamera camera = proxy.gameCamera;
         float minY = proxy.minY;
-        if(camera == null)
+        if (camera == null)
         {
             LogService.Instance.Log("camera is null");
             return;
         }
         LogService.Instance.Log($"GameCameraProxy: {camera}");
 
-        view.OpenSwipe(camera,minY);
+        view.InitSwipe(camera, minY);
+    }
+    [Listener(CameraEvent.OPEN_CAMERA_SWIPE)]
+    public void StartSwipe()
+    {
+        view.StartSwipe();
     }
     [Listener(CameraEvent.CLOSE_CAMERA_SWIPE)]
-    public void CloseSwipe()
+    public void StopSwipe()
     {
-        view.CloseSwipe();
+        view.StopSwipe();
     }
+
 }

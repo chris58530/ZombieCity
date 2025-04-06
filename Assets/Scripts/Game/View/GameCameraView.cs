@@ -1,15 +1,18 @@
 using UnityEngine;
+using DG.Tweening;
 using Zenject;
 
 public class GameCameraView : MonoBehaviour, IView
 {
     [Inject] private GameCameraViewMediator mediator;
     [SerializeField] private CameraSwipeController cameraSwipeController;
-    [SerializeField]private GameCamera gameCamera;
+    [SerializeField] private GameCamera gameCamera;
+    public bool isFrist = true;
+    private Tween firstMoveTween;
+
     public void Awake()
     {
         InjectService.Instance.Inject(this);
-        cameraSwipeController.enabled = false;
 
     }
     private void OnEnable()
@@ -20,22 +23,38 @@ public class GameCameraView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
-    public void OpenSwipe(GameCamera gameCamera,float minY)
+    public void MoveToGameView()
+    {
+        if (!isFrist) return;
+        isFrist = false;
+        Vector3 targetPosition = new Vector3(0, -5, -10);
+        firstMoveTween = gameCamera.transform.DOMove(targetPosition, 1f).SetEase(Ease.InOutSine).OnComplete(() =>
+        {
+            cameraSwipeController.openSwipe = true;
+            firstMoveTween?.Kill();
+
+        });
+    }
+    public void InitSwipe(GameCamera gameCamera, float minY)
     {
         this.gameCamera = gameCamera;
         LogService.Instance.Log($"gameCamera: {gameCamera}");
 
-        if(this.gameCamera == null)
+        if (this.gameCamera == null)
         {
             LogService.Instance.Log("GameCamera is null");
             return;
         }
-        cameraSwipeController.enabled = true;
 
-        cameraSwipeController.Init(gameCamera,minY);
+        cameraSwipeController.Init(gameCamera, minY);
 
     }
-    public void CloseSwipe()
+    public void StartSwipe()
     {
+        cameraSwipeController.openSwipe = true;
+    }
+    public void StopSwipe()
+    {
+        cameraSwipeController.openSwipe = false;
     }
 }

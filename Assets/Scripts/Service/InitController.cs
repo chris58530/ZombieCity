@@ -12,7 +12,8 @@ public class InitController : MonoBehaviour
     public StateControllerSetting InitStateControllerSetting;
     public StateControllerSetting GameStateControllerSetting;
     public TextMeshProUGUI progressText;
-    public GameObject cameraObject;
+    public GameObject clickObject;
+    public GameObject panel;
     private int totalCommands;
     private int completedCommands;
 
@@ -20,6 +21,7 @@ public class InitController : MonoBehaviour
     {
         StartExecution();
         listener.RegisterListener(this);
+        clickObject.SetActive(false);
     }
 
     private void StartExecution()
@@ -68,18 +70,17 @@ public class InitController : MonoBehaviour
         float progress = totalCommands > 0 ? (float)completedCommands / totalCommands * 100f : 100f;
         if (progressText != null)
         {
-            progressText.text = $"Loading: {progress:0}%";
+            progressText.text = $"Loading...";
         }
     }
 
     private void Transition()
     {
-
+        clickObject.SetActive(true);
         if (progressText != null)
         {
-            progressText.text = "";
+            progressText.text = "Press to  Continue";
         }
-        cameraObject.transform.DOMove(new Vector3(0, -5, -10), 1);
         foreach (var cmd in GameStateControllerSetting.commands)
         {
             cmd.Initialize(this, listener, container);
@@ -87,6 +88,12 @@ public class InitController : MonoBehaviour
         }
 
         listener.BroadCast(GameEvent.ON_INIT_GAME);
+    }
+    public void OnClick()
+    {
+        panel.SetActive(false);
+        clickObject.SetActive(false);
+        listener.BroadCast(CameraEvent.MOVE_TO_GAME_VIEW);
     }
 
 }
