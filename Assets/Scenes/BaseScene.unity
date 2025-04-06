@@ -346,7 +346,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7077299469396761335, guid: b89e8c57b3506444eb657322fad51fc9, type: 3}
       propertyPath: scrollSpeed
-      value: 1
+      value: 7.39
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
