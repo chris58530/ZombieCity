@@ -9,14 +9,16 @@ public class ZombieDataSetting : ScriptableObject
 [Serializable]
 public class ZombieData
 {
+    //邏輯資料
     public ZombieInfo zombieInfo;
-    public int level;
+    public int hp;
     public int isLock;
-    public int poolCount;
+    
 }
 [Serializable]
 public class ZombieInfo
 {
+    //外觀資料
     public string name;
     public Sprite icon;
     public ZombieBase zombieBasePrefab;

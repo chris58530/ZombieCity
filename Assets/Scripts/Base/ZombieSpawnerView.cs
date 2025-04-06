@@ -1,15 +1,16 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Zenject;
 
 
 public class ZombieSpawnerView : MonoBehaviour, IView
 {
     [Inject] private ZombieSpawnerViewMediator mediator;
-    private ZombieManager zombieManager;
-    private Dictionary<int, PoolManager> zombiesPool = new Dictionary<int, PoolManager>();
+    private Dictionary<int, ZombieManager> zombiesManager = new Dictionary<int, ZombieManager>();
     public void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -30,10 +31,6 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             return;
         }
 
-        zombieManager = new GameObject("ZombieManager").AddComponent<ZombieManager>();
-        zombieManager.transform.SetParent(transform);
-
-
         foreach (var zombieData in data.zombieData)
         {
             ZombieBase zombiePrefab = zombieData.zombieInfo.zombieBasePrefab;
@@ -42,31 +39,76 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             {
                 continue;
             }
+            int zombId = zombieData.zombieInfo.zombieBasePrefab.id;
+            int hp = zombieData.hp;
+            ZombieManager zombieManager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
+            zombieManager.InitZombie(zombiePrefab, hp, () =>
+            {
+                Debug.Log("Zombie " + zombId + " is dead.");
+            });
 
-            PoolManager pool = new GameObject("ZombiePool_" + zombieData.zombieInfo.zombieBasePrefab.id).AddComponent<PoolManager>();
-            pool.transform.SetParent(zombieManager.transform);
-            pool.RegisterPool(zombiePrefab, 10, pool.transform);
-            zombiesPool.Add(zombieData.zombieInfo.zombieBasePrefab.id, pool);
+            zombieManager.transform.SetParent(transform);
+            zombiesManager.Add(zombieData.zombieInfo.zombieBasePrefab.id, zombieManager);
         }
     }
-    public void SpawnZombie(int id)
+    public void OnZombieSpawned(int id)
     {
-        Debug.Log($"Zombie ID: {id}");
-
-        if (!zombiesPool.TryGetValue(id, out var pool))
+        if (zombiesManager.ContainsKey(id))
         {
-            Debug.LogError($"No zombie ID: {id}");
-            return;
+            zombiesManager[id].MoveZombie();
         }
-        ZombieBase zombie = pool.Spawn<ZombieBase>();
-        zombie.transform.position = new Vector2(UnityEngine.Random.Range(-2f, 2f), -10);
-        zombieManager.MoveZombie(zombie);
+        else
+        {
+            Debug.LogWarning("Zombie ID not found in manager.");
+        }
+    }
+    public void OnZombieHit(int id)
+    {
+
     }
 }
 public class ZombieManager : MonoBehaviour
 {
-    public void MoveZombie(ZombieBase zombie, Action callback = null)
+    private Action deadCallback;
+    private int poolCount = 8;
+    private int zombieHp;
+    private PoolManager poolManager;
+    private Dictionary<ZombieBase, int> zombieHpDic = new();
+    private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
+
+    public void InitZombie(ZombieBase zombie, int hp, Action deadCallback)
     {
+        this.deadCallback = deadCallback;
+        this.zombieHp = hp;
+        poolManager = new GameObject("ZombiePool_").AddComponent<PoolManager>();
+        poolManager.transform.SetParent(transform);
+        poolManager.RegisterPool(zombie, poolCount, poolManager.transform);
+    }
+    public void HitZombie(ZombieBase zombie)
+    {
+        if (zombieHpDic.ContainsKey(zombie))
+        {
+            zombieHpDic[zombie] -= 1;
+            if (zombieHpDic[zombie] <= 0)
+            {
+                zombieHpDic.Remove(zombie);
+                poolManager.Despawn(zombie);
+                zombieMoveTween[zombie].Kill();
+                deadCallback?.Invoke();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Zombie not found in dictionary.");
+        }
+    }
+    public void MoveZombie()
+    {
+        ZombieBase zombie = poolManager.Spawn<ZombieBase>();
+        zombieHpDic.Add(zombie, zombieHp);
+        zombie.transform.position = new Vector2(UnityEngine.Random.Range(-2f, 2f), 2);
+        zombieMoveTween.Add(zombie, zombie.transform.DOMoveY(UnityEngine.Random.Range(-6f, -7f), 2f).SetEase(Ease.Linear));
 
     }
+
 }

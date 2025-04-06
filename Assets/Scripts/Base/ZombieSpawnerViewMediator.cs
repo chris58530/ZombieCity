@@ -20,7 +20,7 @@ public class ZombieSpawnerViewMediator : IMediator
     {
         int id = proxy.spawnId;
         LogService.Instance.Log($"Zombie ID: {id}");
-        view.SpawnZombie(id);
+        view.OnZombieSpawned(id);
     }
     public void AddZombie(ZombieBase zombieBase)
     {

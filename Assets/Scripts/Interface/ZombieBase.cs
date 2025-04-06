@@ -6,7 +6,14 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public AnimationView animationView;
 
 
+    public ZombieBase GetZombie()
+    {
+        return this;
+    }
+    public void Hit()
+    {
 
+    }
     public void OnSpawned()
     {
         animationView.Show();
