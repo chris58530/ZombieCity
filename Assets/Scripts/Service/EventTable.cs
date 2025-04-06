@@ -24,5 +24,9 @@ public class ZombieSpawnerEvent
 {
     public const string ON_ZOMBIE_INIT = "ZombieSpawner.ON_ZOMBIE_INIT";
     public const string ON_ZOMBIE_SPAWN = "ZombieSpawner.ON_ZOMBIE_SPAWN";
+    public const string ON_ZOMBIE_HIT = "ZombieSpawner.ON_ZOMBIE_HIT";
 
+}
+public class ClickHitEvent{
+    public const string ON_CLICK_ZOMBIE = "ClickHitEvent.ON_CLICK_ZOMBIE";
 }

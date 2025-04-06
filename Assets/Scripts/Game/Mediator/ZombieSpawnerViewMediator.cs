@@ -26,4 +26,10 @@ public class ZombieSpawnerViewMediator : IMediator
     {
         proxy.AddZombie(zombieBase);
     }
+    [Listener(ZombieSpawnerEvent.ON_ZOMBIE_HIT)]
+    public void OnZombieHit()
+    {
+        ZombieBase zombie = proxy.hitZombie;
+        view.OnZombieHit(zombie);
+    }
 }

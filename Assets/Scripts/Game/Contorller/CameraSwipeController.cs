@@ -19,7 +19,6 @@ public class CameraSwipeController : MonoBehaviour
 
     void Update()
     {
-        // 1. Lean Touch 觸控輸入（移動設備）
         if (LeanTouch.Fingers.Count > 0)
         {
             LeanFinger finger = LeanTouch.Fingers[0];

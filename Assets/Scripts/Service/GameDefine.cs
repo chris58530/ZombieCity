@@ -13,4 +13,11 @@ public class GameDefine
             return true;
         }
     }
+    public static bool IsFlip(float direction)
+    {
+        if (direction > 0)
+            return true;
+        else
+            return false;
+    }
 }

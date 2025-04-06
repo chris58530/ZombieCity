@@ -10,6 +10,8 @@ using Zenject;
 public class ZombieSpawnerView : MonoBehaviour, IView
 {
     [Inject] private ZombieSpawnerViewMediator mediator;
+    [SerializeField] private Vector2 spawnPosX; //左右
+    [SerializeField] private Vector2 spawnPosY;// 上下多少範圍
     private Dictionary<int, ZombieManager> zombiesManager = new Dictionary<int, ZombieManager>();
     public void Awake()
     {
@@ -42,6 +44,8 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             int zombId = zombieData.zombieInfo.zombieBasePrefab.id;
             int hp = zombieData.hp;
             ZombieManager zombieManager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
+            zombieManager.spawnPosX = spawnPosX;
+            zombieManager.spawnPosY = spawnPosY;
             zombieManager.InitZombie(zombiePrefab, hp, () =>
             {
                 Debug.Log("Zombie " + zombId + " is dead.");
@@ -55,20 +59,30 @@ public class ZombieSpawnerView : MonoBehaviour, IView
     {
         if (zombiesManager.ContainsKey(id))
         {
-            zombiesManager[id].MoveZombie();
+            zombiesManager[id].SpawnZombie();
         }
         else
         {
             Debug.LogWarning("Zombie ID not found in manager.");
         }
     }
-    public void OnZombieHit(int id)
+    public void OnZombieHit(ZombieBase zombie)
     {
-
+        foreach (var manager in zombiesManager.Values)
+        {
+            if (manager == null)
+            {
+                Debug.LogWarning("ZombieManager is null.");
+                continue;
+            }
+            manager.HitZombie(zombie);
+        }
     }
 }
 public class ZombieManager : MonoBehaviour
 {
+    public Vector2 spawnPosX; //左右
+    public Vector2 spawnPosY;// 上下多少
     private Action deadCallback;
     private int poolCount = 8;
     private int zombieHp;
@@ -89,12 +103,10 @@ public class ZombieManager : MonoBehaviour
         if (zombieHpDic.ContainsKey(zombie))
         {
             zombieHpDic[zombie] -= 1;
+            zombie.Hit();
             if (zombieHpDic[zombie] <= 0)
             {
-                zombieHpDic.Remove(zombie);
-                poolManager.Despawn(zombie);
-                zombieMoveTween[zombie].Kill();
-                deadCallback?.Invoke();
+                KillZombie(zombie);
             }
         }
         else
@@ -102,12 +114,46 @@ public class ZombieManager : MonoBehaviour
             Debug.LogWarning("Zombie not found in dictionary.");
         }
     }
-    public void MoveZombie()
+    public void KillZombie(ZombieBase zombie)
+    {
+        zombieMoveTween[zombie].Kill();
+
+        zombie.SetDead(() => //表演資料
+        {
+            deadCallback?.Invoke();//噴錢啥的 邏輯資料
+            ResetZombie(zombie);
+        });
+
+    }
+    public void ResetZombie(ZombieBase zombie)
+    {
+
+        zombieHpDic.Remove(zombie);
+        zombieMoveTween.Remove(zombie);
+        poolManager.Despawn(zombie);
+    }
+    public void SpawnZombie()
     {
         ZombieBase zombie = poolManager.Spawn<ZombieBase>();
         zombieHpDic.Add(zombie, zombieHp);
-        zombie.transform.position = new Vector2(UnityEngine.Random.Range(-2f, 2f), 2);
-        zombieMoveTween.Add(zombie, zombie.transform.DOMoveY(UnityEngine.Random.Range(-6f, -7f), 2f).SetEase(Ease.Linear));
+
+        float[] xFloat = new float[2] { spawnPosX.x, spawnPosX.y };
+        int x = UnityEngine.Random.Range(0, xFloat.Length);
+        Vector2 spawnPos = new Vector2(xFloat[x], UnityEngine.Random.Range(spawnPosY.x, spawnPosY.y));
+        zombie.transform.position = spawnPos;
+        bool isFlip = GameDefine.IsFlip(xFloat[x]);
+        MoveZombie(zombie, isFlip);
+    }
+    public void MoveZombie(ZombieBase zombie, bool isFlip)
+    {
+        zombie.SetFlip(isFlip);
+        float speed = UnityEngine.Random.Range(10, 20f);
+        float xPos = isFlip ? spawnPosX.x : spawnPosX.y;
+        zombieMoveTween.Add(zombie, zombie.transform.DOMoveX(xPos, speed).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            zombieMoveTween[zombie].Kill();
+            ResetZombie(zombie);
+        }));
 
     }
 

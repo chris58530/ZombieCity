@@ -7,6 +7,8 @@ public class ZombieSpawnerProxy : IProxy
     public ZombieDataSetting zombieDataSetting;
     public int spawnId;
     public float spawnRate = 0.5f;
+    public ZombieBase hitZombie;
+
     public void SetZombieInit(ZombieDataSetting zombieDataSetting)
     {
         this.zombieDataSetting = zombieDataSetting;
@@ -23,5 +25,11 @@ public class ZombieSpawnerProxy : IProxy
     public void AddZombie(ZombieBase zombieBase)
     {
         zombies.Add(zombieBase);
+    }
+    public void SetHitZombie(ZombieBase zombieBase)
+    {
+        this.hitZombie = zombieBase;
+        listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_HIT);
+
     }
 }

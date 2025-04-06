@@ -4,10 +4,12 @@ using Zenject;
 public class ZombieSpawnerCmd : ICommand
 {
     [Inject] private ZombieSpawnerProxy proxy;
+    [Inject] private ClickHitProxy clickHitProxy;
     [SerializeField] private ZombieDataSetting zombieDataSetting;
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
+
     }
     [Listener(GameEvent.ON_INIT_GAME)]
     public void StartZombieSpawn()
@@ -24,6 +26,13 @@ public class ZombieSpawnerCmd : ICommand
         LogService.Instance.Log($"Zombie ID: {zombieData.zombieInfo.zombieBasePrefab.id}");
 
         proxy.OnSpawnZombie(zombieData.zombieInfo.zombieBasePrefab.id);
+    }
+    [Listener(ClickHitEvent.ON_CLICK_ZOMBIE)]
+    public void OnClickHitZombie()
+    {
+        ZombieBase zombie = clickHitProxy.hitZombie;
+
+        proxy.SetHitZombie(zombie);
     }
 
 }
