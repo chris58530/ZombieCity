@@ -19,10 +19,9 @@ public class FloorViewMedaitor : IMediator
     public void Init()
     {
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
-        SurvivorDataSetting survivorDataSetting = floorProxy.survivorDataSetting;
         floorView.InitFloor(floorDataSetting);
-        floorView.InitSurvivor(survivorDataSetting);
-        // Additional initialization logic for the floor view can be added here
     }
+    
+  
 
 }

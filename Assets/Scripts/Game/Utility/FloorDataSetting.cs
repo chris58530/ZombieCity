@@ -11,7 +11,7 @@ public class FloorDataSetting : ScriptableObject
 [Serializable]
 public class FloorData
 {
-    public Floor floorPrefab;
+    public FloorBase floorPrefab;
     public int unlockPrice;
     public bool isLocked;
 }

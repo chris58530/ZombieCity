@@ -32,3 +32,8 @@ public class ZombieSpawnerEvent
 public class ClickHitEvent{
     public const string ON_CLICK_ZOMBIE = "ClickHitEvent.ON_CLICK_ZOMBIE";
 }
+public class SurvivorEvent{
+
+    public const string ON_SURVIVOR_INIT = "SurvivorEvent.ON_SURVIVOR_INIT";
+    public const string ON_SURVIVOR_MOVE = "SurvivorEvent.ON_SURVIVOR_MOVE";
+}

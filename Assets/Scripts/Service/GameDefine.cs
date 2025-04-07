@@ -13,11 +13,22 @@ public class GameDefine
             return true;
         }
     }
-    public static bool IsFlip(float direction)
+    public static bool IsFlipByWorld(float direction)
     {
         if (direction > 0)
             return true;
         else
             return false;
+    }
+    public static bool IsFlipByLocal(Transform self, Transform destination)
+    {
+        if (self.position.x > destination.position.x)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

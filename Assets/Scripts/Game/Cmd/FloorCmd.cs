@@ -11,11 +11,8 @@ public class FloorCmd : ICommand
         isLazy = true;
     }
     [Listener(GameEvent.ON_INIT_GAME)]
-    [Listener(DebugEvent.ON_DEBUG_EVENT)]
     public void InitFloor()
     {
-        // parse json data 
-
-        floorProxy.SetData(floorDataSetting,survivorDataSetting);
+        floorProxy.SetData(floorDataSetting);
     }
 }

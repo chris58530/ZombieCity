@@ -141,7 +141,7 @@ public class ZombieManager : MonoBehaviour
         int x = UnityEngine.Random.Range(0, xFloat.Length);
         Vector2 spawnPos = new Vector2(xFloat[x], UnityEngine.Random.Range(spawnPosY.x, spawnPosY.y));
         zombie.transform.position = spawnPos;
-        bool isFlip = GameDefine.IsFlip(xFloat[x]);
+        bool isFlip = GameDefine.IsFlipByWorld(xFloat[x]);
         MoveZombie(zombie, isFlip);
     }
     public void MoveZombie(ZombieBase zombie, bool isFlip)
