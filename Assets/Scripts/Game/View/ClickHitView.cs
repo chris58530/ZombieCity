@@ -15,6 +15,7 @@ public class ClickHitView : MonoBehaviour, IView
         clickController = new GameObject("ClickHitController").AddComponent<ClickHitController>();
         clickController.transform.SetParent(transform);
         clickController.onClickZombie += OnClickZombie;
+        clickController.onClickSurvivor += OnClickSurvivor;
     }
     private void OnDisable()
     {
@@ -28,6 +29,11 @@ public class ClickHitView : MonoBehaviour, IView
     {
         Debug.Log("ClickHitView: OnClickZombie" + zombie.name);
         mediator.OnClickZombie(zombie);
+    }
+    public void OnClickSurvivor(SurvivorBase survivor)
+    {
+        Debug.Log("ClickHitView: OnClickSurvivor" + survivor.name);
+        mediator.OnClickSurvivor(survivor);
     }
 }
 

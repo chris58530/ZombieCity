@@ -18,4 +18,8 @@ public class ClickHitViewMediator : IMediator
     {
         clickHitProxy.HitZombie(zombie);
     }
+    public void OnClickSurvivor(SurvivorBase survivor)
+    {
+        clickHitProxy.HitSurvivor(survivor);
+    }
 }

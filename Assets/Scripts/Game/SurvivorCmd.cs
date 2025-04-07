@@ -1,10 +1,12 @@
 using UnityEngine;
 using Zenject;
 using UnityEngine.UIElements;
+using UnityEditor;
 
 public class SurvivorCmd : ICommand
 {
     [Inject] private SurvivorProxy proxy;
+    [Inject] private ClickHitProxy clickHitProxy;
     public SurvivorDataSetting survivorDataSetting;
     public override void Execute(MonoBehaviour mono)
     {
@@ -14,5 +16,11 @@ public class SurvivorCmd : ICommand
     public void InitSurvivor()
     {
         proxy.SetData(survivorDataSetting);
+    }
+    [Listener(ClickHitEvent.ON_CLICK_SURVIVOR)]
+    public void OnClickSurvivor()
+    {
+        SurvivorBase survivor = clickHitProxy.hitSurvivor;
+        proxy.SetClickSurvivor(survivor);
     }
 }

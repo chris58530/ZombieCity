@@ -14,7 +14,12 @@ public class SurvivorManager : MonoBehaviour
             survivorDict.Add(survivor.id, survivor);
         }
     }
-    public void MoveSurvivor(int id, Transform enter, Transform facility,Action callBack)
+    public void OnClickSurvivor(SurvivorBase survivor)
+    {
+        Debug.Log("SurvivorManager: OnClickSurvivor" + survivor.name);
+        survivor.OnPick();
+    }
+    public void MoveSurvivor(int id, Transform enter, Transform facility, Action callBack)
     {
         if (survivorDict.ContainsKey(id))
         {

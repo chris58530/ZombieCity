@@ -21,11 +21,10 @@ public class SurvivorViewMediator : IMediator
         view.InitSurvivor(survivorDataSetting);
     }
 
-
-    [Listener(SurvivorEvent.ON_SURVIVOR_MOVE)]
-    public void MoveSurvivor()
+    [Listener(SurvivorEvent.ON_CLICK_SURVIVOR)]
+    public void OnClickSurvivor()
     {
-       
+       view.OnClickSurvivor(proxy.onClickSurvivor);
     }
     public void SetSurvivorNextPosition()
     {
