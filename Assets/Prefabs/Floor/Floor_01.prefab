@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3990920058711723925}
   - component: {fileID: 4793264210371362814}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2596504238545605054}
   - component: {fileID: 2504189219985693089}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6255834193888587375}
   - component: {fileID: 8756793108607572294}
-  m_Layer: 0
+  - component: {fileID: 863189780596149582}
+  m_Layer: 8
   m_Name: Floor_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,6 +233,52 @@ MonoBehaviour:
   - {fileID: 468744827510892765}
   - {fileID: 7107019609910316552}
   - {fileID: 3493288360262873555}
+--- !u!61 &863189780596149582
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3369024372047935036}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: -0.4982648, y: 0.039861202}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 11.882102, y: 2.5944471}
+  m_EdgeRadius: 0
 --- !u!1 &4233460687629676995
 GameObject:
   m_ObjectHideFlags: 0
@@ -242,7 +289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257668348829182899}
   - component: {fileID: 4114897388523045590}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Triangle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +376,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4207535302188992609}
   - component: {fileID: 3808391855242908274}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +464,7 @@ GameObject:
   - component: {fileID: 4789380040685073976}
   - component: {fileID: 4264623361992289401}
   - component: {fileID: 7107019609910316552}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Facility (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -518,7 +565,7 @@ GameObject:
   - component: {fileID: 4262714648449274259}
   - component: {fileID: 3269273494941846200}
   - component: {fileID: 3493288360262873555}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Facility (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -619,7 +666,7 @@ GameObject:
   - component: {fileID: 4894743691648742920}
   - component: {fileID: 3728922137944649725}
   - component: {fileID: 468744827510892765}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Facility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,7 +765,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1304753643004067876}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnterPosition
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -734,7 +781,7 @@ Transform:
   m_GameObject: {fileID: 7749250391631991904}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.329, y: -0.898, z: 0}
+  m_LocalPosition: {x: 5.329, y: -0.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

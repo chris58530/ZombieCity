@@ -14,10 +14,21 @@ public class SurvivorManager : MonoBehaviour
             survivorDict.Add(survivor.id, survivor);
         }
     }
-    public void OnClickSurvivor(SurvivorBase survivor)
+    public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
         Debug.Log("SurvivorManager: OnClickSurvivor" + survivor.name);
-        survivor.OnPick();
+        survivor.OnPick(pickPos);
+
+    }
+    public void OnClickSurvivorComplete(SurvivorBase survivor, Vector3 floorPos)
+    {
+        Debug.Log($"{survivor.name} in :{floorPos}");
+        survivor.OnDrop(floorPos);
+
+    }
+    public void MoveAuto()
+    {
+
     }
     public void MoveSurvivor(int id, Transform enter, Transform facility, Action callBack)
     {

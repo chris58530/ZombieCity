@@ -20,10 +20,8 @@ public class ZombieSpawnerCmd : ICommand
     public void SpawnZombie()
     {
         int data = Random.Range(0, zombieDataSetting.zombieData.Length);
-        LogService.Instance.Log($"Data ID: {data}");
 
         ZombieData zombieData = zombieDataSetting.zombieData[data];
-        LogService.Instance.Log($"Zombie ID: {zombieData.zombieInfo.zombieBasePrefab.id}");
 
         proxy.OnSpawnZombie(zombieData.zombieInfo.zombieBasePrefab.id);
     }

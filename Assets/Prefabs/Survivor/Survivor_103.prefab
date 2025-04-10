@@ -213,5 +213,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 103
   animationView: {fileID: 0}
-  sprite: {fileID: 0}
+  sprite: {fileID: 2890693631627019002}
   isBusy: 0

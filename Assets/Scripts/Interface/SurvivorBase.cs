@@ -11,11 +11,11 @@ public class SurvivorBase : MonoBehaviour
     public bool isBusy;
     private bool isDragging = false;
 
-    public SurvivorBase GetZombie()
+    public SurvivorBase GetSurvivor()
     {
         return this;
     }
-    
+
     public void SetBusy(bool isBusy, Action callBack = null)
     {
         this.isBusy = isBusy;
@@ -24,7 +24,6 @@ public class SurvivorBase : MonoBehaviour
             callBack?.Invoke();
         }).SetId(GetHashCode());
     }
-    
     public void Hit()
     {
         sprite.color = Color.red;
@@ -33,34 +32,40 @@ public class SurvivorBase : MonoBehaviour
             sprite.color = Color.white;
         }).SetId(GetHashCode());
     }
-    
     public void SetFlip(bool isFlip)
     {
         sprite.flipX = isFlip;
     }
-    
-    public void OnPick()
+    public void OnPick(Vector3 pickPosition)
     {
-       LogService.Instance.Log("OnPick");
+        transform.position = new Vector3(pickPosition.x, pickPosition.y, -0.01f);
     }
-    public void OnDrop()
+    public void SetCollider(bool isCollider)
     {
-        Debug.Log("OnDrop");
+        Collider2D collider = GetComponent<Collider2D>();
+        collider.enabled = isCollider;
+
+    }
+    public void OnDrop(Vector3 floor)
+    {
+        transform.localScale = Vector3.one;
+        transform.position = new Vector3(transform.position.x, floor.y, 0);
+
     }
 
-    void OnEnable()
-    {
-        LeanTouch.OnFingerDown += OnFingerDown;
-        LeanTouch.OnFingerUp += OnFingerUp;
-        LeanTouch.OnFingerUpdate += OnFingerUpdate;
-    }
+    // void OnEnable()
+    // {
+    //     LeanTouch.OnFingerDown += OnFingerDown;
+    //     LeanTouch.OnFingerUp += OnFingerUp;
+    //     LeanTouch.OnFingerUpdate += OnFingerUpdate;
+    // }
 
-    void OnDisable()
-    {
-        LeanTouch.OnFingerDown -= OnFingerDown;
-        LeanTouch.OnFingerUp -= OnFingerUp;
-        LeanTouch.OnFingerUpdate -= OnFingerUpdate;
-    }
+    // void OnDisable()
+    // {
+    //     LeanTouch.OnFingerDown -= OnFingerDown;
+    //     LeanTouch.OnFingerUp -= OnFingerUp;
+    //     LeanTouch.OnFingerUpdate -= OnFingerUpdate;
+    // }
 
     void OnFingerDown(LeanFinger finger)
     {

@@ -22,14 +22,19 @@ public class ZombieSpawnerViewMediator : IMediator
         LogService.Instance.Log($"Zombie ID: {id}");
         view.OnZombieSpawned(id);
     }
-    public void AddZombie(ZombieBase zombieBase)
-    {
-        proxy.AddZombie(zombieBase);
-    }
+
     [Listener(ZombieSpawnerEvent.ON_ZOMBIE_HIT)]
     public void OnZombieHit()
     {
         ZombieBase zombie = proxy.hitZombie;
         view.OnZombieHit(zombie);
     }
+    public void AddAutoHitTarget(ZombieBase zombieBase, bool isTarget)
+    {
+        if (isTarget)
+            proxy.AddAutoHitTarget(zombieBase);
+        else
+            proxy.RemoveAutoHitTarget(zombieBase);
+    }
+
 }

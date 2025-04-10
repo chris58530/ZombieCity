@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ZombieSpawnerProxy : IProxy
 {
-    public List<ZombieBase> zombies = new List<ZombieBase>();
+    public List<ZombieBase> autoHitTarget = new List<ZombieBase>();
     public ZombieDataSetting zombieDataSetting;
     public int spawnId;
     public float spawnRate = 0.5f;
@@ -22,10 +22,31 @@ public class ZombieSpawnerProxy : IProxy
         this.spawnId = id;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_SPAWN);
     }
-    public void AddZombie(ZombieBase zombieBase)
+
+    public void AddAutoHitTarget(ZombieBase zombieBase)
     {
-        zombies.Add(zombieBase);
+        if (!autoHitTarget.Contains(zombieBase))
+        {
+            autoHitTarget.Add(zombieBase);
+        }
     }
+    public void RemoveAutoHitTarget(ZombieBase zombieBase)
+    {
+        if (autoHitTarget.Contains(zombieBase))
+        {
+            autoHitTarget.Remove(zombieBase);
+        }
+    }
+    public ZombieBase GetRamdomHitTarget()
+    {
+        if (autoHitTarget.Count == 0)
+        {
+            return null;
+        }
+        int randomIndex = Random.Range(0, autoHitTarget.Count);
+        return autoHitTarget[randomIndex];
+    }
+
     public void SetHitZombie(ZombieBase zombieBase)
     {
         this.hitZombie = zombieBase;

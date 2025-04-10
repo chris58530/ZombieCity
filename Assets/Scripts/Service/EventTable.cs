@@ -9,6 +9,8 @@ public class FloorEvent
     public const string ON_FLOOR_INIT = "FloorEvent.ON_FLOOR_INIT";
     public const string ON_FLOOR_UPDATE = "FloorEvent.ON_FLOOR_UPDATE";
     public const string ON_FLOOR_DESTROY = "FloorEvent.ON_FLOOR_DESTROY";
+
+    public const string ON_UPDATE_COLLIDER = "FloorEvent.ON_UPDATE_COLLIDER";
 }
 public class DebugEvent
 {
@@ -29,13 +31,22 @@ public class ZombieSpawnerEvent
     public const string ON_ZOMBIE_HIT = "ZombieSpawner.ON_ZOMBIE_HIT";
 
 }
-public class ClickHitEvent{
+public class ClickHitEvent
+{
     public const string ON_CLICK_ZOMBIE = "ClickHitEvent.ON_CLICK_ZOMBIE";
     public const string ON_CLICK_SURVIVOR = "ClickHitEvent.ON_CLICK_SURVIVOR";
+    public const string ON_CLICK_UP = "ClickHitEvent.ON_CLICK_UP";
 }
-public class SurvivorEvent{
+public class SurvivorEvent
+{
 
     public const string ON_SURVIVOR_INIT = "SurvivorEvent.ON_SURVIVOR_INIT";
     public const string ON_SURVIVOR_MOVE = "SurvivorEvent.ON_SURVIVOR_MOVE";
     public const string ON_CLICK_SURVIVOR = "SurvivorEvent.ON_CLICK_SURVIVOR";
+    public const string ON_CLICK_SURVIVOR_COMPLETE = "SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE";
+}
+public class PassiveHitEvent
+{
+    public const string ON_OPEN_PASSIVE_HIT = "PassiveHitEvent.ON_OPEN_PASSIVE_HIT";
+    public const string ON_CLOSE_PASSIVE_HIT = "PassiveHitEvent.ON_CLOSE_PASSIVE_HIT";
 }

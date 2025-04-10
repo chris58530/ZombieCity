@@ -4,6 +4,7 @@ public class ClickHitView : MonoBehaviour, IView
 {
     [Inject] private ClickHitViewMediator mediator;
     private ClickHitController clickController;
+    [SerializeField]private GameObject clickMask;
 
     public void Awake()
     {
@@ -12,10 +13,14 @@ public class ClickHitView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+        clickMask.SetActive(false);
+
+
         clickController = new GameObject("ClickHitController").AddComponent<ClickHitController>();
         clickController.transform.SetParent(transform);
         clickController.onClickZombie += OnClickZombie;
         clickController.onClickSurvivor += OnClickSurvivor;
+        clickController.onClickSurvivorUp += OnClickUp;
     }
     private void OnDisable()
     {
@@ -27,13 +32,18 @@ public class ClickHitView : MonoBehaviour, IView
     }
     public void OnClickZombie(ZombieBase zombie)
     {
-        Debug.Log("ClickHitView: OnClickZombie" + zombie.name);
         mediator.OnClickZombie(zombie);
     }
-    public void OnClickSurvivor(SurvivorBase survivor)
+    public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        Debug.Log("ClickHitView: OnClickSurvivor" + survivor.name);
-        mediator.OnClickSurvivor(survivor);
+        mediator.OnClickSurvivor(survivor,pickPos);
+        clickMask.SetActive(true);
+    }
+    public void OnClickUp(FloorBase floor)
+    {
+        mediator.OnClickUp(floor);
+        clickMask.SetActive(false);
+
     }
 }
 

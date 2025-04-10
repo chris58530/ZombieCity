@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class FloorDataSetting : ScriptableObject
 {
+    public FloorBase mainFloorPrefab;
     public Vector2 startPosition;
     public float floorHeight;
     public FloorData[] floorData;

@@ -18,8 +18,15 @@ public class ClickHitViewMediator : IMediator
     {
         clickHitProxy.HitZombie(zombie);
     }
-    public void OnClickSurvivor(SurvivorBase survivor)
+    public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        clickHitProxy.HitSurvivor(survivor);
+        clickHitProxy.HitSurvivor(survivor, pickPos);
+        listener.BroadCast(CameraEvent.CLOSE_CAMERA_SWIPE);
+
+    }
+    public void OnClickUp(FloorBase floor)
+    {
+        clickHitProxy.SetSurvivorFloor(floor);
+        listener.BroadCast(CameraEvent.OPEN_CAMERA_SWIPE);
     }
 }

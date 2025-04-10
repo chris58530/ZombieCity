@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da5eb29887574ca7b08afc026f436e8, type: 3}
   m_Name: FloorDataSetting
   m_EditorClassIdentifier: 
+  mainFloorPrefab: {fileID: 311737846372461592, guid: 69e2a5ba7ba2543ac831b333a25f9c4d, type: 3}
   startPosition: {x: 0, y: -12}
   floorHeight: 2.6
   floorData:

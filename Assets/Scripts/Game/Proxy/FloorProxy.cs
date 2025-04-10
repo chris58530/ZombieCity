@@ -6,6 +6,7 @@ public class FloorProxy : IProxy
     public FloorDataSetting floorDataSetting;
     private Dictionary<FacilityBase, Vector2> facilityVectorDic = new();
     private List<FacilityBase> allFacilitys = new();
+    public bool isEnabledCollider;
     public void SetData(FloorDataSetting floorDataSetting)
     {
         this.floorDataSetting = floorDataSetting;
@@ -15,7 +16,7 @@ public class FloorProxy : IProxy
             {
                 continue;
             }
-            
+
             foreach (var facility in floorData.floorPrefab.GetFacilities())
             {
                 facilityVectorDic.Add(facility, facility.transform.localPosition);
@@ -36,5 +37,10 @@ public class FloorProxy : IProxy
 
         var selected = unusedFacilities[Random.Range(0, unusedFacilities.Count)];
         return facilityVectorDic.TryGetValue(selected, out var position) ? selected.transform : null;
+    }
+    public void SetCollider(bool enabled)
+    {
+        isEnabledCollider = enabled;
+        listener.BroadCast(FloorEvent.ON_UPDATE_COLLIDER);
     }
 }

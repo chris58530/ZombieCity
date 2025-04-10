@@ -3,18 +3,22 @@ using UnityEngine;
 public class FloorBase : MonoBehaviour
 {
     [SerializeField] private GameObject mask;
-    [SerializeField]private Transform enterPosition;
+    [SerializeField] private Transform enterPosition;
     [SerializeField] private FacilityBase[] facilities;
-    public Transform GetEnterPosition()
+    public Vector3 GetEnterPosition()
     {
-        return enterPosition;
+        return enterPosition.position;
     }
     public FacilityBase[] GetFacilities()
     {
         return facilities;
     }
-    
-   
+    public void SetCollider(bool enabled)
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        collider.enabled = enabled;
+    }
+
     public void SetMask(bool active)
     {
         mask.SetActive(active);

@@ -44,11 +44,13 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             int zombId = zombieData.zombieInfo.zombieBasePrefab.id;
             int hp = zombieData.hp;
             ZombieManager zombieManager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
+            zombieManager.isAutoHitTarget = AddAutoHitTarget;
             zombieManager.spawnPosX = spawnPosX;
             zombieManager.spawnPosY = spawnPosY;
             zombieManager.InitZombie(zombiePrefab, hp, () =>
             {
                 Debug.Log("Zombie " + zombId + " is dead.");
+                //get reward
             });
 
             zombieManager.transform.SetParent(transform);
@@ -78,6 +80,10 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             manager.HitZombie(zombie);
         }
     }
+    public void AddAutoHitTarget(ZombieBase zombieBase, bool isTarget)
+    {
+        mediator.AddAutoHitTarget(zombieBase, isTarget);
+    }
 }
 public class ZombieManager : MonoBehaviour
 {
@@ -86,7 +92,9 @@ public class ZombieManager : MonoBehaviour
     private Action deadCallback;
     private int poolCount = 8;
     private int zombieHp;
+    public Action<ZombieBase, bool> isAutoHitTarget;
     private PoolManager poolManager;
+    private List<ZombieBase> zombies = new List<ZombieBase>();
     private Dictionary<ZombieBase, int> zombieHpDic = new();
     private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
 
@@ -117,6 +125,7 @@ public class ZombieManager : MonoBehaviour
     public void KillZombie(ZombieBase zombie)
     {
         zombieMoveTween[zombie].Kill();
+        AddAutoHitTarget(zombie, false);
 
         zombie.SetDead(() => //表演資料
         {
@@ -127,7 +136,9 @@ public class ZombieManager : MonoBehaviour
     }
     public void ResetZombie(ZombieBase zombie)
     {
+        AddAutoHitTarget(zombie, false);
 
+        zombies.Remove(zombie);
         zombieHpDic.Remove(zombie);
         zombieMoveTween.Remove(zombie);
         poolManager.Despawn(zombie);
@@ -135,8 +146,14 @@ public class ZombieManager : MonoBehaviour
     public void SpawnZombie()
     {
         ZombieBase zombie = poolManager.Spawn<ZombieBase>();
+        zombie.manager = this;
         zombieHpDic.Add(zombie, zombieHp);
+        zombies.Add(zombie);
+        DOVirtual.DelayedCall(3f, () =>
+          {
+              AddAutoHitTarget(zombie, true);
 
+          }).SetId(zombie.GetHashCode());
         float[] xFloat = new float[2] { spawnPosX.x, spawnPosX.y };
         int x = UnityEngine.Random.Range(0, xFloat.Length);
         Vector2 spawnPos = new Vector2(xFloat[x], UnityEngine.Random.Range(spawnPosY.x, spawnPosY.y));
@@ -149,12 +166,23 @@ public class ZombieManager : MonoBehaviour
         zombie.SetFlip(isFlip);
         float speed = UnityEngine.Random.Range(10, 20f);
         float xPos = isFlip ? spawnPosX.x : spawnPosX.y;
+        DOVirtual.DelayedCall(8f, () =>
+          {
+              AddAutoHitTarget(zombie, false);
+
+          }).SetId(zombie.GetHashCode());
         zombieMoveTween.Add(zombie, zombie.transform.DOMoveX(xPos, speed).SetEase(Ease.Linear).OnComplete(() =>
         {
+
             zombieMoveTween[zombie].Kill();
             ResetZombie(zombie);
         }));
 
+    }
+    public void AddAutoHitTarget(ZombieBase zombie, bool isTarget)
+    {
+        isAutoHitTarget?.Invoke(zombie, isTarget);
+        zombie.SetIsTarget(isTarget);
     }
 
 }

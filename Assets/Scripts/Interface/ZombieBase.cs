@@ -7,6 +7,8 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public int id;
     public AnimationView animationView;
     public SpriteRenderer sprite;
+    public bool isFresh;
+    public ZombieManager manager;
 
     public ZombieBase GetZombie()
     {
@@ -20,7 +22,19 @@ public class ZombieBase : MonoBehaviour, IPoolable
             sprite.color = Color.white;
         }).SetId(GetHashCode());
     }
-    public void SetDead(Action callBack)
+    public void SetIsTarget(bool isTarget)
+    {
+        // if (isTarget)
+        // {
+        //     sprite.color = Color.red;
+        // }
+        // else
+        // {
+        //     sprite.color = Color.white;
+        // }
+    }
+   
+    public void SetDead(Action callBack = null)
     {
         sprite.color = Color.black;
 
