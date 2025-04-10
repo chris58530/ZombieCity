@@ -14,6 +14,9 @@ public class SurvivorProxy : IProxy
     {
         onClickSurvivor = survivor;
         listener.BroadCast(SurvivorEvent.ON_CLICK_SURVIVOR);
-
+    }
+    public void SetClickSurvivorUp()
+    {
+        listener.BroadCast(SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE);
     }
 }

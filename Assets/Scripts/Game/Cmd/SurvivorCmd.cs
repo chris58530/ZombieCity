@@ -1,8 +1,5 @@
 using UnityEngine;
 using Zenject;
-using UnityEngine.UIElements;
-using UnityEditor;
-
 public class SurvivorCmd : ICommand
 {
     [Inject] private SurvivorProxy proxy;
@@ -23,4 +20,10 @@ public class SurvivorCmd : ICommand
         SurvivorBase survivor = clickHitProxy.hitSurvivor;
         proxy.SetClickSurvivor(survivor);
     }
+    [Listener(ClickHitEvent.ON_CLICK_UP)]
+    public void OnClickUp()
+    {
+        proxy.SetClickSurvivorUp();
+    }
+
 }

@@ -49,9 +49,13 @@ public class SurvivorView : MonoBehaviour, IView
             medaitor.SetSurvivorNextPosition();
         });
     }
-    public void OnClickSurvivor(SurvivorBase survivor)
+    public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        survivorManager.OnClickSurvivor(survivor);
+        survivorManager.OnClickSurvivor(survivor, pickPos);
+    }
+    public void OnClickSurvivorComplete(SurvivorBase survivor, Vector3 floorPos)
+    {
+        survivorManager.OnClickSurvivorComplete(survivor,floorPos);
     }
 }
 

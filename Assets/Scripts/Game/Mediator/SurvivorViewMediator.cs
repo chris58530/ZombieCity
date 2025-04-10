@@ -4,6 +4,7 @@ public class SurvivorViewMediator : IMediator
 {
     [Inject] private SurvivorProxy proxy;
     [Inject] private FloorProxy floorProxy;
+    [Inject] private ClickHitProxy clickHitProxy;
     private SurvivorView view;
     public override void DeRegister(IView view)
     {
@@ -24,10 +25,23 @@ public class SurvivorViewMediator : IMediator
     [Listener(SurvivorEvent.ON_CLICK_SURVIVOR)]
     public void OnClickSurvivor()
     {
-       view.OnClickSurvivor(proxy.onClickSurvivor);
+        Vector3 pickPos = clickHitProxy.pickPos;
+        view.OnClickSurvivor(proxy.onClickSurvivor, pickPos);
+
+        floorProxy.SetCollider(true);
     }
     public void SetSurvivorNextPosition()
     {
-        listener.BroadCast(SurvivorEvent.ON_SURVIVOR_MOVE);
+        // listener.BroadCast(SurvivorEvent.ON_SURVIVOR_MOVE);
+    }
+    [Listener(SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE)]
+    public void OnClickSurvivorComplete()
+    {
+        Vector3 place = clickHitProxy.clickUpFloor.GetEnterPosition();
+
+        view.OnClickSurvivorComplete(proxy.onClickSurvivor, place);
+        floorProxy.SetCollider(false);
+
+
     }
 }
