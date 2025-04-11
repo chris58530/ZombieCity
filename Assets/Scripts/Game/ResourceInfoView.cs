@@ -1,0 +1,53 @@
+using TMPro;
+using UnityEngine;
+using Zenject;
+using DG.Tweening;
+
+public class ResourceInfoView : MonoBehaviour, IView
+{
+    [Inject] private ResourceInfoMediator mediator;
+
+    [SerializeField]private TMP_Text moneyText;
+    [SerializeField]private TMP_Text satisfactionText;
+
+    private void Awake()
+    {
+        InjectService.Instance.Inject(this);
+    }
+
+    private void OnEnable()
+    {
+        mediator.Register(this);
+    }
+
+    private void OnDisable()
+    {
+        mediator.DeRegister(this);
+    }
+    public void OnUpdateResource(int money , int satisfaction)
+    {
+        moneyText.text = money.ToString();
+        satisfactionText.text = satisfaction.ToString();
+        AnimateBounce(moneyText.transform);
+        AnimateBounce(satisfactionText.transform);
+    }
+    public void OnAddMoney(int money)
+    {
+        moneyText.text = money.ToString();
+        
+        AnimateBounce(moneyText.transform);
+    }
+    public void OnAddSatisfaction(int satisfaction)
+    {
+        satisfactionText.text = satisfaction.ToString();
+        AnimateBounce(satisfactionText.transform);
+    }
+
+    private void AnimateBounce(Transform target)
+    {
+        target.DOKill();
+        target.localScale = new Vector3(0.8f, 0.8f, target.localScale.z);
+        target.DOScale(new Vector3(1.2f, 1.2f, target.localScale.z), 0.15f).SetEase(Ease.OutBack)
+              .OnComplete(() => target.DOScale(new Vector3(1f, 1f, target.localScale.z), 0.15f).SetEase(Ease.InBack));
+    }
+}

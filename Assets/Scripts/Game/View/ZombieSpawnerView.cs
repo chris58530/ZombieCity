@@ -49,7 +49,8 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             zombieManager.spawnPosY = spawnPosY;
             zombieManager.InitZombie(zombiePrefab, hp, () =>
             {
-                Debug.Log("Zombie " + zombId + " is dead.");
+                mediator.RequestGetMoney(zombieData.money);
+                Debug.Log("Zombie " + " is dead.");
                 //get reward
             });
 
@@ -127,7 +128,7 @@ public class ZombieManager : MonoBehaviour
         zombieMoveTween[zombie].Kill();
         AddAutoHitTarget(zombie, false);
 
-        zombie.SetDead(() => //表演資料
+        zombie.Kill(() => //表演資料
         {
             deadCallback?.Invoke();//噴錢啥的 邏輯資料
             ResetZombie(zombie);

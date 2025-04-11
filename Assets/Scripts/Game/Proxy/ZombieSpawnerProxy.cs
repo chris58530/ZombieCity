@@ -17,8 +17,6 @@ public class ZombieSpawnerProxy : IProxy
     }
     public void OnSpawnZombie(int id)
     {
-        LogService.Instance.Log($"Zombie ID: {id}");
-
         this.spawnId = id;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_SPAWN);
     }
@@ -51,6 +49,5 @@ public class ZombieSpawnerProxy : IProxy
     {
         this.hitZombie = zombieBase;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_HIT);
-
     }
 }

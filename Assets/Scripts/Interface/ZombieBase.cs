@@ -9,7 +9,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public SpriteRenderer sprite;
     public bool isFresh;
     public ZombieManager manager;
-
+    public bool IsDead { get; private set; } = false;
     public ZombieBase GetZombie()
     {
         return this;
@@ -33,14 +33,18 @@ public class ZombieBase : MonoBehaviour, IPoolable
         //     sprite.color = Color.white;
         // }
     }
-   
-    public void SetDead(Action callBack = null)
+
+    public void Kill(Action callBack = null)
     {
+        if (IsDead) return;
+        IsDead = true;
+
         sprite.color = Color.black;
 
-        DOVirtual.DelayedCall(0.5f, () =>
+        DOVirtual.DelayedCall(0.2f, () =>
          {
              callBack?.Invoke();
+             callBack = null;
          }).SetId(GetHashCode());
     }
     public void OnSpawned()
@@ -59,6 +63,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     public void Reset()
     {
+        IsDead = false;
         animationView.Hide();
         sprite.color = Color.white;
         transform.position = Vector2.zero;

@@ -21,6 +21,8 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<SurvivorViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<PassiveHitProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<PassiveHitMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ResourceInfoMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ResourceInfoProxy>().AsSingle().NonLazy();
     }
 
 

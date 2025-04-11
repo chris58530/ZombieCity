@@ -18,10 +18,12 @@ MonoBehaviour:
       icon: {fileID: 0}
       zombieBasePrefab: {fileID: -2795948003020557179, guid: a2b0fe53062044f6695156ce306763a2, type: 3}
     hp: 2
+    money: 1
     isLock: 0
   - zombieInfo:
       name: 301
       icon: {fileID: 0}
       zombieBasePrefab: {fileID: -2795948003020557179, guid: daef17b7dd8054d36aef89b518ae61ca, type: 3}
     hp: 3
+    money: 2
     isLock: 0

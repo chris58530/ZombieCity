@@ -50,3 +50,10 @@ public class PassiveHitEvent
     public const string ON_OPEN_PASSIVE_HIT = "PassiveHitEvent.ON_OPEN_PASSIVE_HIT";
     public const string ON_CLOSE_PASSIVE_HIT = "PassiveHitEvent.ON_CLOSE_PASSIVE_HIT";
 }
+public class ResourceInfoEvent
+{
+    public const string ON_ADD_MONEY = "ResourceInfoEvent.ON_ADD_MONEY";
+    public const string ON_ADD_SATISFACTION = "ResourceInfoEvent.ON_ADD_SATISFACTION";
+    public const string ON_UPDATE_RESOURCE = "ResourceInfoEvent.ON_UPDATE_RESOURCE";
+
+}

@@ -12,6 +12,7 @@ public class ZombieData
     //邏輯資料
     public ZombieInfo zombieInfo;
     public int hp;
+    public int money;
     public int isLock;
     
 }

@@ -1,9 +1,11 @@
+using BehaviorDesigner.Runtime.Tasks;
 using UnityEngine;
 using Zenject;
 
 public class ZombieSpawnerViewMediator : IMediator
 {
     [Inject] private ZombieSpawnerProxy proxy;
+    [Inject] private ResourceInfoProxy resourceInfoProxy;
     private ZombieSpawnerView view;
     public override void Register(IView view)
     {
@@ -19,7 +21,6 @@ public class ZombieSpawnerViewMediator : IMediator
     public void OnZombieSpawn()
     {
         int id = proxy.spawnId;
-        LogService.Instance.Log($"Zombie ID: {id}");
         view.OnZombieSpawned(id);
     }
 
@@ -37,4 +38,8 @@ public class ZombieSpawnerViewMediator : IMediator
             proxy.RemoveAutoHitTarget(zombieBase);
     }
 
+    public void RequestGetMoney(int money)
+    {
+        resourceInfoProxy.AddMoney(money);
+    }
 }
