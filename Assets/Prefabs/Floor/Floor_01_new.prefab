@@ -298,7 +298,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: b31353d5832cbc74eb822316c5298565, type: 3}
-  m_Color: {r: 0.30927375, g: 0.3739005, b: 0.4716981, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -465,13 +465,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc57f08d9738b41d6baa1c05ca8e21b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorProductAmount: -1
-  floorProductText: {fileID: 1186254843428371440}
+  floorProductAmount: 0
+  floorProductText: {fileID: 1646806804950366346, guid: 5f37c0aeec8a12d4aba4a92ac6f8f866, type: 3}
   mask: {fileID: 115164328828091051}
-  enterPosition: {fileID: 394260729061143970}
-  mainFacilitie: {fileID: 3574436593227630401}
-  facilities: []
-  floorType: 0
+  enterPosition: {fileID: 1304753643004067876, guid: 5f37c0aeec8a12d4aba4a92ac6f8f866, type: 3}
+  mainFacilitie: {fileID: 3829371250239774533, guid: 5f37c0aeec8a12d4aba4a92ac6f8f866, type: 3}
+  facilities:
+  - {fileID: 1595666860408572571}
+  floorType: 1
 --- !u!61 &6439298823334992126
 BoxCollider2D:
   m_ObjectHideFlags: 0

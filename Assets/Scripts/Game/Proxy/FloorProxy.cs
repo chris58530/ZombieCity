@@ -4,10 +4,16 @@ using UnityEngine;
 public class FloorProxy : IProxy
 {
     public FloorDataSetting floorDataSetting;
-    // private Dictionary<FacilityBase, Vector2> facilityVectorDic = new();
+    private Dictionary<FacilityBase, Vector2> facilityVectorDic = new();
     private List<FacilityBase> allFacilitys = new();
     public FloorBase startFloor;
     public bool isEnabledCollider;
+    public FloorProductData floorProductData;
+    public void SetFloorProductData(FloorProductData floorProductData)
+    {
+        this.floorProductData = floorProductData;
+      
+    }
     public void SetData(FloorDataSetting floorDataSetting)
     {
         this.floorDataSetting = floorDataSetting;
@@ -20,26 +26,15 @@ public class FloorProxy : IProxy
 
             foreach (var facility in floorData.floorPrefab.GetFacilities())
             {
-                // facilityVectorDic.Add(facility, facility.transform.localPosition);
+                if (facilityVectorDic.ContainsKey(facility))
+                    continue;
+                facilityVectorDic.Add(facility, facility.transform.localPosition);
                 allFacilitys.Add(facility);
             }
         }
         startFloor = floorDataSetting.mainFloorPrefab;
         listener.BroadCast(FloorEvent.ON_FLOOR_INIT);
     }
-    // public Transform GetRandomUnusedFacilityTransform()
-    // {
-    //     if (allFacilitys == null || allFacilitys.Count == 0)
-    //         return null;
-
-    //     var unusedFacilities = allFacilitys.FindAll(f => !f.isUsing);
-
-    //     if (unusedFacilities.Count == 0)
-    //         return null;
-
-    //     var selected = unusedFacilities[Random.Range(0, unusedFacilities.Count)];
-    //     return facilityVectorDic.TryGetValue(selected, out var position) ? selected.transform : null;
-    // }
     public void SetCollider(bool enabled)
     {
         isEnabledCollider = enabled;

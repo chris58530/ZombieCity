@@ -9,9 +9,13 @@ public class ResourceInfoCmd : ICommand
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
-        // TODO: implement resource info execution logic
-        ResourceInfoData resourceInfoData;
-        proxy.SetResource();
+    }
+    [Listener(GameEvent.ON_INIT_GAME)]
+    public void SetData()
+    {
+        ResourceInfoData resourceInfoData = playerDataProxy.GetData().resourceInfoData;
+       
+        proxy.SetResource(resourceInfoData);
     }
 
 }

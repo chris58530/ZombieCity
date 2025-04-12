@@ -26,12 +26,6 @@ public class InitController : MonoBehaviour
 
     private void StartExecution()
     {
-        if (InitStateControllerSetting == null || InitStateControllerSetting.commands.Length == 0)
-        {
-            Transition();
-            return;
-        }
-
         totalCommands = InitStateControllerSetting.commands.Length;
         completedCommands = 0;
         UpdateProgress();
@@ -42,27 +36,28 @@ public class InitController : MonoBehaviour
             cmd.Execute(this);
         }
 
-        if (InitStateControllerSetting.commands.All(cmd => cmd.isLazy))
-        {
-            Transition();
-        }
     }
+    private bool hasStartedCompletion = false;
 
     public void OnCmdComplete()
     {
-        StartCoroutine(OnCmdCompleteCoroutine());
+        if (hasStartedCompletion) return;
+
+        if (InitStateControllerSetting.commands.All(cmd => cmd.isComplete || cmd.isLazy))
+        {
+            hasStartedCompletion = true;
+            StartCoroutine(OnCmdCompleteCoroutine());
+        }
     }
 
     private IEnumerator OnCmdCompleteCoroutine()
     {
         yield return new WaitForSeconds(1f);
+        LogService.Instance.Log("ON_INIT_GAME");
 
         completedCommands++;
         UpdateProgress();
-        if (InitStateControllerSetting.commands.All(cmd => cmd.isComplete || cmd.isLazy))
-        {
-            Transition();
-        }
+        Transition();
     }
 
     private void UpdateProgress()

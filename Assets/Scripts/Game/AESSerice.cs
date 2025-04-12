@@ -4,7 +4,7 @@ using System.Text;
 
 public class AESSerice
 {
-    private const string encryptionKey = "Your32ByteLongSecretKeyHere!"; // 32 chars for AES256
+    private const string encryptionKey = "Your32ByteLongSecretKeyHere!1234"; // 32 chars for AES256
 
     public static string EncryptAES(string plainText)
     {

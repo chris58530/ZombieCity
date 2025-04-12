@@ -39,15 +39,7 @@ public class SurvivorView : MonoBehaviour, IView
             survivor.transform.position = new Vector2(randomX, -10);
             survivorManager.AddSurvivor(survivor, startFloor);
         }
-        foreach (var survivor in survivorManager.survivors)
-        {
-            if (survivor == null)
-            {
-                continue;
-            }
-            survivorManager.SetIdle(survivor);
-        }
-
+       
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
