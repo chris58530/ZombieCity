@@ -21,6 +21,9 @@ public class FloorViewMedaitor : IMediator
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
         floorView.InitFloor(floorDataSetting);
     }
+    public void OnInitCompelet(){
+        listener.BroadCast(FloorEvent.ON_FLOOR_INIT_COMPELET);
+    }
     [Listener(FloorEvent.ON_UPDATE_COLLIDER)]
     public void SetCollider()
     {

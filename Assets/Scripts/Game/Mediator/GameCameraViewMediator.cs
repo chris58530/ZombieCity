@@ -22,10 +22,8 @@ public class GameCameraViewMediator : IMediator
         float minY = proxy.minY;
         if (camera == null)
         {
-            LogService.Instance.Log("camera is null");
             return;
         }
-        LogService.Instance.Log($"GameCameraProxy: {camera}");
 
         view.InitSwipe(camera, minY);
     }

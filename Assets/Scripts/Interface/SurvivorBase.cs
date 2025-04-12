@@ -10,6 +10,7 @@ public class SurvivorBase : MonoBehaviour
     public SpriteRenderer sprite;
     public bool isBusy;
     private bool isDragging = false;
+    
 
     public SurvivorBase GetSurvivor()
     {
@@ -46,50 +47,12 @@ public class SurvivorBase : MonoBehaviour
         collider.enabled = isCollider;
 
     }
-    public void OnDrop(Vector3 floor)
+    public void OnDrop(Vector3 dropPos)
     {
         transform.localScale = Vector3.one;
-        transform.position = new Vector3(transform.position.x, floor.y, 0);
+        transform.position = dropPos;
 
     }
 
-    // void OnEnable()
-    // {
-    //     LeanTouch.OnFingerDown += OnFingerDown;
-    //     LeanTouch.OnFingerUp += OnFingerUp;
-    //     LeanTouch.OnFingerUpdate += OnFingerUpdate;
-    // }
 
-    // void OnDisable()
-    // {
-    //     LeanTouch.OnFingerDown -= OnFingerDown;
-    //     LeanTouch.OnFingerUp -= OnFingerUp;
-    //     LeanTouch.OnFingerUpdate -= OnFingerUpdate;
-    // }
-
-    void OnFingerDown(LeanFinger finger)
-    {
-        if (finger.StartedOverGui) return;
-
-        Vector3 worldPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
-        RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-
-        if (hit.collider != null && hit.collider.transform == transform)
-        {
-            isDragging = true;
-        }
-    }
-
-    void OnFingerUpdate(LeanFinger finger)
-    {
-        if (!isDragging) return;
-
-        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
-        transform.position = new Vector3(worldPosition.x, worldPosition.y, transform.position.z);
-    }
-
-    void OnFingerUp(LeanFinger finger)
-    {
-        isDragging = false;
-    }
 }

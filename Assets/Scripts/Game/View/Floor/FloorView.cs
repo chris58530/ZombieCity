@@ -40,6 +40,7 @@ public class FloorView : MonoBehaviour, IView
             floor.transform.parent = floorManagerObj.transform;
             floor.SetCollider(false);
         }
+        medaitor.OnInitCompelet();
     }
     public void SetCollider(bool enabled)
     {

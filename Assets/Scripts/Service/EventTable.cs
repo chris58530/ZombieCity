@@ -7,6 +7,7 @@ public class GameEvent
 public class FloorEvent
 {
     public const string ON_FLOOR_INIT = "FloorEvent.ON_FLOOR_INIT";
+    public const string ON_FLOOR_INIT_COMPELET = "FloorEvent.ON_FLOOR_INIT_COMPELET";
     public const string ON_FLOOR_UPDATE = "FloorEvent.ON_FLOOR_UPDATE";
     public const string ON_FLOOR_DESTROY = "FloorEvent.ON_FLOOR_DESTROY";
 

@@ -226,9 +226,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc57f08d9738b41d6baa1c05ca8e21b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorProductAmount: -1
+  floorProductText: {fileID: 0}
   mask: {fileID: 115164328828091051}
   enterPosition: {fileID: 394260729061143970}
+  mainFacilitie: {fileID: 0}
   facilities: []
+  floorType: 0
 --- !u!61 &6439298823334992126
 BoxCollider2D:
   m_ObjectHideFlags: 0

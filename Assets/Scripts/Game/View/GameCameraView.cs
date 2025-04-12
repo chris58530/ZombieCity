@@ -38,7 +38,6 @@ public class GameCameraView : MonoBehaviour, IView
     public void InitSwipe(GameCamera gameCamera, float minY)
     {
         this.gameCamera = gameCamera;
-        LogService.Instance.Log($"gameCamera: {gameCamera}");
 
         if (this.gameCamera == null)
         {

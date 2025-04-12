@@ -32,8 +32,6 @@ public class LoadSceneCmd : ICommand
 
             loadOperations.Add(asyncLoad);
         }
-
-        // 等待所有場景加載完成
         foreach (var op in loadOperations)
         {
             while (!op.isDone)
@@ -41,8 +39,6 @@ public class LoadSceneCmd : ICommand
                 yield return null;
             }
         }
-
-        // 將每個載入的場景的物件移動到目前場景
         foreach (var sceneName in sceneNames)
         {
             Scene loadedScene = SceneManager.GetSceneByName(sceneName);

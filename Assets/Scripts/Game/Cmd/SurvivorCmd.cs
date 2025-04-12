@@ -9,7 +9,7 @@ public class SurvivorCmd : ICommand
     {
         isLazy = true;
     }
-    [Listener(GameEvent.ON_INIT_GAME)]
+    [Listener(FloorEvent.ON_FLOOR_INIT_COMPELET)]
     public void InitSurvivor()
     {
         proxy.SetData(survivorDataSetting);

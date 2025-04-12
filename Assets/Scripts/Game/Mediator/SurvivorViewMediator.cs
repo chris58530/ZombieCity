@@ -19,7 +19,8 @@ public class SurvivorViewMediator : IMediator
     public void Init()
     {
         SurvivorDataSetting survivorDataSetting = proxy.survivorDataSetting;
-        view.InitSurvivor(survivorDataSetting);
+        
+        view.InitSurvivor(survivorDataSetting,floorProxy.startFloor);
     }
 
     [Listener(SurvivorEvent.ON_CLICK_SURVIVOR)]
@@ -37,8 +38,7 @@ public class SurvivorViewMediator : IMediator
     [Listener(SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE)]
     public void OnClickSurvivorComplete()
     {
-        Vector3 place = clickHitProxy.clickUpFloor.GetEnterPosition();
-
+        FloorBase place = clickHitProxy.clickUpFloor;
         view.OnClickSurvivorComplete(proxy.onClickSurvivor, place);
         floorProxy.SetCollider(false);
 

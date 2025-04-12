@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 277399e4b7b6a45598e22ea3b1b99010, type: 3}
-  m_Name: InitStateControllerSetting
+  m_Script: {fileID: 11500000, guid: dc1b2ccbfd9cf44d6a340659a4465988, type: 3}
+  m_Name: PlayerDataCmd
   m_EditorClassIdentifier: 
-  commands:
-  - {fileID: 11400000, guid: fd0d2f7d53b614f879b8eeba2865f12f, type: 2}
-  - {fileID: 11400000, guid: 3c8c232cd2a1f49208ee90894ea3434b, type: 2}
+  isLazy: 0

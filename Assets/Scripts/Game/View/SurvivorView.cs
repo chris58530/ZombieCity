@@ -18,8 +18,7 @@ public class SurvivorView : MonoBehaviour, IView
     {
         medaitor.DeRegister(this);
     }
-
-    public void InitSurvivor(SurvivorDataSetting data)
+    public void InitSurvivor(SurvivorDataSetting data, FloorBase startFloor)
     {
         GameObject survivorManagerObj = new GameObject("SurvivorManager");
         survivorManagerObj.transform.SetParent(transform);
@@ -38,24 +37,25 @@ public class SurvivorView : MonoBehaviour, IView
             survivor.transform.parent = survivorManagerObj.transform;
             float randomX = Random.Range(-2f, 2f);
             survivor.transform.position = new Vector2(randomX, -10);
-            survivorManager.AddSurvivor(survivor);
+            survivorManager.AddSurvivor(survivor, startFloor);
+        }
+        foreach (var survivor in survivorManager.survivors)
+        {
+            if (survivor == null)
+            {
+                continue;
+            }
+            survivorManager.SetIdle(survivor);
         }
 
-    }
-    public void SetSurvivorDestination(int id, Transform enter, Transform facility)
-    {
-        survivorManager.MoveSurvivor(id, enter, facility, () =>
-        {
-            medaitor.SetSurvivorNextPosition();
-        });
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
         survivorManager.OnClickSurvivor(survivor, pickPos);
     }
-    public void OnClickSurvivorComplete(SurvivorBase survivor, Vector3 floorPos)
+    public void OnClickSurvivorComplete(SurvivorBase survivor, FloorBase floor)
     {
-        survivorManager.OnClickSurvivorComplete(survivor,floorPos);
+        survivorManager.OnClickSurvivorComplete(survivor, floor);
     }
 }
 

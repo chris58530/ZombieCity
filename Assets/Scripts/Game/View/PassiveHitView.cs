@@ -24,7 +24,6 @@ public class PassiveHitView : MonoBehaviour, IView
     }
     public void SetShootStart(float shootRate)
     {
-        Debug.Log("SetShootStart");
         DOTween.Sequence()
             .AppendInterval(shootRate)
             .AppendCallback(() =>

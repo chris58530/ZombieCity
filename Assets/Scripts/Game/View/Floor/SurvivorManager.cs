@@ -6,61 +6,74 @@ using UnityEngine;
 public class SurvivorManager : MonoBehaviour
 {
     public SurvivorBase[] survivors;
-    private Dictionary<int, SurvivorBase> survivorDict = new Dictionary<int, SurvivorBase>();
-    public void AddSurvivor(SurvivorBase survivor)
+    private Dictionary<int, SurvivorBase> survivorDict = new();
+    private Dictionary<SurvivorBase, FloorBase> survivorFloorDic = new();
+    private Dictionary<SurvivorBase, Tween> moveDic = new();
+
+    public void AddSurvivor(SurvivorBase survivor, FloorBase startFloor)
     {
         if (!survivorDict.ContainsKey(survivor.id))
         {
             survivorDict.Add(survivor.id, survivor);
         }
+        if (!survivorFloorDic.ContainsKey(survivor))
+        {
+            survivorFloorDic.Add(survivor, startFloor);
+        }
+        if (!moveDic.ContainsKey(survivor))
+        {
+            moveDic.Add(survivor, null);
+        }
+        SetIdle(survivor);
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        Debug.Log("SurvivorManager: OnClickSurvivor" + survivor.name);
+        if (moveDic.ContainsKey(survivor))
+        {
+            moveDic[survivor].Kill();
+            moveDic.Remove(survivor);
+        }
         survivor.OnPick(pickPos);
 
     }
-    public void OnClickSurvivorComplete(SurvivorBase survivor, Vector3 floorPos)
+    public void OnClickSurvivorComplete(SurvivorBase survivor, FloorBase floor)
     {
-        Debug.Log($"{survivor.name} in :{floorPos}");
-        survivor.OnDrop(floorPos);
-
+        survivorFloorDic[survivor] = floor;
+        Vector2 limitX = floor.GetLimitPositionX();
+        float clampedX = Mathf.Clamp(survivor.transform.position.x, limitX.x, limitX.y);
+        Vector3 dropPos = new Vector3(clampedX, floor.GetEnterPosition().y, survivor.transform.position.z);
+        survivor.OnDrop(dropPos);
+        SetIdle(survivor);
     }
-    public void MoveAuto()
+    public void SetIdle(SurvivorBase survivor)
     {
-
-    }
-    public void MoveSurvivor(int id, Transform enter, Transform facility, Action callBack)
-    {
-        if (survivorDict.ContainsKey(id))
+        float idleTime = UnityEngine.Random.Range(3f, 4f);
+        FloorBase floor = survivorFloorDic[survivor];
+        if (floor == null)
         {
-            SurvivorBase survivor = survivorDict[id];
-            if (survivor == null)
-            {
-                Debug.LogError($"Survivor with ID {id} not found.");
-                return;
-            }
-            Transform self = survivor.transform;
-            survivor.SetFlip(GameDefine.IsFlipByLocal(self, enter));
-            survivor.isBusy = true;
-            float moveX = enter.position.x;
-            float currentX = survivor.transform.position.x;
-            float distance = Mathf.Abs(moveX - currentX);
-            float speed = 2f;
-            float duration = distance / speed;
-            survivor.SetBusy(true);
-            survivor.transform.DOMoveX(moveX, duration).SetEase(Ease.Linear).OnComplete(() =>
-            {
-                survivor.transform.DOMove(enter.position, 0.1f).OnComplete(() =>
-                {
-                    survivor.SetFlip(GameDefine.IsFlipByLocal(self, facility));
-                    survivor.transform.DOMoveX(facility.position.x, duration).OnComplete(() =>
-                    {
-                        survivor.SetBusy(false);
-                        callBack?.Invoke();
-                    });
-                });
-            });
+            Debug.LogError($"Floor not found for survivor {survivor.name}");
+            return;
         }
+        Vector2 limitX = floor.GetLimitPositionX();
+        float randomX = UnityEngine.Random.Range(limitX.x, limitX.y);
+        Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
+        moveDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
+        {
+            SetMove(survivor, destination, () =>
+            {
+                SetIdle(survivor);
+            });
+        });
+    }
+    public void SetMove(SurvivorBase survivor, Vector2 destination, Action callBack)
+    {
+        float distance = Vector2.Distance(survivor.transform.position, destination);
+        float speed = .3f;
+        float duration = distance / speed;
+        moveDic[survivor]?.Kill();  
+        moveDic[survivor] = survivor.transform.DOMove(destination, duration).OnComplete(() =>
+        {
+            callBack?.Invoke();
+        });
     }
 }
