@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FloorDataSetting
   m_EditorClassIdentifier: 
   mainFloorPrefab: {fileID: 311737846372461592, guid: 69e2a5ba7ba2543ac831b333a25f9c4d, type: 3}
-  startPosition: {x: 0, y: -12}
+  startPosition: {x: 0, y: -13}
   floorHeight: 2.6
   floorData:
   - floorPrefab: {fileID: 8756793108607572294, guid: e8f26c602d1b3f745863f4dba45e159a, type: 3}
