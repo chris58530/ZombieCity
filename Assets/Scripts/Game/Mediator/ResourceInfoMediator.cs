@@ -25,7 +25,6 @@ public class ResourceInfoMediator : IMediator
     public void OnAddMoney()
     {
         view.OnAddMoney(proxy.moneyAmount);
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
 
     }
 
@@ -33,7 +32,6 @@ public class ResourceInfoMediator : IMediator
     public void OnAddSatisfaction()
     {
         view.OnAddSatisfaction(proxy.satisfactionAmount);
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
 
     }
 }

@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class FloorBase : MonoBehaviour
 {
-    [SerializeField]private int floorProductAmount;
     [SerializeField]private TMP_Text floorProductText;
     [SerializeField] private GameObject mask;
     [SerializeField] private Transform enterPosition; //get y
@@ -20,9 +19,17 @@ public class FloorBase : MonoBehaviour
         limitPositionX = new Vector2(-2.3f, 2.3f);
         return new Vector2(limitPositionX.x, limitPositionX.y);
     }
-    public FacilityBase[] GetFacilities()
+    public FacilityBase GetEmptyFacilities()
     {
-        return facilities;
+        for (int i = 0; i < facilities.Length; i++)
+        {
+            if (!facilities[i].isUsing)
+            {
+                facilities[i].isUsing = true;
+                return facilities[i];
+            }
+        }
+        return null;
     }
     public void SetCollider(bool enabled)
     {
@@ -49,11 +56,7 @@ public class FloorBase : MonoBehaviour
         }
         return null;
     }
-    public void SetProductAmount(int amount)
-    {
-        floorProductAmount = amount;
-        floorProductText.text = floorProductAmount.ToString();
-    }
+  
 }
 public enum FloorType
 {

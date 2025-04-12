@@ -8,7 +8,8 @@ public class SurvivorManager : MonoBehaviour
     public SurvivorBase[] survivors;
     private Dictionary<int, SurvivorBase> survivorDict = new();
     private Dictionary<SurvivorBase, FloorBase> survivorFloorDic = new();
-    private Dictionary<SurvivorBase, Tween> moveDic = new();
+    private Dictionary<SurvivorBase, FacilityBase> survivorFacilityDic = new();
+    private Dictionary<SurvivorBase, Tween> tweenDic = new();
 
     public void AddSurvivor(SurvivorBase survivor, FloorBase startFloor)
     {
@@ -20,19 +21,27 @@ public class SurvivorManager : MonoBehaviour
         {
             survivorFloorDic.Add(survivor, startFloor);
         }
-        if (!moveDic.ContainsKey(survivor))
+        if (!tweenDic.ContainsKey(survivor))
         {
-            moveDic.Add(survivor, null);
+            tweenDic.Add(survivor, null);
         }
         SetIdle(survivor);
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        if (moveDic.ContainsKey(survivor))
+        if (tweenDic.ContainsKey(survivor))
         {
-            moveDic[survivor].Kill();
-            moveDic.Remove(survivor);
+            tweenDic[survivor].Kill();
+            tweenDic.Remove(survivor);
+
         }
+        if (survivorFacilityDic.ContainsKey(survivor))
+        {
+            survivorFacilityDic[survivor].isUsing = false;
+            survivorFacilityDic.Remove(survivor);
+        }
+        survivor.sprite.color = Color.white;
+
         survivor.OnPick(pickPos);
 
     }
@@ -54,10 +63,27 @@ public class SurvivorManager : MonoBehaviour
             Debug.LogError($"Floor not found for survivor {survivor.name}");
             return;
         }
+        //檢查當下的樓層是否有空的設施
+        FacilityBase emptyFacility = floor.GetEmptyFacilities();
+        if (emptyFacility != null)
+        {
+            survivorFacilityDic[survivor] = emptyFacility;
+            survivor.sprite.color = Color.green;
+            SetMove(survivor, emptyFacility.transform.position, () =>
+            {
+                survivor.SetBusy(2, () =>
+                {
+                    SetIdle(survivor);
+                    survivorFacilityDic[survivor].isUsing = false;
+                    survivorFacilityDic.Remove(survivor);
+                });
+            });
+            return;
+        }
         Vector2 limitX = floor.GetLimitPositionX();
         float randomX = UnityEngine.Random.Range(limitX.x, limitX.y);
         Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
-        moveDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
+        tweenDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
         {
             SetMove(survivor, destination, () =>
             {
@@ -70,10 +96,10 @@ public class SurvivorManager : MonoBehaviour
         float distance = Vector2.Distance(survivor.transform.position, destination);
         float speed = .3f;
         float duration = distance / speed;
-        moveDic[survivor]?.Kill();  
-        moveDic[survivor] = survivor.transform.DOMove(destination, duration).OnComplete(() =>
+        tweenDic[survivor] = survivor.transform.DOMove(destination, duration).SetEase(Ease.Linear).OnComplete(() =>
         {
             callBack?.Invoke();
         });
     }
+
 }

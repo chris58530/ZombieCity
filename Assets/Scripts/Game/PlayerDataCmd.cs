@@ -7,6 +7,7 @@ public class PlayerDataCmd : ICommand
 {
     [Inject] private PlayerDataProxy proxy;
     [Inject] private ResourceInfoProxy resourceInfoProxy;
+    [Inject] private FloorProxy floorProxy;
 
 
     public override void Execute(MonoBehaviour mono)
@@ -18,7 +19,14 @@ public class PlayerDataCmd : ICommand
     public void UpdateAndSave()
     {
         PlayerData data = proxy.playerData;
-        data.resourceInfoData = resourceInfoProxy.resourceInfoData;
+        if (resourceInfoProxy.resourceInfoData != null)
+        {
+            data.resourceInfoData = resourceInfoProxy.resourceInfoData;
+        }
+        if (floorProxy.floorProductData != null)
+        {
+            data.floorProductData = floorProxy.floorProductData;
+        }
         SavePlayerDataToPrefs(data);
     }
 
@@ -56,20 +64,15 @@ public class PlayerDataCmd : ICommand
         {
             resourceInfoData = new ResourceInfoData
             {
-                moneyAmount = 100,
-                satisfactionAmount = 87
+                
             },
-            // floorProductData = new FloorProductData
-            // {
-            //     entries = new Dictionary<int, int>
-            //     {
-            //         { 1, 0 },
-            //         { 2, 0 },
-            //         { 3, 0 },
-            //         { 4, 0 },
-            //         { 5, 0 }
-            //     }
-            // }
+            floorProductData = new FloorProductData
+            {
+                FloorProduct = new Dictionary<int, int>
+                {
+                   
+                }
+            }
         };
 
         SavePlayerDataToPrefs(data);
@@ -82,8 +85,8 @@ public class PlayerDataCmd : ICommand
 public class PlayerData
 {
     public ResourceInfoData resourceInfoData;
-  
-    // public FloorProductData floorProductData;
+
+    public FloorProductData floorProductData;
 }
 
 [System.Serializable]
@@ -91,11 +94,11 @@ public class ResourceInfoData
 {
     public int moneyAmount;
     public int satisfactionAmount;
-
+    public int gemAmount;
 }
 
 [System.Serializable]
 public class FloorProductData
 {
-    public Dictionary<int, int> entries = new Dictionary<int, int>();
+    public Dictionary<int, int> FloorProduct = new Dictionary<int, int>();
 }

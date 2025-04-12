@@ -9,7 +9,6 @@ public class SurvivorBase : MonoBehaviour
     public AnimationView animationView;
     public SpriteRenderer sprite;
     public bool isBusy;
-    private bool isDragging = false;
     
 
     public SurvivorBase GetSurvivor()
@@ -17,11 +16,17 @@ public class SurvivorBase : MonoBehaviour
         return this;
     }
 
-    public void SetBusy(bool isBusy, Action callBack = null)
+    public void SetBusy(float busyTime, Action callBack = null)
     {
-        this.isBusy = isBusy;
-        DOVirtual.DelayedCall(1, () =>
+        // 走到設施的時候隱藏自己 播放設施對應角色動畫
+        isBusy = true;
+        SetCollider(false);
+        sprite.color = Color.black;
+        DOVirtual.DelayedCall(busyTime, () =>
         {
+            isBusy = false;
+            sprite.color = Color.white;
+            SetCollider(true);
             callBack?.Invoke();
         }).SetId(GetHashCode());
     }

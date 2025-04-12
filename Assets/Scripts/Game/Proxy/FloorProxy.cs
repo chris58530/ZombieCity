@@ -4,15 +4,13 @@ using UnityEngine;
 public class FloorProxy : IProxy
 {
     public FloorDataSetting floorDataSetting;
-    private Dictionary<FacilityBase, Vector2> facilityVectorDic = new();
-    private List<FacilityBase> allFacilitys = new();
     public FloorBase startFloor;
     public bool isEnabledCollider;
     public FloorProductData floorProductData;
     public void SetFloorProductData(FloorProductData floorProductData)
     {
         this.floorProductData = floorProductData;
-      
+        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     public void SetData(FloorDataSetting floorDataSetting)
     {
@@ -22,14 +20,6 @@ public class FloorProxy : IProxy
             if (floorData.isLocked)
             {
                 continue;
-            }
-
-            foreach (var facility in floorData.floorPrefab.GetFacilities())
-            {
-                if (facilityVectorDic.ContainsKey(facility))
-                    continue;
-                facilityVectorDic.Add(facility, facility.transform.localPosition);
-                allFacilitys.Add(facility);
             }
         }
         startFloor = floorDataSetting.mainFloorPrefab;

@@ -15,6 +15,8 @@ public class FloorCmd : ICommand
     public void InitFloor()
     {
         // FloorProductData floorProductData = playerDataProxy.GetData().floorProductData;
+        FloorProductData floorProductData= playerDataProxy.GetData().floorProductData;
+        floorProxy.SetFloorProductData(floorProductData);
         floorProxy.SetData(floorDataSetting);
         // floorProxy.SetFloorProductData(floorProductData);
 
