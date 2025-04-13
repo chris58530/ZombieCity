@@ -25,7 +25,7 @@ public class SurvivorManager : MonoBehaviour
         {
             tweenDic.Add(survivor, null);
         }
-        SetIdle(survivor);
+        SetSurvivorIdle(survivor);
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
@@ -52,9 +52,9 @@ public class SurvivorManager : MonoBehaviour
         float clampedX = Mathf.Clamp(survivor.transform.position.x, limitX.x, limitX.y);
         Vector3 dropPos = new Vector3(clampedX, floor.GetEnterPosition().y, survivor.transform.position.z);
         survivor.OnDrop(dropPos);
-        SetIdle(survivor);
+        SetSurvivorIdle(survivor);
     }
-    public void SetIdle(SurvivorBase survivor)
+    public void SetSurvivorIdle(SurvivorBase survivor)
     {
         float idleTime = UnityEngine.Random.Range(3f, 4f);
         FloorBase floor = survivorFloorDic[survivor];
@@ -69,13 +69,13 @@ public class SurvivorManager : MonoBehaviour
         {
             survivorFacilityDic[survivor] = emptyFacility;
             survivor.sprite.color = Color.green;
-            SetMove(survivor, emptyFacility.transform.position, () =>
+            SetSurvivorMove(survivor, emptyFacility.transform.position, () =>
             {
-                survivor.SetBusy(2, () =>
+                //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
+                //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
+                survivor.StartWork(10, () => 
                 {
-                    SetIdle(survivor);
-                    survivorFacilityDic[survivor].isUsing = false;
-                    survivorFacilityDic.Remove(survivor);
+                    Debug.Log($"Survivor {survivor.name} work at facility {emptyFacility.name} is tired");
                 });
             });
             return;
@@ -85,13 +85,13 @@ public class SurvivorManager : MonoBehaviour
         Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
         tweenDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
         {
-            SetMove(survivor, destination, () =>
+            SetSurvivorMove(survivor, destination, () =>
             {
-                SetIdle(survivor);
+                SetSurvivorIdle(survivor);
             });
         });
     }
-    public void SetMove(SurvivorBase survivor, Vector2 destination, Action callBack)
+    public void SetSurvivorMove(SurvivorBase survivor, Vector2 destination, Action callBack)
     {
         float distance = Vector2.Distance(survivor.transform.position, destination);
         float speed = .3f;

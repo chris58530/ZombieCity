@@ -37,7 +37,7 @@ public class ZombieSpawnerView : MonoBehaviour, IView
         {
             ZombieBase zombiePrefab = zombieData.zombieInfo.zombieBasePrefab;
 
-            if (GameDefine.IsLock(zombieData.isLock))
+            if (zombieData.isLock)
             {
                 continue;
             }

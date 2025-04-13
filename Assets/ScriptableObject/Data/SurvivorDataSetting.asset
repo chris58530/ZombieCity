@@ -15,7 +15,7 @@ MonoBehaviour:
   survivorData:
   - survivorInfo:
       name: chris
-      icon: {fileID: 547209609, guid: c8a0ca78c9187c24f83d1aff50b38ebe, type: 3}
+      icon: {fileID: 21300000, guid: f51be3384f635437691e8cafc55b5229, type: 2}
       survivorBasePrefab: {fileID: 21954560590295344, guid: c63204cc0731c4d26ba30bf14d56eaf4, type: 3}
     level: 0
     isLock: 0

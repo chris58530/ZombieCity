@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
 public class FloorView : MonoBehaviour, IView
@@ -33,7 +32,7 @@ public class FloorView : MonoBehaviour, IView
         {
             FloorBase floor = Instantiate(data.floorData[i].floorPrefab);
             floorManager.floors[i + 1] = floor;//i + 1 因main floor佔位
-            floor.SetMask(data.floorData[i].isLocked);
+            floor.SetMask(data.floorData[i].isLock);
             floor.name = "Floor_" + i;
             float nextY = data.floorHeight * i;
             floor.transform.position = data.startPosition + new Vector2(0, -nextY);

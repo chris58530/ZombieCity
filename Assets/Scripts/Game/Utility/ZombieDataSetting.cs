@@ -13,7 +13,7 @@ public class ZombieData
     public ZombieInfo zombieInfo;
     public int hp;
     public int money;
-    public int isLock;
+    public bool isLock;
     
 }
 [Serializable]

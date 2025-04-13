@@ -8,16 +8,16 @@ public class SurvivorDataSetting : ScriptableObject
 
 }
 [Serializable]
-public class SurvivorData
+public class SurvivorData //存檔設定
 {
     public SurvivorInfo survivorInfo;
     public int level;
-    public int isLock;
+    public bool isLock;
 }
 [Serializable]
-public class SurvivorInfo
+public class SurvivorInfo //基本設定
 {
-    public string name;
+    public string name; //UI
     public Sprite icon;
     public SurvivorBase survivorBasePrefab;
     public TextField description;

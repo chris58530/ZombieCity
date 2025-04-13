@@ -61,8 +61,8 @@ public class FloorBase : MonoBehaviour
 public enum FloorType
 {
     Main,
-    Floor_1,
-    Floor_2,
-    Floor_3,
-    Floor_4,
+    Floor_901,
+    Floor_902,
+    Floor_903,
+    Floor_904,
 }

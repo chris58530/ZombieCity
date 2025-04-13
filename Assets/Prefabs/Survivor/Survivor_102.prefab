@@ -113,7 +113,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.3, y: 0.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -214,4 +214,7 @@ MonoBehaviour:
   id: 102
   animationView: {fileID: 0}
   sprite: {fileID: 2890693631627019002}
-  isBusy: 0
+  isWorking: 0
+  isTired: 0
+  workTimeText: {fileID: 0}
+  emotionImage: {fileID: 0}

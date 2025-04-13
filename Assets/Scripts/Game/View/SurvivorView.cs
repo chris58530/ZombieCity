@@ -26,7 +26,7 @@ public class SurvivorView : MonoBehaviour, IView
         survivorManager.survivors = new SurvivorBase[data.survivorData.Length];
         for (int i = 0; i < data.survivorData.Length; i++)
         {
-            if (GameDefine.IsLock(data.survivorData[i].isLock))
+            if (data.survivorData[i].isLock)
             {
                 continue;
             }
@@ -39,7 +39,7 @@ public class SurvivorView : MonoBehaviour, IView
             survivor.transform.position = new Vector2(randomX, -10);
             survivorManager.AddSurvivor(survivor, startFloor);
         }
-       
+
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {

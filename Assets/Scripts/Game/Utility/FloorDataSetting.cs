@@ -14,6 +14,6 @@ public class FloorData
 {
     public FloorBase floorPrefab;
     public int unlockPrice;
-    public bool isLocked;
+    public bool isLock;
 }
 

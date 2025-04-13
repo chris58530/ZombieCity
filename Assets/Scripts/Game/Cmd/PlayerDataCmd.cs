@@ -64,13 +64,13 @@ public class PlayerDataCmd : ICommand
         {
             resourceInfoData = new ResourceInfoData
             {
-                
+
             },
             floorProductData = new FloorProductData
             {
                 FloorProduct = new Dictionary<int, int>
                 {
-                   
+
                 }
             }
         };
@@ -95,10 +95,20 @@ public class ResourceInfoData
     public int moneyAmount;
     public int satisfactionAmount;
     public int gemAmount;
+    public bool isLock = true;
 }
 
 [System.Serializable]
 public class FloorProductData
 {
-    public Dictionary<int, int> FloorProduct = new Dictionary<int, int>();
+    public Dictionary<int, int> FloorProduct = new();
+    //Floor ID , ProductAmount  e.g.(901,999)、(902,878)
+    public Dictionary<int, List<FacilityData>> FloorFacility = new();
+    //Floor ID , FacilityData  
+}
+public class FacilityData
+{
+    public string animationString;
+    public bool isUsing;
+    public int time;
 }

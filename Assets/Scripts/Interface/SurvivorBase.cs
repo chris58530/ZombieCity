@@ -1,33 +1,42 @@
 using UnityEngine;
 using DG.Tweening;
 using System;
-using Lean.Touch;
+using TMPro;
 
 public class SurvivorBase : MonoBehaviour
 {
     public int id;
     public AnimationView animationView;
     public SpriteRenderer sprite;
-    public bool isBusy;
-    
-
+    public bool isWorking;
+    public bool isTired;
+    [SerializeField] private TMP_Text workTimeText;
+    [SerializeField] private GameObject emotionImage;
+    private Tween workingTween;
+    private Action tiredCallBack;
     public SurvivorBase GetSurvivor()
     {
         return this;
     }
 
-    public void SetBusy(float busyTime, Action callBack = null)
+    public void StartWork(int tiredTime, Action tiredCallBack = null)
     {
         // 走到設施的時候隱藏自己 播放設施對應角色動畫
-        isBusy = true;
-        SetCollider(false);
+        this.tiredCallBack = tiredCallBack;
+        isWorking = true;
         sprite.color = Color.black;
-        DOVirtual.DelayedCall(busyTime, () =>
+
+        float elapsedTime = 0;
+        workingTween = DOTween.To(() => elapsedTime, x =>
         {
-            isBusy = false;
-            sprite.color = Color.white;
+            elapsedTime = x;
+            workTimeText.text = Mathf.CeilToInt(tiredTime - elapsedTime).ToString();
+        }, tiredTime, tiredTime).SetEase(Ease.Linear).OnComplete(() =>
+        {
             SetCollider(true);
-            callBack?.Invoke();
+            workTimeText.text = string.Empty;
+            this.tiredCallBack?.Invoke();
+            SetTired(true);
         }).SetId(GetHashCode());
     }
     public void Hit()
@@ -44,6 +53,9 @@ public class SurvivorBase : MonoBehaviour
     }
     public void OnPick(Vector3 pickPosition)
     {
+        workingTween?.Kill();
+
+        isWorking = false;
         transform.position = new Vector3(pickPosition.x, pickPosition.y, -0.01f);
     }
     public void SetCollider(bool isCollider)
@@ -56,6 +68,12 @@ public class SurvivorBase : MonoBehaviour
     {
         transform.localScale = Vector3.one;
         transform.position = dropPos;
+    }
+    public void SetTired(bool isTired)
+    {
+        this.isTired = isTired;
+        Debug.Log($"SetTired: {isTired}");
+        emotionImage.gameObject.SetActive(isTired);
 
     }
 

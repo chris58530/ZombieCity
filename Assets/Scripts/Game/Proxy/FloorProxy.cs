@@ -17,7 +17,7 @@ public class FloorProxy : IProxy
         this.floorDataSetting = floorDataSetting;
         foreach (var floorData in floorDataSetting.floorData)
         {
-            if (floorData.isLocked)
+            if (floorData.isLock)
             {
                 continue;
             }
