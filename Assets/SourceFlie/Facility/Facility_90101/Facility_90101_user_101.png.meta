@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: db21bea98344ad64b855b2fd50ba7128
+guid: 110a256532fc597469150b6ca41a5939
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,12 +97,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Survivor_0
+      name: Facility_90101_user_101_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 237
+        width: 250
         height: 330
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -112,19 +112,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d5472f9cb6b2144db5bd78f0fe9d7e4
-      internalID: 879700037
+      spriteID: a71a1cd059bff2b4bb12976f99d0ae75
+      internalID: -1804581671
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Survivor_1
+      name: Facility_90101_user_101_1
       rect:
         serializedVersion: 2
-        x: 237
+        x: 250
         y: 0
-        width: 237
+        width: 250
         height: 330
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -134,19 +134,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2cdc3d1ab348da34dbd5c264a578e848
-      internalID: 1416238922
+      spriteID: 7ad45fdb8a5941443a3887c2d1dff489
+      internalID: 520994073
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Survivor_2
+      name: Facility_90101_user_101_2
       rect:
         serializedVersion: 2
-        x: 474
+        x: 500
         y: 0
-        width: 237
+        width: 250
         height: 330
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -156,8 +156,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9d3030b32e409349b3d493da36cf3df
-      internalID: -175772402
+      spriteID: d2ba25aa3c9e0e046acd2a5d2741ccb3
+      internalID: -978948186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Facility_90101_user_101_3
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 0
+        width: 250
+        height: 330
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ee1a144c8f7e934880a8b2ae2885beb
+      internalID: -1344144951
       vertices: []
       indices: 
       edges: []
@@ -166,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2b52f34650e4d6f4595194feb36ff121
+    spriteID: 4d3414faadd60bf439842dc31638f9ee
     internalID: 0
     vertices: []
     indices: 
@@ -176,9 +198,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Survivor_0: 879700037
-      Survivor_1: 1416238922
-      Survivor_2: -175772402
+      Facility_90101_user_101_0: -1804581671
+      Facility_90101_user_101_1: 520994073
+      Facility_90101_user_101_2: -978948186
+      Facility_90101_user_101_3: -1344144951
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Survivor_102_CarrotFarm
+  m_Name: Facility_90101_user_101_Ani
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -21,15 +21,15 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 879700037, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - time: 0.26666668
-      value: {fileID: 1416238922, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - time: 0.5
-      value: {fileID: -175772402, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - time: 0.75
-      value: {fileID: 1416238922, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
+      value: {fileID: -1804581671, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - time: 0.2
+      value: {fileID: 520994073, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - time: 0.51666665
+      value: {fileID: -978948186, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - time: 0.85
+      value: {fileID: -1344144951, guid: 110a256532fc597469150b6ca41a5939, type: 3}
     - time: 1
-      value: {fileID: 879700037, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
+      value: {fileID: -1804581671, guid: 110a256532fc597469150b6ca41a5939, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -52,11 +52,11 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 879700037, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - {fileID: 1416238922, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - {fileID: -175772402, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - {fileID: 1416238922, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
-    - {fileID: 879700037, guid: db21bea98344ad64b855b2fd50ba7128, type: 3}
+    - {fileID: -1804581671, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - {fileID: 520994073, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - {fileID: -978948186, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - {fileID: -1344144951, guid: 110a256532fc597469150b6ca41a5939, type: 3}
+    - {fileID: -1804581671, guid: 110a256532fc597469150b6ca41a5939, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
