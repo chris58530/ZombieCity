@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -15,8 +16,9 @@ public class FloorView : MonoBehaviour, IView
     {
         medaitor.DeRegister(this);
     }
-    public void InitFloor(FloorDataSetting data)
+    public void InitFloor(FloorDataSetting data, FloorProductData productData, double logOutTime)
     {
+        //Init InitFloorManager
         GameObject floorManagerObj = new GameObject("FloorManager");
         floorManagerObj.transform.SetParent(transform);
         floorManager = floorManagerObj.AddComponent<FloorManager>();
@@ -39,12 +41,25 @@ public class FloorView : MonoBehaviour, IView
             floor.transform.parent = floorManagerObj.transform;
             floor.SetCollider(false);
         }
+
+        //Init Facility
+        foreach (KeyValuePair<int, List<FacilityWorkData>> kvp in productData.FloorFacility)
+        {
+            int floorId = kvp.Key;
+            List<FacilityWorkData> facilities = kvp.Value;
+            foreach (FloorBase floor in floorManager.floors)
+            {
+                if ((int)floor.floorType == floorId)
+                {
+                    floor.SetFacilityData(facilities, logOutTime);
+                    break;
+                }
+            }
+        }
         medaitor.OnInitCompelet();
     }
     public void SetCollider(bool enabled)
     {
         floorManager.SetCollider(enabled);
     }
-
-
 }

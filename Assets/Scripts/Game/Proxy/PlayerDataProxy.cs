@@ -9,8 +9,5 @@ public class PlayerDataProxy : IProxy
     {
         return playerData;
     }   
-    public void SetResourceInfoData(ResourceInfoData data)
-    {
-        playerData.resourceInfoData = data;
-    }
+
 }

@@ -4,6 +4,7 @@ using Zenject;
 public class FloorViewMedaitor : IMediator
 {
     [Inject] private FloorProxy floorProxy;
+    [Inject]private PlayerDataProxy playerDataProxy;
     private FloorView floorView;
 
     public override void DeRegister(IView view)
@@ -19,7 +20,9 @@ public class FloorViewMedaitor : IMediator
     public void Init()
     {
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
-        floorView.InitFloor(floorDataSetting);
+        FloorProductData floorProductData = playerDataProxy.playerData.floorProductData;
+        double logOutTime = playerDataProxy.playerData.logOutData.logOutTime;
+        floorView.InitFloor(floorDataSetting,floorProductData,logOutTime);
     }
     public void OnInitCompelet(){
         listener.BroadCast(FloorEvent.ON_FLOOR_INIT_COMPELET);

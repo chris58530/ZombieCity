@@ -5,6 +5,7 @@ public class FacilityBase : MonoBehaviour
    public bool isUsing;
    public AnimationView animationView;
    public GameObject mask;
+   public string animationName;
    public void Init(bool isLock, string animationName)
    {
       SetLock(isLock);
@@ -17,7 +18,16 @@ public class FacilityBase : MonoBehaviour
    }
    public void SetAnimation(string animationName)
    {
-      if (animationName == null) return;
+      this.animationName = animationName;
       animationView.PlayAnimation(animationName);
+   }
+
+
+   public void SetStartTime(int time)
+   {
+   }
+
+   public void SetEfficientTime(int time)
+   {
    }
 }

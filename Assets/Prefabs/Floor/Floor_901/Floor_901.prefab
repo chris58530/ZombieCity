@@ -165,7 +165,7 @@ Animator:
   m_GameObject: {fileID: 494758976752938891}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2fcc76d7507c54bfda3f4cc886946399, type: 2}
+  m_Controller: {fileID: 9100000, guid: de7630f309ea599489bd993ae7adc17f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -347,6 +347,7 @@ MonoBehaviour:
   isUsing: 0
   animationView: {fileID: 0}
   mask: {fileID: 0}
+  animationName: 
 --- !u!1 &1068009879559049628
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +510,7 @@ Animator:
   m_GameObject: {fileID: 2134889184602123470}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2fcc76d7507c54bfda3f4cc886946399, type: 2}
+  m_Controller: {fileID: 9100000, guid: de7630f309ea599489bd993ae7adc17f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -774,7 +775,7 @@ GameObject:
   - component: {fileID: 8756793108607572294}
   - component: {fileID: 6439298823334992126}
   m_Layer: 8
-  m_Name: Floor_01
+  m_Name: Floor_901
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -823,6 +824,11 @@ MonoBehaviour:
   - {fileID: 6865317390902646871}
   - {fileID: 7955428831931220540}
   floorType: 1
+  playingAnimation: 
+  animation_Idle: Facility_90101
+  animation_101: Facility_90101_101
+  animation_102: Facility_90101_102
+  animation_103: Facility_90101_103
 --- !u!61 &6439298823334992126
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1005,6 +1011,7 @@ MonoBehaviour:
   isUsing: 0
   animationView: {fileID: 77076967211709605}
   mask: {fileID: 4710877618231526185}
+  animationName: 
 --- !u!1 &4710877618231526185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,6 +1267,7 @@ MonoBehaviour:
   isUsing: 0
   animationView: {fileID: 7737189594121539457}
   mask: {fileID: 2696203109173120986}
+  animationName: 
 --- !u!1 &6358658017824644767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1309,6 +1317,7 @@ MonoBehaviour:
   isUsing: 0
   animationView: {fileID: 5493099784590085197}
   mask: {fileID: 1068009879559049628}
+  animationName: 
 --- !u!1 &6694423476570404818
 GameObject:
   m_ObjectHideFlags: 0
@@ -1417,7 +1426,7 @@ Animator:
   m_GameObject: {fileID: 6874926387557007688}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2fcc76d7507c54bfda3f4cc886946399, type: 2}
+  m_Controller: {fileID: 9100000, guid: de7630f309ea599489bd993ae7adc17f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

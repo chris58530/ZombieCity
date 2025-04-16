@@ -1,15 +1,21 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class FloorBase : MonoBehaviour
 {
-    [SerializeField]private TMP_Text floorProductText;
+    [SerializeField] private TMP_Text floorProductText;
     [SerializeField] private GameObject mask;
     [SerializeField] private Transform enterPosition; //get y
     private Vector2 limitPositionX;
     [SerializeField] private FacilityBase mainFacilitie;
     [SerializeField] private FacilityBase[] facilities;
     public FloorType floorType;
+    public string playingAnimation;
+    [SerializeField] private string animation_Idle;
+    [SerializeField] private string animation_101;
+    [SerializeField] private string animation_102;
+    [SerializeField] private string animation_103;
     public Vector3 GetEnterPosition()
     {
         return enterPosition.position;
@@ -56,7 +62,29 @@ public class FloorBase : MonoBehaviour
         }
         return null;
     }
-  
+    public void SetProductAmount(double logOutTime)
+    {
+        if (floorProductText != null)
+        {
+            floorProductText.text = "logOut Time:" + ((int)logOutTime).ToString() + " sec";
+        }
+    }
+    public void SetFacilityData(List<FacilityWorkData> facilityWorkDatas, double logOutTime)
+    {
+        SetProductAmount(logOutTime);
+        for (int i = 0; i < facilityWorkDatas.Count && i < facilities.Length; i++)
+        {
+            FacilityWorkData data = facilityWorkDatas[i];
+            FacilityBase facility = facilities[i];
+            facility.isUsing = data.isUsing;
+            if (data.isUsing)
+            {
+                facility.SetAnimation(data.animationString);
+            }
+            facility.SetStartTime(data.startTime);
+            facility.SetEfficientTime(data.efficientTime);
+        }
+    }
 }
 public enum FloorType
 {

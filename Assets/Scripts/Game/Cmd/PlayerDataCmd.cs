@@ -22,8 +22,6 @@ public class PlayerDataCmd : ICommand
         PlayerData data = proxy.playerData;
         data.logOutData.lastLogoutTime = System.DateTime.UtcNow.ToString("o");
         Debug.Log("儲存玩家當前時間 ： " + data.logOutData.lastLogoutTime);
-        
-        data.logOutData.logOutTime = 0;
         if (resourceInfoProxy.resourceInfoData != null)
         {
             data.resourceInfoData = resourceInfoProxy.resourceInfoData;
@@ -40,7 +38,7 @@ public class PlayerDataCmd : ICommand
         string json = JsonConvert.SerializeObject(data);
         string AESJson = AESSerice.EncryptAES(json);
         Debug.Log("Saving PlayerData to PlayerPrefs: " + json);
-        PlayerPrefs.SetString("PlayerDataJson", AESJson);
+        PlayerPrefs.SetString("PlayerDataJsonTest", AESJson);
         PlayerPrefs.Save();
     }
 
