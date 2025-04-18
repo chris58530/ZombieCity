@@ -64,19 +64,21 @@ public class SurvivorManager : MonoBehaviour
             return;
         }
         //檢查當下的樓層是否有空的設施
-        FacilityBase emptyFacility = floor.GetEmptyFacilities();
-        if (emptyFacility != null)
+        FacilityBase targetFacility = floor.GetEmptyFacilities();
+        if (targetFacility != null)
         {
-            survivorFacilityDic[survivor] = emptyFacility;
+            survivorFacilityDic[survivor] = targetFacility;
             survivor.sprite.color = Color.green;
-            SetSurvivorMove(survivor, emptyFacility.transform.position, () =>
+            SetSurvivorMove(survivor, targetFacility.transform.position, () =>
             {
                 //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
                 //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
-                survivor.StartWork(10, () => 
+                survivor.StartWork(10, () =>
                 {
-                    Debug.Log($"Survivor {survivor.name} work at facility {emptyFacility.name} is tired");
+                    floor.SetNotWorking(targetFacility);
+                    Debug.Log($"Survivor {survivor.name} work at facility {targetFacility.name} is tired");
                 });
+                floor.SetWorking(survivor.id, targetFacility);
             });
             return;
         }

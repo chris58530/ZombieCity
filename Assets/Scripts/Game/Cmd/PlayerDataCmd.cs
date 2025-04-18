@@ -10,7 +10,7 @@ public class PlayerDataCmd : ICommand
     [Inject] private ResourceInfoProxy resourceInfoProxy;
     [Inject] private FloorProxy floorProxy;
 
-
+    [SerializeField] private const string SaveString = "PlayerDataJson";
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
@@ -38,15 +38,15 @@ public class PlayerDataCmd : ICommand
         string json = JsonConvert.SerializeObject(data);
         string AESJson = AESSerice.EncryptAES(json);
         Debug.Log("Saving PlayerData to PlayerPrefs: " + json);
-        PlayerPrefs.SetString("PlayerDataJsonTest", AESJson);
+        PlayerPrefs.SetString(SaveString, AESJson);
         PlayerPrefs.Save();
     }
 
     public void LoadPlayerDataFromPrefs()
     {
-        if (PlayerPrefs.HasKey("PlayerDataJson"))
+        if (PlayerPrefs.HasKey(SaveString))
         {
-            string AESJson = PlayerPrefs.GetString("PlayerDataJson");
+            string AESJson = PlayerPrefs.GetString(SaveString);
             string json = AESSerice.DecryptAES(AESJson);
 
             PlayerData data = JsonConvert.DeserializeObject<PlayerData>(json);
@@ -80,7 +80,6 @@ public class PlayerDataCmd : ICommand
             },
             logOutData = new LogOutData
             {
-                  
 
             }
         };

@@ -13,5 +13,12 @@ MonoBehaviour:
   m_Name: FacilityAnimationSetting
   m_EditorClassIdentifier: 
   facilityAnimationDatas:
-  - facilityAnimations: []
-    floorId: 0
+  - facilityUseAnimations:
+    - survivorId: 101
+      workAnimation: Facility_90101_101
+    - survivorId: 102
+      workAnimation: Facility_90101_102
+    - survivorId: 103
+      workAnimation: Facility_90101_103
+    IdleAnimation: Facility_90101_Idle
+    floorType: 1

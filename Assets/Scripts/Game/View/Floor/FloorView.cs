@@ -6,6 +6,7 @@ public class FloorView : MonoBehaviour, IView
 {
     [Inject] private FloorViewMedaitor medaitor;
     private FloorManager floorManager;
+    [SerializeField]private FacilityAnimationDataSetting facilityAnimationDataSetting;
     private void OnEnable()
     {
         InjectService.Instance.Inject(this);
@@ -40,6 +41,7 @@ public class FloorView : MonoBehaviour, IView
             floor.transform.position = data.startPosition + new Vector2(0, -nextY);
             floor.transform.parent = floorManagerObj.transform;
             floor.SetCollider(false);
+            floor.Init(facilityAnimationDataSetting);
         }
 
         //Init Facility

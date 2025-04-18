@@ -24,7 +24,7 @@ public class SurvivorBase : MonoBehaviour
         // 走到設施的時候隱藏自己 播放設施對應角色動畫
         this.tiredCallBack = tiredCallBack;
         isWorking = true;
-        sprite.color = Color.black;
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, 0);
 
         float elapsedTime = 0;
         workingTween = DOTween.To(() => elapsedTime, x =>
@@ -34,6 +34,8 @@ public class SurvivorBase : MonoBehaviour
         }, tiredTime, tiredTime).SetEase(Ease.Linear).OnComplete(() =>
         {
             SetCollider(true);
+            sprite.color = Color.white;
+
             workTimeText.text = string.Empty;
             this.tiredCallBack?.Invoke();
             SetTired(true);

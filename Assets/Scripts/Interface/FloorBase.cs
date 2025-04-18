@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 
@@ -12,10 +13,12 @@ public class FloorBase : MonoBehaviour
     [SerializeField] private FacilityBase[] facilities;
     public FloorType floorType;
     public string playingAnimation;
-    [SerializeField] private string animation_Idle;
-    [SerializeField] private string animation_101;
-    [SerializeField] private string animation_102;
-    [SerializeField] private string animation_103;
+    private FacilityAnimationDataSetting animationDataSetting;
+
+    public void Init(FacilityAnimationDataSetting animationDataSetting)
+    {
+        this.animationDataSetting = animationDataSetting;
+    }
     public Vector3 GetEnterPosition()
     {
         return enterPosition.position;
@@ -36,6 +39,17 @@ public class FloorBase : MonoBehaviour
             }
         }
         return null;
+    }
+    public void SetWorking(int survivorId, FacilityBase facility)
+    {
+        string animation = animationDataSetting.GetUseString(floorType, survivorId);
+        facility.SetAnimation(animation);
+    }
+    public void SetNotWorking(FacilityBase facility)
+    {
+        string animation = animationDataSetting.GetIdleString(floorType);
+
+        facility.SetAnimation(animation);
     }
     public void SetCollider(bool enabled)
     {
