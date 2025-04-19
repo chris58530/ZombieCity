@@ -75,7 +75,6 @@ public class SurvivorManager : MonoBehaviour
                 //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
                 survivor.StartWork(10, () =>
                 {
-                    floor.SetNotWorking(targetFacility);
                     Debug.Log($"Survivor {survivor.name} work at facility {targetFacility.name} is tired");
                 });
                 floor.SetWorking(survivor.id, targetFacility);

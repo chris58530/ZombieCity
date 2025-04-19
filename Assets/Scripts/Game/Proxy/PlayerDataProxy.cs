@@ -8,6 +8,9 @@ public class PlayerDataProxy : IProxy
     public PlayerData GetData()
     {
         return playerData;
-    }   
-
+    }
+    public void SetFloorData(FloorProductData floorProductData)
+    {
+        playerData.floorProductData = floorProductData;
+    }
 }

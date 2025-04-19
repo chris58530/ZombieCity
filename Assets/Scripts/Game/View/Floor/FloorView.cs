@@ -4,18 +4,18 @@ using Zenject;
 
 public class FloorView : MonoBehaviour, IView
 {
-    [Inject] private FloorViewMedaitor medaitor;
+    [Inject] private FloorViewMediator mediator;
     private FloorManager floorManager;
-    [SerializeField]private FacilityAnimationDataSetting facilityAnimationDataSetting;
+    [SerializeField] private FacilityAnimationDataSetting facilityAnimationDataSetting;
     private void OnEnable()
     {
         InjectService.Instance.Inject(this);
 
-        medaitor.Register(this);
+        mediator.Register(this);
     }
     private void OnDisable()
     {
-        medaitor.DeRegister(this);
+        mediator.DeRegister(this);
     }
     public void InitFloor(FloorDataSetting data, FloorProductData productData, double logOutTime)
     {
@@ -54,14 +54,29 @@ public class FloorView : MonoBehaviour, IView
                 if ((int)floor.floorType == floorId)
                 {
                     floor.SetFacilityData(facilities, logOutTime);
+                    floor.onSetWorking += SaveFacilities;
+                    floor.onSetProduct += SetFloorProduct;
                     break;
                 }
             }
         }
-        medaitor.OnInitCompelet();
+        mediator.OnInitCompelet();
     }
     public void SetCollider(bool enabled)
     {
         floorManager.SetCollider(enabled);
+    }
+    public void SetAnimation()
+    {
+
+    }
+    public void SaveFacilities(int floorID, List<FacilityWorkData> facilityWorkData)
+    {
+        mediator.SaveFacilities(floorID, facilityWorkData);
+    }
+    public void SetFloorProduct(int floorID, int amount)
+    {
+        mediator.SetFloorProduct(floorID, amount);
+
     }
 }

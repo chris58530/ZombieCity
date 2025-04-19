@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using TMPro;
@@ -14,10 +15,20 @@ public class FloorBase : MonoBehaviour
     public FloorType floorType;
     public string playingAnimation;
     private FacilityAnimationDataSetting animationDataSetting;
+    private List<FacilityWorkData> facilityWorkData;
+    public Action<int, List<FacilityWorkData>> onSetWorking;
+    public Action<int, int> onSetProduct;
 
     public void Init(FacilityAnimationDataSetting animationDataSetting)
     {
         this.animationDataSetting = animationDataSetting;
+    }
+    /// <summary>
+    /// 登入後會使用到 照登出時正在播哪個動畫SET
+    /// </summary>
+    public void SetFacilityState()
+    {
+
     }
     public Vector3 GetEnterPosition()
     {
@@ -44,11 +55,19 @@ public class FloorBase : MonoBehaviour
     {
         string animation = animationDataSetting.GetUseString(floorType, survivorId);
         facility.SetAnimation(animation);
+
+        for (int i = 0; i < facilities.Length && i < facilities.Length; i++)
+        {
+            facilityWorkData[i].animationString = facilities[i].animationName;
+            facilityWorkData[i].isUsing = facilities[i].isUsing;
+        }
+        onSetWorking?.Invoke((int)floorType, facilityWorkData);
+
     }
     public void SetNotWorking(FacilityBase facility)
     {
         string animation = animationDataSetting.GetIdleString(floorType);
-
+        onSetWorking?.Invoke((int)floorType, facilityWorkData);
         facility.SetAnimation(animation);
     }
     public void SetCollider(bool enabled)
@@ -61,10 +80,7 @@ public class FloorBase : MonoBehaviour
     {
         mask.SetActive(active);
     }
-    public void UseFacility(FacilityBase facilitie)
-    {
 
-    }
     public FacilityBase CheckEmptyFacility()
     {
         for (int i = 0; i < facilities.Length; i++)
@@ -85,7 +101,9 @@ public class FloorBase : MonoBehaviour
     }
     public void SetFacilityData(List<FacilityWorkData> facilityWorkDatas, double logOutTime)
     {
+        this.facilityWorkData = facilityWorkDatas;
         SetProductAmount(logOutTime);
+        //處理登出總共秒數 增加物資
         for (int i = 0; i < facilityWorkDatas.Count && i < facilities.Length; i++)
         {
             FacilityWorkData data = facilityWorkDatas[i];
@@ -98,6 +116,10 @@ public class FloorBase : MonoBehaviour
             facility.SetStartTime(data.startTime);
             facility.SetEfficientTime(data.efficientTime);
         }
+    }
+    public void SaveFacilityData()
+    {
+
     }
 }
 public enum FloorType

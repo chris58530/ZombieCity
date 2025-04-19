@@ -10,5 +10,8 @@ public class FloorManager : MonoBehaviour
             floors[i].SetCollider(enabled);
         }
     }
+    public void SetAnimation()
+    {
 
+    }
 }

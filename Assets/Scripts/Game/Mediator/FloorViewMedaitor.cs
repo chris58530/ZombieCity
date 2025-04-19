@@ -1,12 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class FloorViewMedaitor : IMediator
+public class FloorViewMediator : IMediator
 {
     [Inject] private FloorProxy floorProxy;
-    [Inject]private PlayerDataProxy playerDataProxy;
+    [Inject] private PlayerDataProxy playerDataProxy;
     private FloorView floorView;
-
+    private FloorProductData floorProductData;
     public override void DeRegister(IView view)
     {
         base.DeRegister(view);
@@ -20,11 +21,12 @@ public class FloorViewMedaitor : IMediator
     public void Init()
     {
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
-        FloorProductData floorProductData = playerDataProxy.playerData.floorProductData;
+        floorProductData = playerDataProxy.playerData.floorProductData;
         double logOutTime = playerDataProxy.playerData.logOutData.logOutTime;
-        floorView.InitFloor(floorDataSetting,floorProductData,logOutTime);
+        floorView.InitFloor(floorDataSetting, floorProductData, logOutTime);
     }
-    public void OnInitCompelet(){
+    public void OnInitCompelet()
+    {
         listener.BroadCast(FloorEvent.ON_FLOOR_INIT_COMPELET);
     }
     [Listener(FloorEvent.ON_UPDATE_COLLIDER)]
@@ -33,5 +35,12 @@ public class FloorViewMedaitor : IMediator
         bool isEnabledCollider = floorProxy.isEnabledCollider;
         floorView.SetCollider(isEnabledCollider);
     }
-
+    public void SaveFacilities(int flootID, List<FacilityWorkData> facilityWorkData)
+    {
+        floorProductData.FloorFacility[flootID] = facilityWorkData;
+    }
+    public void SetFloorProduct(int floorID, int amount)
+    {
+        floorProductData.FloorProduct[floorID] = amount;
+    }
 }

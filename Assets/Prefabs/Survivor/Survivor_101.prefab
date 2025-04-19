@@ -585,6 +585,7 @@ MonoBehaviour:
   isTired: 0
   workTimeText: {fileID: 9218818167363228515}
   emotionImage: {fileID: 2136342686955715329}
+  efficientTime: 0
 --- !u!1 &5755786229073414396
 GameObject:
   m_ObjectHideFlags: 0
