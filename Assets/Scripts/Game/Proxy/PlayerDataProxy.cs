@@ -1,16 +1,12 @@
-public class PlayerDataProxy : IProxy
+public class JsonDataProxy : IProxy
 {
-    public PlayerData playerData;
-    public void SetData(PlayerData data)
+    public JsonData jsonData;
+    public void SetData(JsonData data)
     {
-        playerData = data;
+        jsonData = data;
     }
-    public PlayerData GetData()
+    public JsonData GetData()
     {
-        return playerData;
-    }
-    public void SetFloorData(FloorProductData floorProductData)
-    {
-        playerData.floorProductData = floorProductData;
+        return jsonData;
     }
 }

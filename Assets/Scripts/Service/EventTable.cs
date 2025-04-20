@@ -5,7 +5,7 @@ public class GameEvent
     public const string ON_START_GAME = "GameEvent.ON_START_GAME";
     public const string ON_QUIT_GAME = "GameEvent.ON_QUIT_GAME";
 }
-public class PlayerDataEvent{
+public class JsonDataEvent{
     public const string ON_SET_PLAYER_DATA = "PlayerData.ON_SET_PLAYER_DATA";
     public const string ON_UPDATE_PLAYER_DATA = "PlayerData.ON_UPDATE_PLAYER_DATA";
 }
@@ -46,6 +46,7 @@ public class ClickHitEvent
 public class SurvivorEvent
 {
 
+    public const string ON_SURVIVOR_LEAVE_FACILITY = "SurvivorEvent.ON_SURVIVOR_LEAVE_FACILITY";
     public const string ON_SURVIVOR_INIT = "SurvivorEvent.ON_SURVIVOR_INIT";
     public const string ON_SURVIVOR_MOVE = "SurvivorEvent.ON_SURVIVOR_MOVE";
     public const string ON_CLICK_SURVIVOR = "SurvivorEvent.ON_CLICK_SURVIVOR";

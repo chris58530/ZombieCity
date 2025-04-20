@@ -10,6 +10,7 @@ public class SurvivorManager : MonoBehaviour
     private Dictionary<SurvivorBase, FloorBase> survivorFloorDic = new();
     private Dictionary<SurvivorBase, FacilityBase> survivorFacilityDic = new();
     private Dictionary<SurvivorBase, Tween> tweenDic = new();
+    public Action<int, bool> onSaveWorkingSurvivor;
 
     public void AddSurvivor(SurvivorBase survivor, FloorBase startFloor)
     {
@@ -54,8 +55,21 @@ public class SurvivorManager : MonoBehaviour
         survivor.OnDrop(dropPos);
         SetSurvivorIdle(survivor);
     }
-    public void SetSurvivorIdle(SurvivorBase survivor)
+    public void OnLeaveFacility(LeaingFacilitySurvivor leavingFacilitySurvivor)
     {
+        SurvivorBase survivor = leavingFacilitySurvivor.survivor;
+        FloorBase floor = leavingFacilitySurvivor.floor;
+        FacilityBase facility = leavingFacilitySurvivor.facility;
+        survivorFloorDic[survivor] = floor;
+        float facilityX = facility.transform.position.x;
+        survivor.transform.position = new Vector3(facilityX, 0);
+        Vector3 dropPos = new Vector3(facilityX, floor.GetEnterPosition().y, survivor.transform.position.z);
+        survivor.OnDrop(dropPos);
+        SetSurvivorIdle(survivor, true);
+    }
+    public void SetSurvivorIdle(SurvivorBase survivor, bool skipFacility = false)
+    {
+        if (survivor.isWorking) return;
         float idleTime = UnityEngine.Random.Range(3f, 4f);
         FloorBase floor = survivorFloorDic[survivor];
         if (floor == null)
@@ -65,7 +79,7 @@ public class SurvivorManager : MonoBehaviour
         }
         //檢查當下的樓層是否有空的設施
         FacilityBase targetFacility = floor.GetEmptyFacilities();
-        if (targetFacility != null)
+        if (targetFacility != null && !skipFacility)
         {
             survivorFacilityDic[survivor] = targetFacility;
             survivor.sprite.color = Color.green;
@@ -73,11 +87,10 @@ public class SurvivorManager : MonoBehaviour
             {
                 //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
                 //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
-                survivor.StartWork(10, () =>
-                {
-                    Debug.Log($"Survivor {survivor.name} work at facility {targetFacility.name} is tired");
-                });
+                survivor.SetWorking();
                 floor.SetWorking(survivor.id, targetFacility);
+                onSaveWorkingSurvivor?.Invoke(survivor.id, true);
+                tweenDic[survivor]?.Kill();
             });
             return;
         }

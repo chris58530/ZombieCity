@@ -17,7 +17,7 @@ public class FloorView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
-    public void InitFloor(FloorDataSetting data, FloorProductData productData, double logOutTime)
+    public void InitFloor(FloorDataSetting data, Dictionary<int, FloorInfoData> floorInfoData, double logOutTime)
     {
         //Init InitFloorManager
         GameObject floorManagerObj = new GameObject("FloorManager");
@@ -36,7 +36,7 @@ public class FloorView : MonoBehaviour, IView
             FloorBase floor = Instantiate(data.floorData[i].floorPrefab);
             floorManager.floors[i + 1] = floor;//i + 1 因main floor佔位
             floor.SetMask(data.floorData[i].isLock);
-            floor.name = "Floor_" + i;
+            floor.name = "Floor_" + (int)floor.floorType;
             float nextY = data.floorHeight * i;
             floor.transform.position = data.startPosition + new Vector2(0, -nextY);
             floor.transform.parent = floorManagerObj.transform;
@@ -45,17 +45,20 @@ public class FloorView : MonoBehaviour, IView
         }
 
         //Init Facility
-        foreach (KeyValuePair<int, List<FacilityWorkData>> kvp in productData.FloorFacility)
+        foreach (KeyValuePair<int, FloorInfoData> kvp in floorInfoData)
         {
             int floorId = kvp.Key;
-            List<FacilityWorkData> facilities = kvp.Value;
+            FloorInfoData floorInfo = kvp.Value;
             foreach (FloorBase floor in floorManager.floors)
             {
+                Debug.Log("floorId: " + floorId + " floorType: " + (int)floor.floorType);
                 if ((int)floor.floorType == floorId)
                 {
-                    floor.SetFacilityData(facilities, logOutTime);
-                    floor.onSetWorking += SaveFacilities;
-                    floor.onSetProduct += SetFloorProduct;
+                    Debug.Log("floorId: " + floorId);
+                    floor.SetFacilityData(floorInfo, logOutTime);
+                    floor.onSaveFacility += SaveFacilities;
+                    floor.onSaveProduct += SaveFloorProduct;
+                    floor.onShowSurvivor += RequestShowSurvivor;
                     break;
                 }
             }
@@ -66,17 +69,18 @@ public class FloorView : MonoBehaviour, IView
     {
         floorManager.SetCollider(enabled);
     }
-    public void SetAnimation()
-    {
 
-    }
-    public void SaveFacilities(int floorID, List<FacilityWorkData> facilityWorkData)
+    public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
     {
-        mediator.SaveFacilities(floorID, facilityWorkData);
+        mediator.RequestShowSurvivor(survivorID,floor, facility);
     }
-    public void SetFloorProduct(int floorID, int amount)
+    public void SaveFacilities(FloorType floorType, int order, FacilityData fdata)
     {
-        mediator.SetFloorProduct(floorID, amount);
+        mediator.SaveFacilities(floorType, order, fdata);
+    }
+    public void SaveFloorProduct(FloorType floorType, int amount)
+    {
+        mediator.SaveFloorProduct(floorType, amount);
 
     }
 }

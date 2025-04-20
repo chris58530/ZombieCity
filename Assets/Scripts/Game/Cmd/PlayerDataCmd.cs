@@ -4,9 +4,9 @@ using Zenject;
 using Newtonsoft.Json;
 using System;
 
-public class PlayerDataCmd : ICommand
+public class JsonDataCmd : ICommand
 {
-    [Inject] private PlayerDataProxy proxy;
+    [Inject] private JsonDataProxy proxy;
     [Inject] private ResourceInfoProxy resourceInfoProxy;
     [Inject] private FloorProxy floorProxy;
 
@@ -16,24 +16,24 @@ public class PlayerDataCmd : ICommand
         isLazy = true;
         LoadPlayerDataFromPrefs();
     }
-    [Listener(PlayerDataEvent.ON_UPDATE_PLAYER_DATA)]
+    [Listener(JsonDataEvent.ON_UPDATE_PLAYER_DATA)]
     public void UpdateAndSave()
     {
-        PlayerData data = proxy.playerData;
+        JsonData data = proxy.jsonData;
         data.logOutData.lastLogoutTime = System.DateTime.UtcNow.ToString("o");
-        Debug.Log("儲存玩家當前時間 ： " + data.logOutData.lastLogoutTime);
+        // Debug.Log("儲存玩家當前時間 ： " + data.logOutData.lastLogoutTime);
         if (resourceInfoProxy.resourceInfoData != null)
         {
             data.resourceInfoData = resourceInfoProxy.resourceInfoData;
         }
         if (floorProxy.floorProductData != null)
         {
-            data.floorProductData = floorProxy.floorProductData;
+            data.floorInfoData = floorProxy.floorProductData;
         }
         SavePlayerDataToPrefs(data);
     }
 
-    public void SavePlayerDataToPrefs(PlayerData data)
+    public void SavePlayerDataToPrefs(JsonData data)
     {
         string json = JsonConvert.SerializeObject(data);
         string AESJson = AESSerice.EncryptAES(json);
@@ -49,7 +49,7 @@ public class PlayerDataCmd : ICommand
             string AESJson = PlayerPrefs.GetString(SaveString);
             string json = AESSerice.DecryptAES(AESJson);
 
-            PlayerData data = JsonConvert.DeserializeObject<PlayerData>(json);
+            JsonData data = JsonConvert.DeserializeObject<JsonData>(json);
             double logoutTime = OfflineTimeService.GetOfflineSeconds(data.logOutData.lastLogoutTime);
             data.logOutData.logOutTime = logoutTime;
             proxy.SetData(data);
@@ -65,20 +65,38 @@ public class PlayerDataCmd : ICommand
 
     public void CreateNewPlayerDataAndSave()
     {
-        PlayerData data = new PlayerData
+        JsonData data = new()
         {
-            resourceInfoData = new ResourceInfoData
+            resourceInfoData = new()
             {
 
             },
-            floorProductData = new FloorProductData
+            floorInfoData = new Dictionary<int, FloorInfoData>()
             {
-                FloorProduct = new Dictionary<int, int>
-                {
-
-                }
+                { 901, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() {
+                    { 0, new FacilityData { order = 0, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
+                    { 1, new FacilityData { order = 1, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
+                    { 2, new FacilityData { order = 2, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
+                    { 3, new FacilityData { order = 3, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } }
+                }} },
+                { 902, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } },
+                { 903, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } },
+                { 904, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } }
             },
-            logOutData = new LogOutData
+            workingSurvivorData = new Dictionary<int, bool>()
+            {
+              {101,false},
+              {102,false},
+              {103,false},
+              {104,false},
+              {105,false},
+              {106,false},
+              {107,false},
+              {108,false},
+              {109,false},
+              {110,false}
+            },
+            logOutData = new()
             {
 
             }
@@ -91,11 +109,12 @@ public class PlayerDataCmd : ICommand
 }
 
 [System.Serializable]
-public class PlayerData
+public class JsonData
 {
     public ResourceInfoData resourceInfoData;
 
-    public FloorProductData floorProductData;
+    public Dictionary<int, FloorInfoData> floorInfoData;
+    public Dictionary<int, bool> workingSurvivorData;
     public LogOutData logOutData;
 }
 [System.Serializable]
@@ -112,23 +131,24 @@ public class ResourceInfoData
     public int moneyAmount;
     public int satisfactionAmount;
     public int gemAmount;
-    public bool isLock = true;
 }
 
 [System.Serializable]
-public class FloorProductData
+public class FloorInfoData
 {
-    public Dictionary<int, int> FloorProduct = new();
-    //Floor ID , ProductAmount  e.g.(901,999)、(902,878)
-    public Dictionary<int, List<FacilityWorkData>> FloorFacility = new();
-    //Floor ID , FacilityData  
+    public int productAmount;
+    public int level;
+    public Dictionary<int, FacilityData> facilityData;
 }
-public class FacilityWorkData
+public class FacilityData
 {
+    public int order;
     public string animationString;
     public bool isUsing;
     public int efficientTime;
     public int startTime;
+    public int usingSurvivor;
+
 }
 
 public static class OfflineTimeService

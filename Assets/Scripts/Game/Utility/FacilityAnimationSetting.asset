@@ -21,4 +21,4 @@ MonoBehaviour:
     - survivorId: 103
       workAnimation: Facility_90101_103
     IdleAnimation: Facility_90101_Idle
-    floorType: 1
+    floorType: 901

@@ -12,6 +12,6 @@ public class FloorManager : MonoBehaviour
     }
     public void SetAnimation()
     {
-
+        
     }
 }

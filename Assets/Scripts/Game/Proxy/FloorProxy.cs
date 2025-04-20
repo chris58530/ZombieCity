@@ -6,11 +6,11 @@ public class FloorProxy : IProxy
     public FloorDataSetting floorDataSetting;
     public FloorBase startFloor;
     public bool isEnabledCollider;
-    public FloorProductData floorProductData;
-    public void SetFloorProductData(FloorProductData floorProductData)
+    public Dictionary<int, FloorInfoData>  floorProductData;
+    public void SetFloorProductData(Dictionary<int, FloorInfoData>  floorProductData)
     {
         this.floorProductData = floorProductData;
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     public void SetData(FloorDataSetting floorDataSetting)
     {

@@ -220,7 +220,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e914e54aa73e45e48f397b65eaf8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: 0
   isUsing: 0
+  animationView: {fileID: 0}
+  mask: {fileID: 0}
+  animationName: 
 --- !u!1 &1541175065846567807
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,7 +325,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e914e54aa73e45e48f397b65eaf8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: 0
   isUsing: 0
+  animationView: {fileID: 0}
+  mask: {fileID: 0}
+  animationName: 
 --- !u!1 &2446554576946815496
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,7 +517,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e914e54aa73e45e48f397b65eaf8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: 0
   isUsing: 0
+  animationView: {fileID: 0}
+  mask: {fileID: 0}
+  animationName: 
 --- !u!1 &3369024372047935036
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,14 +576,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc57f08d9738b41d6baa1c05ca8e21b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorProductAmount: 0
   floorProductText: {fileID: 0}
   mask: {fileID: 115164328828091051}
   enterPosition: {fileID: 1071761756388189476}
   mainFacilitie: {fileID: 8241647848616614367}
   facilities:
   - {fileID: 3752829780128695622}
-  floorType: 2
+  floorType: 902
+  playingAnimation: 
 --- !u!61 &995443667991179448
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -892,7 +904,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e914e54aa73e45e48f397b65eaf8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  order: 0
   isUsing: 0
+  animationView: {fileID: 0}
+  mask: {fileID: 0}
+  animationName: 
 --- !u!1 &7183125611446150068
 GameObject:
   m_ObjectHideFlags: 0

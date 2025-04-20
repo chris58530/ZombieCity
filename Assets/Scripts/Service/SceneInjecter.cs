@@ -7,7 +7,7 @@ public class SceneInjecter : MonoInstaller
     public override void InstallBindings()
     {
         Container.Bind<Listener>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<PlayerDataProxy>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<JsonDataProxy>().AsSingle().NonLazy();
 
         Container.BindInterfacesAndSelfTo<FloorProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<FloorViewMediator>().AsSingle().NonLazy();

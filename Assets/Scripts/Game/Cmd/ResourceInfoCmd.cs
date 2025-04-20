@@ -4,7 +4,7 @@ using Zenject;
 public class ResourceInfoCmd : ICommand
 {
     [Inject] private ResourceInfoProxy proxy;
-    [Inject] private PlayerDataProxy playerDataProxy;
+    [Inject] private JsonDataProxy playerDataProxy;
 
     public override void Execute(MonoBehaviour mono)
     {

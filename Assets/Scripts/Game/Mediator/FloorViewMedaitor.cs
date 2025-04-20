@@ -5,9 +5,11 @@ using Zenject;
 public class FloorViewMediator : IMediator
 {
     [Inject] private FloorProxy floorProxy;
-    [Inject] private PlayerDataProxy playerDataProxy;
+    [Inject] private JsonDataProxy jsonDataProxy;
+    [Inject] private SurvivorProxy survivorProxy;
+    [Inject] private ClickHitProxy clickHitProxy;
     private FloorView floorView;
-    private FloorProductData floorProductData;
+
     public override void DeRegister(IView view)
     {
         base.DeRegister(view);
@@ -20,10 +22,15 @@ public class FloorViewMediator : IMediator
     [Listener(FloorEvent.ON_FLOOR_INIT)]
     public void Init()
     {
+        //floor 基本設定
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
-        floorProductData = playerDataProxy.playerData.floorProductData;
-        double logOutTime = playerDataProxy.playerData.logOutData.logOutTime;
-        floorView.InitFloor(floorDataSetting, floorProductData, logOutTime);
+
+        //floor 存檔資料
+        Dictionary<int, FloorInfoData> floorInfoData = jsonDataProxy.jsonData.floorInfoData;
+
+        //離線時間
+        double logOutTime = jsonDataProxy.jsonData.logOutData.logOutTime;
+        floorView.InitFloor(floorDataSetting, floorInfoData, logOutTime);
     }
     public void OnInitCompelet()
     {
@@ -35,12 +42,22 @@ public class FloorViewMediator : IMediator
         bool isEnabledCollider = floorProxy.isEnabledCollider;
         floorView.SetCollider(isEnabledCollider);
     }
-    public void SaveFacilities(int flootID, List<FacilityWorkData> facilityWorkData)
+    public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
     {
-        floorProductData.FloorFacility[flootID] = facilityWorkData;
+        LeaingFacilitySurvivor leaingFacilitySurvivor= new LeaingFacilitySurvivor
+        {
+            survivor = survivorProxy.GetSurvivorByID(survivorID),
+            floor = floor,
+            facility = facility
+        };
+        survivorProxy.SetSurvivorLeaveFacility(leaingFacilitySurvivor);
     }
-    public void SetFloorProduct(int floorID, int amount)
+    public void SaveFacilities(FloorType floorType, int order, FacilityData fdata)
     {
-        floorProductData.FloorProduct[floorID] = amount;
+        jsonDataProxy.jsonData.floorInfoData[(int)floorType].facilityData[order] = fdata;
+    }
+    public void SaveFloorProduct(FloorType floorType, int amount)
+    {
+        jsonDataProxy.jsonData.floorInfoData[(int)floorType].productAmount = amount;
     }
 }

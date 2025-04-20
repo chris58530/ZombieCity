@@ -10,7 +10,7 @@ public class ResourceInfoProxy : IProxy
         moneyAmount = resourceInfoData.moneyAmount;
         satisfactionAmount = resourceInfoData.satisfactionAmount;
         gemAmount = resourceInfoData.gemAmount;
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
 
         listener.BroadCast(ResourceInfoEvent.ON_UPDATE_RESOURCE);
     }
@@ -18,7 +18,7 @@ public class ResourceInfoProxy : IProxy
     {
         moneyAmount += money;
         resourceInfoData.moneyAmount = moneyAmount;
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
 
         listener.BroadCast(ResourceInfoEvent.ON_ADD_MONEY);
     }
@@ -26,14 +26,14 @@ public class ResourceInfoProxy : IProxy
     {
         satisfactionAmount += satisfaction;
         resourceInfoData.satisfactionAmount = satisfactionAmount;
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
         listener.BroadCast(ResourceInfoEvent.ON_ADD_SATISFACTION);
     }
     public void AddGem(int gem)
     {
         gemAmount += gem;
         resourceInfoData.gemAmount = gemAmount;
-        listener.BroadCast(PlayerDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     // public void GetResourceInfo(out int money, out int satisfaction) // save to Json
     // {
