@@ -130,7 +130,7 @@ public class ResourceInfoData
 {
     public int moneyAmount;
     public int satisfactionAmount;
-    public int gemAmount;
+    public int zombieCoreAmount;
 }
 
 [System.Serializable]
