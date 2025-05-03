@@ -1,17 +1,23 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ClickHitController : MonoBehaviour
 {
-    public Action<FloorBase>  onClickSurvivorUp;
+    public Action<FloorBase> onClickSurvivorUp;
     public Action<ZombieBase> onClickZombie;
     public Action<SurvivorBase, Vector3> onClickSurvivor;
     public bool isPicking;
     private SurvivorBase currentSurvivor;
     private void Update()
     {
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+        {
+            Debug.Log("點擊在 UI 上");
+        }
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("ClickHitController");
             Vector3 mouseScreenPos = Input.mousePosition;
             mouseScreenPos.z = 10f;
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);

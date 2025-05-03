@@ -29,6 +29,8 @@ public class CameraEvent
     public const string INIT_CAMERA_SWIPE = "CameraEvent.INIT_CAMERA_SWIPE";
     public const string OPEN_CAMERA_SWIPE = "CameraEvent.OPEN_CAMERA_SWIPE";
     public const string CLOSE_CAMERA_SWIPE = "CameraEvent.CLOSE_CAMERA_SWIPE";
+    public const string ON_USE_FEATURE_CAMERA = "CameraEvent.ON_USE_FEATURE_CAMERA";
+    public const string ON_USE_FEATURE_CAMERA_COMPLETE = "CameraEvent.ON_USE_FEATURE_CAMERA_COMPLETE";
 }
 public class ZombieSpawnerEvent
 {
@@ -62,5 +64,14 @@ public class ResourceInfoEvent
     public const string ON_ADD_MONEY = "ResourceInfoEvent.ON_ADD_MONEY";
     public const string ON_ADD_SATISFACTION = "ResourceInfoEvent.ON_ADD_SATISFACTION";
     public const string ON_UPDATE_RESOURCE = "ResourceInfoEvent.ON_UPDATE_RESOURCE";
-
+}
+public class TrasitionBackGroundEvent
+{
+    public const string ON_TRASITION_BACKGROUND = "TrasitionBackGroundEvent.ON_TRASITION_BACKGROUND";
+    public const string ON_TRASITION_COMPLETE = "TrasitionBackGroundEvent.ON_TRASITION_COMPLETE";
+}
+public class DrawCardEvent
+{
+    public const string ON_DRAW_CARD_SHOW = "DrawCardEvent.ON_DRAW_CARD_SHOW";
+    public const string ON_DRAW_CARD_CLOSE = "DrawCardEvent.ON_DRAW_CARD_CLOSE";
 }

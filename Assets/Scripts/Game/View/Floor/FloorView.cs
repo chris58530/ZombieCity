@@ -31,6 +31,8 @@ public class FloorView : MonoBehaviour, IView
         floorManager.floors[0] = mainFloor;
         mainFloor.name = "MainFloor";
         mainFloor.SetCollider(false);
+        mainFloor.Init(facilityAnimationDataSetting, this);
+
         for (int i = 0; i < data.floorData.Length; i++)
         {
             FloorBase floor = Instantiate(data.floorData[i].floorPrefab);
@@ -41,7 +43,7 @@ public class FloorView : MonoBehaviour, IView
             floor.transform.position = data.startPosition + new Vector2(0, -nextY);
             floor.transform.parent = floorManagerObj.transform;
             floor.SetCollider(false);
-            floor.Init(facilityAnimationDataSetting);
+            floor.Init(facilityAnimationDataSetting, this);
         }
 
         //Init Facility
@@ -72,7 +74,7 @@ public class FloorView : MonoBehaviour, IView
 
     public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
     {
-        mediator.RequestShowSurvivor(survivorID,floor, facility);
+        mediator.RequestShowSurvivor(survivorID, floor, facility);
     }
     public void SaveFacilities(FloorType floorType, int order, FacilityData fdata)
     {
@@ -82,5 +84,9 @@ public class FloorView : MonoBehaviour, IView
     {
         mediator.SaveFloorProduct(floorType, amount);
 
+    }
+    public void OnClickSkyWatcher()
+    {
+        mediator.OnClickSkyWatcher();
     }
 }

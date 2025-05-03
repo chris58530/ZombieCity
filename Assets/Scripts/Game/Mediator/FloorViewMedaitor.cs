@@ -44,7 +44,7 @@ public class FloorViewMediator : IMediator
     }
     public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
     {
-        LeaingFacilitySurvivor leaingFacilitySurvivor= new LeaingFacilitySurvivor
+        LeaingFacilitySurvivor leaingFacilitySurvivor = new LeaingFacilitySurvivor
         {
             survivor = survivorProxy.GetSurvivorByID(survivorID),
             floor = floor,
@@ -59,5 +59,10 @@ public class FloorViewMediator : IMediator
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         jsonDataProxy.jsonData.floorInfoData[(int)floorType].productAmount = amount;
+    }
+    public void OnClickSkyWatcher()
+    {
+        listener.BroadCast(TrasitionBackGroundEvent.ON_TRASITION_BACKGROUND);
+        listener.BroadCast(DrawCardEvent.ON_DRAW_CARD_SHOW);
     }
 }

@@ -1,14 +1,18 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameCameraProxy : IProxy
 {
-    public GameCamera gameCamera;
+    public Dictionary<CameraType, GameCamera> gameCameras = new();
+    public GameCamera mainCamera;
     public bool canSwipe;
     public float minY;
-    public void SetCamera(GameCamera camera)
+    public void SetCamera(CameraType type, GameCamera camera)
     {
-        gameCamera = camera;
+        mainCamera = camera;
+        gameCameras[type] = camera;
     }
+  
     public void EnabelSwipe()
     {
         canSwipe = true;

@@ -18,7 +18,7 @@ public class GameCameraViewMediator : IMediator
     [Listener(CameraEvent.INIT_CAMERA_SWIPE)]
     public void OpenSwipe()
     {
-        GameCamera camera = proxy.gameCamera;
+        GameCamera camera = proxy.mainCamera;
         float minY = proxy.minY;
         if (camera == null)
         {

@@ -3,7 +3,7 @@ using Lean.Touch;
 
 public class CameraSwipeController : MonoBehaviour
 {
-    private GameCamera gameCamera;
+    public GameCamera gameCamera;
     public float moveSpeed = 10f;
     public float scrollSpeed = 5f;
     public float minY = -30f;
@@ -19,16 +19,21 @@ public class CameraSwipeController : MonoBehaviour
         this.minY = minY;
     }
 
-    
+
 
     void Update()
     {
-        SwipeCamera();
-    }
-    private void SwipeCamera(){
         if (!openSwipe) return;
+        // SwipeCamera();
+#if UNITY_EDITOR
+        Debug.Log("openSwipe: " + openSwipe);
+#endif
+    }
+    private void SwipeCamera()
+    {
         if (LeanTouch.Fingers.Count > 0)
         {
+            Debug.Log("觸控輸入");
             LeanFinger finger = LeanTouch.Fingers[0];
             Vector2 currentPosition = finger.ScreenPosition;
 
@@ -47,33 +52,33 @@ public class CameraSwipeController : MonoBehaviour
                 lastMousePosition = currentPosition;
             }
         }
-        //  滑鼠滾輪輸入（電腦測試）
-        else
-        {
-            float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-            if (Mathf.Abs(scrollInput) > 0)
-            {
-                float moveAmount = scrollInput * scrollSpeed;
-                MoveCamera(moveAmount);
-            }
+        // //  滑鼠滾輪輸入（電腦測試）
+        // else
+        // {
+        //     float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        //     if (Mathf.Abs(scrollInput) > 0)
+        //     {
+        //         float moveAmount = scrollInput * scrollSpeed;
+        //         MoveCamera(moveAmount);
+        //     }
 
-            // 3. 按下滑鼠模擬觸控（電腦測試）
-            if (Input.GetMouseButtonDown(0)) // 左鍵按下
-            {
-                lastMousePosition = Input.mousePosition;
-            }
-            else if (Input.GetMouseButton(0)) // 左鍵按住並移動
-            {
-                Vector2 currentMousePosition = Input.mousePosition;
-                Vector2 delta = currentMousePosition - lastMousePosition;
-                if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 確保是垂直移動
-                {
-                    float moveAmount = -delta.y * moveSpeed * Time.deltaTime;
-                    MoveCamera(moveAmount);
-                }
-                lastMousePosition = currentMousePosition;
-            }
-        }
+        //     // 3. 按下滑鼠模擬觸控（電腦測試）
+        //     if (Input.GetMouseButtonDown(0)) // 左鍵按下
+        //     {
+        //         lastMousePosition = Input.mousePosition;
+        //     }
+        //     else if (Input.GetMouseButton(0)) // 左鍵按住並移動
+        //     {
+        //         Vector2 currentMousePosition = Input.mousePosition;
+        //         Vector2 delta = currentMousePosition - lastMousePosition;
+        //         if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 確保是垂直移動
+        //         {
+        //             float moveAmount = -delta.y * moveSpeed * Time.deltaTime;
+        //             MoveCamera(moveAmount);
+        //         }
+        //         lastMousePosition = currentMousePosition;
+        //     }
+        // }
     }
 
     private void MoveCamera(float moveAmount)
@@ -83,6 +88,7 @@ public class CameraSwipeController : MonoBehaviour
             Debug.LogError("GameCamera is not assigned.");
             return;
         }
+
         Vector3 newPosition = gameCamera.transform.position + new Vector3(0, moveAmount, 0);
         // 限制 Y 軸範圍
         float clampedY = Mathf.Clamp(newPosition.y, minY, maxY);

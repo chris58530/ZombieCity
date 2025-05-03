@@ -13,15 +13,17 @@ public class FloorBase : MonoBehaviour
     [SerializeField] private FacilityBase mainFacilitie;
     [SerializeField] private FacilityBase[] facilities;
     public FloorType floorType;
-    private FacilityAnimationDataSetting animationDataSetting;
+    protected FacilityAnimationDataSetting animationDataSetting;
     private FloorInfoData floorInfoData;
     public Action<FloorType, int, FacilityData> onSaveFacility;
     public Action<FloorType, int> onSaveProduct;
     public Action<int, FloorBase, FacilityBase> onShowSurvivor;
+    public FloorView floorView;
 
-    public void Init(FacilityAnimationDataSetting animationDataSetting)
+    public virtual void  Init(FacilityAnimationDataSetting animationDataSetting,FloorView floorView)
     {
         this.animationDataSetting = animationDataSetting;
+        this.floorView = floorView;
     }
     public Vector3 GetEnterPosition()
     {
@@ -44,7 +46,7 @@ public class FloorBase : MonoBehaviour
         }
         return null;
     }
-    public void SetWorking(int survivorId, FacilityBase facility)
+    public virtual void SetWorking(int survivorId, FacilityBase facility)
     {
         string animation = animationDataSetting.GetUseString(floorType, survivorId);
         facility.SetAnimation(animation);
@@ -55,7 +57,7 @@ public class FloorBase : MonoBehaviour
         FacilityData fdata = facility.GetData();
         onSaveFacility?.Invoke(floorType, facility.order, fdata);
     }
-    public void SetNotWorking(int survivorId, FacilityBase facility)
+    public virtual void SetNotWorking(int survivorId, FacilityBase facility)
     {
         facility.onSurvivorEndWork = null;
         onShowSurvivor?.Invoke(survivorId, this, facility);
@@ -64,12 +66,12 @@ public class FloorBase : MonoBehaviour
         FacilityData fdata = facility.GetData();
         onSaveFacility?.Invoke(floorType, facility.order, fdata);
     }
-    public void SetCollider(bool enabled)
+    public virtual void SetCollider(bool enabled)
     {
         Collider2D collider = GetComponent<Collider2D>();
         collider.enabled = enabled;
     }
-    public void SetMask(bool active)
+    public virtual void SetMask(bool active)
     {
         mask.SetActive(active);
     }
@@ -84,14 +86,14 @@ public class FloorBase : MonoBehaviour
         }
         return null;
     }
-    public void SetProductAmount(double logOutTime)
+    public virtual void SetProductAmount(double logOutTime)
     {
         if (floorProductText != null)
         {
             floorProductText.text = "logOut Time:" + ((int)logOutTime).ToString() + " sec";
         }
     }
-    public void SetFacilityData(FloorInfoData data, double logOutTime)
+    public virtual void SetFacilityData(FloorInfoData data, double logOutTime)
     {
         floorInfoData = data;
         //處理登出總共秒數 增加物資
