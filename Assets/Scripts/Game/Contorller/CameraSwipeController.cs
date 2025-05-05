@@ -1,11 +1,10 @@
 using UnityEngine;
-using Lean.Touch;
 
 public class CameraSwipeController : MonoBehaviour
 {
     public GameCamera gameCamera;
-    public float moveSpeed = 10f;
-    public float scrollSpeed = 5f;
+    public float moveSpeed = 2f;
+    public float scrollSpeed = 50f;
     public float minY = -30f;
     public float maxY = -5f;
     public bool openSwipe;
@@ -24,61 +23,43 @@ public class CameraSwipeController : MonoBehaviour
     void Update()
     {
         if (!openSwipe) return;
-        // SwipeCamera();
+        SwipeCamera();
+
 #if UNITY_EDITOR
         Debug.Log("openSwipe: " + openSwipe);
 #endif
     }
     private void SwipeCamera()
     {
-        if (LeanTouch.Fingers.Count > 0)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("觸控輸入");
-            LeanFinger finger = LeanTouch.Fingers[0];
-            Vector2 currentPosition = finger.ScreenPosition;
+            lastMousePosition = Input.mousePosition;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            Vector2 currentMousePosition = Input.mousePosition;
+            Vector2 delta = currentMousePosition - lastMousePosition;
 
-            if (finger.Down)
+            if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 僅垂直滑動
             {
-                lastMousePosition = currentPosition;
+                float moveAmount = -delta.y * Time.deltaTime* moveSpeed; // 移除 Time.deltaTime
+                MoveCamera(moveAmount);
             }
-            else if (finger.Set)
+
+            lastMousePosition = currentMousePosition;
+        }
+
+        // 滾輪僅在電腦上有效
+        if (!Application.isMobilePlatform)
+        {
+            float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+            Debug.Log("Mouse ScrollWheel: " + Input.GetAxis("Mouse ScrollWheel"));
+            if (Mathf.Abs(scrollInput) > 0)
             {
-                Vector2 delta = currentPosition - lastMousePosition;
-                if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 確保是垂直滑動
-                {
-                    float moveAmount = -delta.y * moveSpeed * Time.deltaTime;
-                    MoveCamera(moveAmount);
-                }
-                lastMousePosition = currentPosition;
+                float moveAmount = scrollInput * scrollSpeed;
+                MoveCamera(moveAmount);
             }
         }
-        // //  滑鼠滾輪輸入（電腦測試）
-        // else
-        // {
-        //     float scrollInput = Input.GetAxis("Mouse ScrollWheel");
-        //     if (Mathf.Abs(scrollInput) > 0)
-        //     {
-        //         float moveAmount = scrollInput * scrollSpeed;
-        //         MoveCamera(moveAmount);
-        //     }
-
-        //     // 3. 按下滑鼠模擬觸控（電腦測試）
-        //     if (Input.GetMouseButtonDown(0)) // 左鍵按下
-        //     {
-        //         lastMousePosition = Input.mousePosition;
-        //     }
-        //     else if (Input.GetMouseButton(0)) // 左鍵按住並移動
-        //     {
-        //         Vector2 currentMousePosition = Input.mousePosition;
-        //         Vector2 delta = currentMousePosition - lastMousePosition;
-        //         if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 確保是垂直移動
-        //         {
-        //             float moveAmount = -delta.y * moveSpeed * Time.deltaTime;
-        //             MoveCamera(moveAmount);
-        //         }
-        //         lastMousePosition = currentMousePosition;
-        //     }
-        // }
     }
 
     private void MoveCamera(float moveAmount)

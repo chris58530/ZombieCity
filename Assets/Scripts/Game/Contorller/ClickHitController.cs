@@ -11,10 +11,6 @@ public class ClickHitController : MonoBehaviour
     private SurvivorBase currentSurvivor;
     private void Update()
     {
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
-        {
-            Debug.Log("點擊在 UI 上");
-        }
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("ClickHitController");
