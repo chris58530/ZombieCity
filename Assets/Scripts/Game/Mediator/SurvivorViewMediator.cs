@@ -22,7 +22,7 @@ public class SurvivorViewMediator : IMediator
     {
         SurvivorDataSetting survivorDataSetting = proxy.survivorDataSetting;
         Dictionary<int, SurvivorJsonData> survivorJsonData = jsonDataProxy.jsonData.survivorInfoData;
-        view.InitSurvivor(survivorDataSetting, survivorJsonData, floorProxy.startFloor);
+        view.InitSurvivor(survivorDataSetting, survivorJsonData, floorProxy.startFloor,floorProxy.floorBaseDic);
     }
     public void SetSurvivorDic(int id, SurvivorBase survivor)
     {

@@ -73,7 +73,18 @@ public class JsonDataCmd : ICommand
                 satisfactionAmount = 0,
                 zombieCoreAmount = 0
             },
-            floorInfoData = new Dictionary<int, FloorJsonData>(),
+            floorInfoData = new Dictionary<int, FloorJsonData>
+            {
+                { 901, new FloorJsonData { level = 1, productAmount = 0 } },
+                { 902, new FloorJsonData { level = 1, productAmount = 0 } },
+                { 903, new FloorJsonData { level = 1, productAmount = 0 } }
+            },
+            survivorInfoData = new Dictionary<int, SurvivorJsonData>
+            {
+                { 101, new SurvivorJsonData { level = 1, stayingFloor = 901 } },
+                { 102, new SurvivorJsonData { level = 1, stayingFloor = 902 } },
+                { 103, new SurvivorJsonData { level = 1, stayingFloor = 902 } }
+            },
             logOutData = new LogOutData
             {
                 lastLogoutTime = DateTime.UtcNow.ToString("o"),

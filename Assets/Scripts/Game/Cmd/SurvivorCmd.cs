@@ -13,8 +13,8 @@ public class SurvivorCmd : ICommand
     [Listener(FloorEvent.ON_FLOOR_INIT_COMPELET)]
     public void InitSurvivor()
     {
-        // var data = jsonDataProxy.jsonData.workingSurvivorData;
-        // proxy.SetData(survivorDataSetting, data);
+        var data = jsonDataProxy.jsonData.survivorInfoData;
+        proxy.SetData(survivorDataSetting, data);
     }
     [Listener(ClickHitEvent.ON_CLICK_SURVIVOR)]
     public void OnClickSurvivor()

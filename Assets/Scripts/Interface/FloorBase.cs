@@ -26,13 +26,19 @@ public class FloorBase : MonoBehaviour
         this.animationDataSetting = animationDataSetting;
         this.floorView = floorView;
     }
+    public void SetData(FloorJsonData data, double logOutTime)
+    {
+        floorInfoData = data;
+        SetProductAmount(data.productAmount);
+        SetLevel(data.level);
+    }
     public Vector3 GetEnterPosition()
     {
         return enterPosition.position;
     }
     public Vector2 GetLimitPositionX()
     {
-        if (limitPositionX == null)
+        if (limitPositionX == default)
             limitPositionX = new Vector2(-2.3f, 2.3f);
         return limitPositionX;
     }
@@ -45,13 +51,8 @@ public class FloorBase : MonoBehaviour
     {
         mask.SetActive(active);
     }
-    public virtual void SetData(FloorJsonData data, double logOutTime)
-    {
-        floorInfoData = data;
-        SetProductAmount(data.productAmount);
-        SetLevel(data.level);
-    }
-    public virtual void SetProductAmount(int amount)
+
+    protected virtual void SetProductAmount(int amount)
     {
         productText.text = "Product:" + amount.ToString();
         onSaveProduct?.Invoke(floorType, floorInfoData.productAmount);

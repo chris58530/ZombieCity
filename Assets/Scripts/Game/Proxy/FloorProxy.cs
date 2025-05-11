@@ -5,6 +5,7 @@ public class FloorProxy : IProxy
 {
     public FloorDataSetting floorDataSetting;
     public FloorBase startFloor;
+    public Dictionary<int, FloorBase> floorBaseDic = new();
     public bool isEnabledCollider;
     public Dictionary<int, FloorJsonData> floorInfoData;
     public void SetFloorInfoData(Dictionary<int, FloorJsonData> floorInfoData)
@@ -17,10 +18,7 @@ public class FloorProxy : IProxy
         this.floorDataSetting = floorDataSetting;
         foreach (var floorData in floorDataSetting.floorData)
         {
-            if (floorData.isLock)
-            {
-                continue;
-            }
+            floorBaseDic[(int)floorData.floorPrefab.floorType] = floorData.floorPrefab;
         }
         startFloor = floorDataSetting.mainFloorPrefab;
         listener.BroadCast(FloorEvent.ON_FLOOR_INIT);

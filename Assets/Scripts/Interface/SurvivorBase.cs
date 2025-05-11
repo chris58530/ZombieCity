@@ -5,14 +5,13 @@ using TMPro;
 
 public class SurvivorBase : MonoBehaviour
 {
+    [Header("Setting")]
     public int id;
-    public AnimationView animationView;
-    public SpriteRenderer sprite;
-    public bool isWorking;
-    public bool isTired;
-    [SerializeField] private TMP_Text workTimeText;
+    public int level;
+    public FloorType stayingFloor;
+    [SerializeField] private AnimationView animationView;
+    [SerializeField] private SpriteRenderer sprite;
     [SerializeField] private GameObject emotionImage;
-    private Tween workingTween;
     public Action<int, FloorType> onSaveStayingFloor;
     public Action<int, int> onSaveLevel;
     protected SurvivorJsonData survivorJsonData;
@@ -20,16 +19,21 @@ public class SurvivorBase : MonoBehaviour
     {
         this.survivorJsonData = survivorJsonData;
     }
-    public void SetFlip(bool isFlip)
+    public void SetStayingFloor(FloorBase stayingFloor)
+    {
+        this.stayingFloor = stayingFloor.floorType;
+        float floorY = stayingFloor.GetEnterPosition().y +stayingFloor.transform.position.y;
+        float randomX = UnityEngine.Random.Range(stayingFloor.GetLimitPositionX().x, stayingFloor.GetLimitPositionX().y);
+        transform.position = new Vector3(randomX, floorY, 1);
+        Debug.Log($"SetStayingFloor {id} to {floorY}");
+    }
+    public void SetFlip(bool isFlip)    
     {
         sprite.flipX = isFlip;
     }
     public void OnPick(Vector3 pickPosition)
     {
-        workingTween?.Kill();
         sprite.color = Color.white;
-
-        isWorking = false;
         transform.position = new Vector3(pickPosition.x, pickPosition.y, -0.01f);
     }
     public void SetCollider(bool isCollider)
@@ -38,26 +42,22 @@ public class SurvivorBase : MonoBehaviour
         collider.enabled = isCollider;
 
     }
-    public void OnDrop(Vector3 dropPos)
+    public void OnDrop(Vector3 dropPos, FloorType floorType)
     {
         SetCollider(true);
-        isWorking = false;
+        OnSetStayingFloor(floorType);
         sprite.color = Color.white;
         transform.localScale = Vector3.one;
         transform.position = dropPos;
     }
-    public void SetTired(bool isTired)
+    public virtual void OnAddLevel(int level)
     {
-        this.isTired = isTired;
-        Debug.Log($"SetTired: {isTired}");
-        emotionImage.gameObject.SetActive(isTired);
-
+        this.level += level;
+        onSaveLevel?.Invoke(id, level);
     }
-    public void OnAddLevel(int level)
+    public virtual void OnSetStayingFloor(FloorType floorType)
     {
-    }
-    public void OnSetStayingFloor(FloorType floorType)
-    {
-
+        stayingFloor = floorType;
+        onSaveStayingFloor?.Invoke(id, floorType);
     }
 }

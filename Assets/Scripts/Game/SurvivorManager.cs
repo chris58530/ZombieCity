@@ -40,8 +40,6 @@ public class SurvivorManager : MonoBehaviour
             survivorFacilityDic[survivor].isUsing = false;
             survivorFacilityDic.Remove(survivor);
         }
-        survivor.sprite.color = Color.white;
-
         survivor.OnPick(pickPos);
 
     }
@@ -51,20 +49,8 @@ public class SurvivorManager : MonoBehaviour
         Vector2 limitX = floor.GetLimitPositionX();
         float clampedX = Mathf.Clamp(survivor.transform.position.x, limitX.x, limitX.y);
         Vector3 dropPos = new Vector3(clampedX, floor.GetEnterPosition().y, survivor.transform.position.z);
-        survivor.OnDrop(dropPos);
+        survivor.OnDrop(dropPos,floor.floorType);
         SetSurvivorIdle(survivor);
-    }
-    public void OnLeaveFacility(LeaingFacilitySurvivor leavingFacilitySurvivor)
-    {
-        SurvivorBase survivor = leavingFacilitySurvivor.survivor;
-        FloorBase floor = leavingFacilitySurvivor.floor;
-        FacilityBase facility = leavingFacilitySurvivor.facility;
-        survivorFloorDic[survivor] = floor;
-        float facilityX = facility.transform.position.x;
-        survivor.transform.position = new Vector3(facilityX, 0);
-        Vector3 dropPos = new Vector3(facilityX, floor.GetEnterPosition().y, survivor.transform.position.z);
-        survivor.OnDrop(dropPos);
-        SetSurvivorIdle(survivor, true);
     }
     public void SetSurvivorIdle(SurvivorBase survivor, bool skipFacility = false)
     {

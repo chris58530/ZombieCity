@@ -19,8 +19,9 @@ public class SurvivorView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
-    public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, SurvivorJsonData> infoData, FloorBase startFloor)
+    public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, SurvivorJsonData> infoData, FloorBase startFloor, Dictionary<int, FloorBase> floorBaseDic)
     {
+        Debug.Log("InitSurvivor");
         GameObject survivorManagerObj = new GameObject("SurvivorManager");
         survivorManagerObj.transform.SetParent(transform);
         survivorManager = survivorManagerObj.AddComponent<SurvivorManager>();
@@ -48,6 +49,7 @@ public class SurvivorView : MonoBehaviour, IView
                     survivor.onSaveStayingFloor = SaveStayingFloor;
                     survivor.onSaveLevel = SaveLevel;
                     survivor.SetData(survivorInfo);
+                    survivor.SetStayingFloor(floorBaseDic[survivorInfo.stayingFloor] == null ? startFloor : floorBaseDic[survivorInfo.stayingFloor]);
                     break;
                 }
             }
