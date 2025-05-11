@@ -1,4 +1,6 @@
 
+using CW.Common;
+
 public class GameEvent
 {
     public const string ON_INIT_GAME = "GameEvent.ON_INIT_GAME";
@@ -17,6 +19,9 @@ public class FloorEvent
     public const string ON_FLOOR_DESTROY = "FloorEvent.ON_FLOOR_DESTROY";
 
     public const string ON_UPDATE_COLLIDER = "FloorEvent.ON_UPDATE_COLLIDER";
+
+    public const string ON_ADD_PRODUCT = "FloorEvent.ON_ADD_PRODUCT";
+    public const string ON_ADD_LEVEL = "FloorEvent.ON_ADD_LEVEL";
 }
 public class DebugEvent
 {
@@ -53,6 +58,9 @@ public class SurvivorEvent
     public const string ON_SURVIVOR_MOVE = "SurvivorEvent.ON_SURVIVOR_MOVE";
     public const string ON_CLICK_SURVIVOR = "SurvivorEvent.ON_CLICK_SURVIVOR";
     public const string ON_CLICK_SURVIVOR_COMPLETE = "SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE";
+
+    public const string ON_ADD_SURVIVOR_LEVEL = "SurvivorEvent.ON_ADD_SURVIVOR_LEVEL";
+    public const string ON_SET_SURVIVOR_STAYINGFLOOR = "SurvivorEvent.ON_SET_SURVIVOR_STAYINGFLOOR";
 }
 public class PassiveHitEvent
 {

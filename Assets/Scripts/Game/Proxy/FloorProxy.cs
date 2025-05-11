@@ -6,10 +6,10 @@ public class FloorProxy : IProxy
     public FloorDataSetting floorDataSetting;
     public FloorBase startFloor;
     public bool isEnabledCollider;
-    public Dictionary<int, FloorInfoData> floorProductData;
-    public void SetFloorProductData(Dictionary<int, FloorInfoData> floorProductData)
+    public Dictionary<int, FloorJsonData> floorInfoData;
+    public void SetFloorInfoData(Dictionary<int, FloorJsonData> floorInfoData)
     {
-        this.floorProductData = floorProductData;
+        this.floorInfoData = floorInfoData;
         listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     public void SetData(FloorDataSetting floorDataSetting)
@@ -30,9 +30,21 @@ public class FloorProxy : IProxy
         isEnabledCollider = enabled;
         listener.BroadCast(FloorEvent.ON_UPDATE_COLLIDER);
     }
-    public void AddProductByAnimationEvent(int survivorID,FloorType floorType)
+
+    public FloorType AddProductFloor;
+    public FloorType AddLevelFloor;
+    public int AddProductAmount;
+    public int AddLevelAmount;
+    public void AddProduct(FloorType floorType, int amount)
     {
-        //TODO: 這邊使用survivorID來計算數量 floorType決定種類
-            
+        AddProductFloor = floorType;
+        AddProductAmount = amount;
+        listener.BroadCast(FloorEvent.ON_ADD_PRODUCT);
+    }
+    public void AddLevel(FloorType floorType, int amount)
+    {
+        AddLevelFloor = floorType;
+        AddLevelAmount = amount;
+        listener.BroadCast(FloorEvent.ON_ADD_LEVEL);
     }
 }

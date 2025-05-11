@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 public class SurvivorViewMediator : IMediator
@@ -20,8 +21,8 @@ public class SurvivorViewMediator : IMediator
     public void Init()
     {
         SurvivorDataSetting survivorDataSetting = proxy.survivorDataSetting;
-
-        view.InitSurvivor(survivorDataSetting, proxy.workingSurvivorData, floorProxy.startFloor);
+        Dictionary<int, SurvivorJsonData> survivorJsonData = jsonDataProxy.jsonData.survivorInfoData;
+        view.InitSurvivor(survivorDataSetting, survivorJsonData, floorProxy.startFloor);
     }
     public void SetSurvivorDic(int id, SurvivorBase survivor)
     {
@@ -32,7 +33,6 @@ public class SurvivorViewMediator : IMediator
     {
         Vector3 pickPos = clickHitProxy.pickPos;
         view.OnClickSurvivor(proxy.onClickSurvivor, pickPos);
-        SaveWorkingSurvivor(proxy.onClickSurvivor.id, false);
         floorProxy.SetCollider(true);
     }
     [Listener(SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE)]
@@ -42,15 +42,29 @@ public class SurvivorViewMediator : IMediator
         view.OnClickSurvivorComplete(proxy.onClickSurvivor, place);
         floorProxy.SetCollider(false);
     }
-    [Listener(SurvivorEvent.ON_SURVIVOR_LEAVE_FACILITY)]
-    public void OnLeaveFacility()
+    [Listener(SurvivorEvent.ON_ADD_SURVIVOR_LEVEL)]
+
+    public void AddSurviorLevel()
     {
-        LeaingFacilitySurvivor leavingFacilitySurvivor = proxy.leavingFacilitySurvivor;
-        SaveWorkingSurvivor(leavingFacilitySurvivor.survivor.id, false);
-        view.OnLeaveFacility(leavingFacilitySurvivor);
+        int id = proxy.AddLevelSurvivorId;
+        int amount = proxy.AddLevelAmount;
+        view.AddLevel(id, amount);
     }
-    public void SaveWorkingSurvivor(int id, bool isWorking)
+    [Listener(SurvivorEvent.ON_SET_SURVIVOR_STAYINGFLOOR)]
+
+    public void SetSurvivorStayingFloor()
     {
-        jsonDataProxy.jsonData.workingSurvivorData[id] = isWorking;
+        int id = proxy.SetStayingFloorSurvivorId;
+        FloorType floorType = proxy.StayingFloor;
+        view.SetStayingFloor(id, floorType);
+    }
+
+    public void SaveSurvivorLevel(int id, int level)
+    {
+        jsonDataProxy.jsonData.survivorInfoData[id].level = level;
+    }
+    public void SaveSurvivorStayingFloor(int id, FloorType floor)
+    {
+        jsonDataProxy.jsonData.survivorInfoData[id].stayingFloor = (int)floor;
     }
 }

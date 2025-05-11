@@ -10,14 +10,18 @@ public class FloorView : MonoBehaviour, IView
     private void OnEnable()
     {
         InjectService.Instance.Inject(this);
-
         mediator.Register(this);
     }
     private void OnDisable()
     {
         mediator.DeRegister(this);
     }
-    public void InitFloor(FloorDataSetting data, Dictionary<int, FloorInfoData> floorInfoData, double logOutTime)
+    /// <summary>
+    /// <paramref name="data"/> 基礎樓層設定
+    /// <paramref name="floorInfoData"/> Json儲存資料
+    /// <paramref name="logOutTime"/> 登出時間，計算離線收益
+    /// </summary>
+    public void InitFloor(FloorDataSetting data, Dictionary<int, FloorJsonData> floorInfoData, double logOutTime)
     {
         //Init InitFloorManager
         GameObject floorManagerObj = new GameObject("FloorManager");
@@ -45,48 +49,48 @@ public class FloorView : MonoBehaviour, IView
             floor.SetCollider(false);
             floor.Init(facilityAnimationDataSetting, this);
         }
-
-        //Init Facility
-        foreach (KeyValuePair<int, FloorInfoData> kvp in floorInfoData)
+        //設定儲存資料
+        foreach (KeyValuePair<int, FloorJsonData> kvp in floorInfoData)
         {
             int floorId = kvp.Key;
-            FloorInfoData floorInfo = kvp.Value;
+            FloorJsonData floorInfo = kvp.Value;
             foreach (FloorBase floor in floorManager.floors)
             {
-                Debug.Log("floorId: " + floorId + " floorType: " + (int)floor.floorType);
                 if ((int)floor.floorType == floorId)
                 {
-                    Debug.Log("floorId: " + floorId);
-                    floor.SetFacilityData(floorInfo, logOutTime);
-                    floor.onSaveFacility += SaveFacilities;
+                    Debug.Log("InitFloor:" + floorId + "產品數量：" + floorInfo.productAmount + " 等級：" + floorInfo.level);
                     floor.onSaveProduct += SaveFloorProduct;
-                    floor.onShowSurvivor += RequestShowSurvivor;
+                    floor.onSaveLevel += SaveFloorLevel;
+                    floor.SetData(floorInfo, logOutTime);
                     break;
                 }
             }
         }
         mediator.OnInitCompelet();
     }
-    public void SetCollider(bool enabled)
+    public void SetAllCollider(bool enabled)
     {
-        floorManager.SetCollider(enabled);
+        floorManager.SetAllCollider(enabled);
     }
-
-    public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
+    public void AddProduct(FloorType floorType, int amount)
     {
-        mediator.RequestShowSurvivor(survivorID, floor, facility);
+        floorManager.AddProduct(floorType, amount);
     }
-    public void SaveFacilities(FloorType floorType, int order, FacilityData fdata)
+    public void AddLevel(FloorType floorType, int level)
     {
-        mediator.SaveFacilities(floorType, order, fdata);
+        floorManager.AddLevel(floorType, level);
     }
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         mediator.SaveFloorProduct(floorType, amount);
-
+    }
+    public void SaveFloorLevel(FloorType floorType, int level)
+    {
+        mediator.SaveFloorLevel(floorType, level);
     }
     public void OnClickSkyWatcher()
     {
+        //MainFloor 使用
         mediator.OnClickSkyWatcher();
     }
 }

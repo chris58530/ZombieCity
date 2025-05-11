@@ -9,6 +9,7 @@ public class CameraSwipeController : MonoBehaviour
     public float maxY = -5f;
     public bool openSwipe;
     private Vector2 lastMousePosition;
+    private float velocity = 0f;
 
 
     public void Init(GameCamera camera, float minY)
@@ -42,8 +43,9 @@ public class CameraSwipeController : MonoBehaviour
 
             if (Mathf.Abs(delta.y) > Mathf.Abs(delta.x)) // 僅垂直滑動
             {
-                float moveAmount = -delta.y * Time.deltaTime* moveSpeed; // 移除 Time.deltaTime
+                float moveAmount = -delta.y * moveSpeed * 0.01f; // 移除了 Time.deltaTime 並做比例調整
                 MoveCamera(moveAmount);
+                velocity = moveAmount;
             }
 
             lastMousePosition = currentMousePosition;
@@ -58,6 +60,20 @@ public class CameraSwipeController : MonoBehaviour
             {
                 float moveAmount = scrollInput * scrollSpeed;
                 MoveCamera(moveAmount);
+            }
+        }
+
+        // 慣性滑動
+        if (!Input.GetMouseButton(0))
+        {
+            if (Mathf.Abs(velocity) > 0.01f)
+            {
+                MoveCamera(velocity);
+                velocity *= 0.9f; // 摩擦力
+            }
+            else
+            {
+                velocity = 0f;
             }
         }
     }

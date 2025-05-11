@@ -13,19 +13,19 @@ public class FacilityBase : MonoBehaviour
    public int usingSurvivor;
    public float pickUpTime = 1; //設施使用中 需要按住多久時間才能讓設施回Idel並且讓倖存者pickup
    [SerializeField] private GameObject eventTrigger;
-   private FacilityData facilityData; //要存在Json裡面的資料
+   // private FacilityData facilityData; //要存在Json裡面的資料
    public Action<int, FacilityBase> onSurvivorEndWork;
 
-   public void Init(FacilityData data)
-   {
-      facilityData = data;
-      this.usingSurvivor = data.usingSurvivor;
-      animationName = data.animationString;
-      isUsing = data.isUsing;
-      mask.SetActive(false);
-      animationView.PlayAnimation(animationName);
-      eventTrigger.SetActive(isUsing);
-   }
+   // public void Init(FacilityData data)
+   // {
+   //    facilityData = data;
+   //    this.usingSurvivor = data.usingSurvivor;
+   //    animationName = data.animationString;
+   //    isUsing = data.isUsing;
+   //    mask.SetActive(false);
+   //    animationView.PlayAnimation(animationName);
+   //    eventTrigger.SetActive(isUsing);
+   // }
    public void SetLock(bool isLock)
    {
       mask.SetActive(isLock);
@@ -61,14 +61,14 @@ public class FacilityBase : MonoBehaviour
    public void SetEfficientTime(int time)
    {
    }
-   public FacilityData GetData()
-   {
-      facilityData.animationString = animationName;
-      facilityData.isUsing = isUsing;
-      facilityData.usingSurvivor = usingSurvivor;
-      facilityData.startTime = 0;
-      facilityData.efficientTime = 0;
-      facilityData.order = order;
-      return facilityData;
-   }
+   // public FacilityData GetData()
+   // {
+   //    facilityData.animationString = animationName;
+   //    facilityData.isUsing = isUsing;
+   //    facilityData.usingSurvivor = usingSurvivor;
+   //    facilityData.startTime = 0;
+   //    facilityData.efficientTime = 0;
+   //    facilityData.order = order;
+   //    return facilityData;
+   // }
 }

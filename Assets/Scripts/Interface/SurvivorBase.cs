@@ -13,13 +13,12 @@ public class SurvivorBase : MonoBehaviour
     [SerializeField] private TMP_Text workTimeText;
     [SerializeField] private GameObject emotionImage;
     private Tween workingTween;
-    private Action tiredCallBack;
-    public void SetWorking()
+    public Action<int, FloorType> onSaveStayingFloor;
+    public Action<int, int> onSaveLevel;
+    protected SurvivorJsonData survivorJsonData;
+    public void SetData(SurvivorJsonData survivorJsonData)
     {
-        // 走到設施的時候隱藏自己 播放設施對應角色動畫
-        isWorking = true;
-        sprite.color = new Color(0, 0, 0, 0);
-        SetCollider(false);
+        this.survivorJsonData = survivorJsonData;
     }
     public void SetFlip(bool isFlip)
     {
@@ -52,6 +51,13 @@ public class SurvivorBase : MonoBehaviour
         this.isTired = isTired;
         Debug.Log($"SetTired: {isTired}");
         emotionImage.gameObject.SetActive(isTired);
+
+    }
+    public void OnAddLevel(int level)
+    {
+    }
+    public void OnSetStayingFloor(FloorType floorType)
+    {
 
     }
 }

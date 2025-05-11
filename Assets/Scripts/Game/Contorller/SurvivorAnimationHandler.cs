@@ -13,6 +13,6 @@ public class SurvivorAnimationHandler : MonoBehaviour
     }
     public void OnAddProduct()
     {
-        floorProxy.AddProductByAnimationEvent(survivorId, floorType);
+        floorProxy.AddProduct(floorType,survivorId);
     }
 }

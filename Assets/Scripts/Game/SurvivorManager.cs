@@ -10,7 +10,6 @@ public class SurvivorManager : MonoBehaviour
     private Dictionary<SurvivorBase, FloorBase> survivorFloorDic = new();
     private Dictionary<SurvivorBase, FacilityBase> survivorFacilityDic = new();
     private Dictionary<SurvivorBase, Tween> tweenDic = new();
-    public Action<int, bool> onSaveWorkingSurvivor;
 
     public void AddSurvivor(SurvivorBase survivor, FloorBase startFloor)
     {
@@ -69,41 +68,41 @@ public class SurvivorManager : MonoBehaviour
     }
     public void SetSurvivorIdle(SurvivorBase survivor, bool skipFacility = false)
     {
-        if (survivor.isWorking) return;
-        float idleTime = UnityEngine.Random.Range(3f, 4f);
-        FloorBase floor = survivorFloorDic[survivor];
-        if (floor == null)
-        {
-            Debug.LogError($"Floor not found for survivor {survivor.name}");
-            return;
-        }
-        //檢查當下的樓層是否有空的設施
-        FacilityBase targetFacility = floor.GetEmptyFacilities();
-        if (targetFacility != null && !skipFacility)
-        {
-            survivorFacilityDic[survivor] = targetFacility;
-            survivor.sprite.color = Color.green;
-            SetSurvivorMove(survivor, targetFacility.transform.position, () =>
-            {
-                //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
-                //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
-                survivor.SetWorking();
-                floor.SetWorking(survivor.id, targetFacility);
-                onSaveWorkingSurvivor?.Invoke(survivor.id, true);
-                tweenDic[survivor]?.Kill();
-            });
-            return;
-        }
-        Vector2 limitX = floor.GetLimitPositionX();
-        float randomX = UnityEngine.Random.Range(limitX.x, limitX.y);
-        Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
-        tweenDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
-        {
-            SetSurvivorMove(survivor, destination, () =>
-            {
-                SetSurvivorIdle(survivor);
-            });
-        });
+        // if (survivor.isWorking) return;
+        // float idleTime = UnityEngine.Random.Range(3f, 4f);
+        // FloorBase floor = survivorFloorDic[survivor];
+        // if (floor == null)
+        // {
+        //     Debug.LogError($"Floor not found for survivor {survivor.name}");
+        //     return;
+        // }
+        // //檢查當下的樓層是否有空的設施
+        // FacilityBase targetFacility = floor.GetEmptyFacilities();
+        // if (targetFacility != null && !skipFacility)
+        // {
+        //     survivorFacilityDic[survivor] = targetFacility;
+        //     survivor.sprite.color = Color.green;
+        //     SetSurvivorMove(survivor, targetFacility.transform.position, () =>
+        //     {
+        //         //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
+        //         //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
+        //         survivor.SetWorking();
+        //         floor.SetWorking(survivor.id, targetFacility);
+        //         onSaveWorkingSurvivor?.Invoke(survivor.id, true);
+        //         tweenDic[survivor]?.Kill();
+        //     });
+        //     return;
+        // }
+        // Vector2 limitX = floor.GetLimitPositionX();
+        // float randomX = UnityEngine.Random.Range(limitX.x, limitX.y);
+        // Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
+        // tweenDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
+        // {
+        //     SetSurvivorMove(survivor, destination, () =>
+        //     {
+        //         SetSurvivorIdle(survivor);
+        //     });
+        // });
     }
     public void SetSurvivorMove(SurvivorBase survivor, Vector2 destination, Action callBack)
     {
@@ -114,6 +113,20 @@ public class SurvivorManager : MonoBehaviour
         {
             callBack?.Invoke();
         });
+    }
+    public void AddLevel(int id, int amount)
+    {
+        if (survivorDict.ContainsKey(id))
+        {
+            survivorDict[id].OnAddLevel(amount);
+        }
+    }
+    public void SetStayingFloor(int id, FloorType floorType)
+    {
+        if (survivorDict.ContainsKey(id))
+        {
+            survivorDict[id].OnSetStayingFloor(floorType);
+        }
     }
 
 }

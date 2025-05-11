@@ -8,10 +8,11 @@ public class SurvivorProxy : IProxy
     public LeaingFacilitySurvivor leavingFacilitySurvivor;
     public Dictionary<int, SurvivorBase> survivorData = new();
     public Dictionary<int, bool> workingSurvivorData = new();
+    public Dictionary<int, SurvivorJsonData> survivorInfoData = new();
 
-    public void SetData(SurvivorDataSetting survivorDataSetting, Dictionary<int, bool> data)
+    public void SetData(SurvivorDataSetting survivorDataSetting, Dictionary<int, SurvivorJsonData> survivorInfoData)
     {
-        this.workingSurvivorData = data; //json data
+        this.survivorInfoData = survivorInfoData;
         this.survivorDataSetting = survivorDataSetting;
         listener.BroadCast(SurvivorEvent.ON_SURVIVOR_INIT);
     }
@@ -34,6 +35,24 @@ public class SurvivorProxy : IProxy
     {
         listener.BroadCast(SurvivorEvent.ON_CLICK_SURVIVOR_COMPLETE);
     }
+
+    public int SetStayingFloorSurvivorId;
+    public int AddLevelSurvivorId;
+    public FloorType StayingFloor;
+    public int AddLevelAmount;
+    public void SetStayingFloor(int id, FloorType floorType)
+    {
+        SetStayingFloorSurvivorId = id;
+        StayingFloor = floorType;
+        listener.BroadCast(SurvivorEvent.ON_SET_SURVIVOR_STAYINGFLOOR);
+    }
+    public void AddLevel(int id, int amount)
+    {
+        AddLevelSurvivorId = id;
+        AddLevelAmount = amount;
+        listener.BroadCast(SurvivorEvent.ON_ADD_SURVIVOR_LEVEL);
+    }
+
 }
 public class LeaingFacilitySurvivor
 {

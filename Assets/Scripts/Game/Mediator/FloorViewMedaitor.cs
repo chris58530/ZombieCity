@@ -26,7 +26,7 @@ public class FloorViewMediator : IMediator
         FloorDataSetting floorDataSetting = floorProxy.floorDataSetting;
 
         //floor 存檔資料
-        Dictionary<int, FloorInfoData> floorInfoData = jsonDataProxy.jsonData.floorInfoData;
+        Dictionary<int, FloorJsonData> floorInfoData = jsonDataProxy.jsonData.floorInfoData;
 
         //離線時間
         double logOutTime = jsonDataProxy.jsonData.logOutData.logOutTime;
@@ -40,25 +40,29 @@ public class FloorViewMediator : IMediator
     public void SetCollider()
     {
         bool isEnabledCollider = floorProxy.isEnabledCollider;
-        floorView.SetCollider(isEnabledCollider);
+        floorView.SetAllCollider(isEnabledCollider);
     }
-    public void RequestShowSurvivor(int survivorID, FloorBase floor, FacilityBase facility)
+    [Listener(FloorEvent.ON_ADD_PRODUCT)]
+    public void AddFloorProduct()
     {
-        LeaingFacilitySurvivor leaingFacilitySurvivor = new LeaingFacilitySurvivor
-        {
-            survivor = survivorProxy.GetSurvivorByID(survivorID),
-            floor = floor,
-            facility = facility
-        };
-        survivorProxy.SetSurvivorLeaveFacility(leaingFacilitySurvivor);
+        FloorType floorType = floorProxy.AddProductFloor;
+        int amount = floorProxy.AddProductAmount;
+        floorView.AddProduct(floorType, amount);
     }
-    public void SaveFacilities(FloorType floorType, int order, FacilityData fdata)
+    [Listener(FloorEvent.ON_ADD_LEVEL)]
+    public void AddFloorLevel()
     {
-        jsonDataProxy.jsonData.floorInfoData[(int)floorType].facilityData[order] = fdata;
+        FloorType floorType = floorProxy.AddLevelFloor;
+        int level = floorProxy.AddLevelAmount;
+        floorView.AddLevel(floorType, level);
     }
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         jsonDataProxy.jsonData.floorInfoData[(int)floorType].productAmount = amount;
+    }
+    public void SaveFloorLevel(FloorType floorType, int level)
+    {
+        jsonDataProxy.jsonData.floorInfoData[(int)floorType].level = level;
     }
     public void OnClickSkyWatcher()
     {

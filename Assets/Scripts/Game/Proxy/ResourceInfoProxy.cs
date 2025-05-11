@@ -1,10 +1,10 @@
 public class ResourceInfoProxy : IProxy
 {
-    public ResourceInfoData resourceInfoData;
+    public ResourceJsonData resourceInfoData;
     public int moneyAmount;
     public int satisfactionAmount;
     public int zombieCoreAmount;
-    public void SetResource(ResourceInfoData resourceInfoData)
+    public void SetResource(ResourceJsonData resourceInfoData)
     {
         this.resourceInfoData = resourceInfoData;
         moneyAmount = resourceInfoData.moneyAmount;

@@ -26,9 +26,9 @@ public class JsonDataCmd : ICommand
         {
             data.resourceInfoData = resourceInfoProxy.resourceInfoData;
         }
-        if (floorProxy.floorProductData != null)
+        if (floorProxy.floorInfoData != null)
         {
-            data.floorInfoData = floorProxy.floorProductData;
+            data.floorInfoData = floorProxy.floorInfoData;
         }
         SavePlayerDataToPrefs(data);
     }
@@ -67,38 +67,17 @@ public class JsonDataCmd : ICommand
     {
         JsonData data = new()
         {
-            resourceInfoData = new()
+            resourceInfoData = new ResourceJsonData
             {
-
+                moneyAmount = 0,
+                satisfactionAmount = 0,
+                zombieCoreAmount = 0
             },
-            floorInfoData = new Dictionary<int, FloorInfoData>()
+            floorInfoData = new Dictionary<int, FloorJsonData>(),
+            logOutData = new LogOutData
             {
-                { 901, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() {
-                    { 0, new FacilityData { order = 0, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
-                    { 1, new FacilityData { order = 1, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
-                    { 2, new FacilityData { order = 2, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } },
-                    { 3, new FacilityData { order = 3, animationString = "Idle", isUsing = false, efficientTime = 0, startTime = 0 } }
-                }} },
-                { 902, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } },
-                { 903, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } },
-                { 904, new FloorInfoData { productAmount = 0, level = 1, facilityData = new Dictionary<int, FacilityData>() } }
-            },
-            workingSurvivorData = new Dictionary<int, bool>()
-            {
-              {101,false},
-              {102,false},
-              {103,false},
-              {104,false},
-              {105,false},
-              {106,false},
-              {107,false},
-              {108,false},
-              {109,false},
-              {110,false}
-            },
-            logOutData = new()
-            {
-
+                lastLogoutTime = DateTime.UtcNow.ToString("o"),
+                logOutTime = 0
             }
         };
 
@@ -111,10 +90,10 @@ public class JsonDataCmd : ICommand
 [System.Serializable]
 public class JsonData
 {
-    public ResourceInfoData resourceInfoData;
+    public ResourceJsonData resourceInfoData;
 
-    public Dictionary<int, FloorInfoData> floorInfoData;
-    public Dictionary<int, bool> workingSurvivorData;
+    public Dictionary<int, FloorJsonData> floorInfoData;
+    public Dictionary<int, SurvivorJsonData> survivorInfoData;
     public LogOutData logOutData;
 }
 [System.Serializable]
@@ -126,31 +105,25 @@ public class LogOutData
 }
 
 [System.Serializable]
-public class ResourceInfoData
+public class ResourceJsonData
 {
-    public int moneyAmount;
-    public int satisfactionAmount;
-    public int zombieCoreAmount;
+    public int moneyAmount;//瓶蓋(金錢)
+    public int satisfactionAmount;//滿意度(玩家等級)
+    public int zombieCoreAmount; //屍核
 }
 
 [System.Serializable]
-public class FloorInfoData
+public class FloorJsonData
 {
-    public int productAmount;
     public int level;
-    public Dictionary<int, FacilityData> facilityData;
+    public int productAmount;
 }
-public class FacilityData
+[System.Serializable]
+public class SurvivorJsonData
 {
-    public int order;
-    public string animationString;
-    public bool isUsing;
-    public int efficientTime;
-    public int startTime;
-    public int usingSurvivor;
-
+    public int level;
+    public int stayingFloor;
 }
-
 public static class OfflineTimeService
 {
     /// <summary>

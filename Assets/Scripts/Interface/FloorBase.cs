@@ -6,21 +6,22 @@ using UnityEngine;
 
 public class FloorBase : MonoBehaviour
 {
-    [SerializeField] private TMP_Text floorProductText;
-    [SerializeField] private GameObject mask;
-    [SerializeField] private Transform enterPosition; //get y
-    private Vector2 limitPositionX;
-    [SerializeField] private FacilityBase mainFacilitie;
-    [SerializeField] private FacilityBase[] facilities;
     public FloorType floorType;
-    protected FacilityAnimationDataSetting animationDataSetting;
-    private FloorInfoData floorInfoData;
-    public Action<FloorType, int, FacilityData> onSaveFacility;
-    public Action<FloorType, int> onSaveProduct;
-    public Action<int, FloorBase, FacilityBase> onShowSurvivor;
-    public FloorView floorView;
+    [Header("場地限制")]
+    [SerializeField] private Transform enterPosition; //get y
+    [SerializeField] private Vector2 limitPositionX;
 
-    public virtual void  Init(FacilityAnimationDataSetting animationDataSetting,FloorView floorView)
+    [Header("顯示數值")]
+    [SerializeField] private TMP_Text productText;
+    [SerializeField] private TMP_Text levelText;
+    [SerializeField] private GameObject mask;
+    protected FacilityAnimationDataSetting animationDataSetting;
+    protected FloorJsonData floorInfoData;
+    protected FloorView floorView;
+    public Action<FloorType, int> onSaveProduct;
+    public Action<FloorType, int> onSaveLevel;
+
+    public virtual void Init(FacilityAnimationDataSetting animationDataSetting, FloorView floorView)
     {
         this.animationDataSetting = animationDataSetting;
         this.floorView = floorView;
@@ -31,40 +32,9 @@ public class FloorBase : MonoBehaviour
     }
     public Vector2 GetLimitPositionX()
     {
-        limitPositionX = new Vector2(-2.3f, 2.3f);
-        return new Vector2(limitPositionX.x, limitPositionX.y);
-    }
-    public FacilityBase GetEmptyFacilities()
-    {
-        for (int i = 0; i < facilities.Length; i++)
-        {
-            if (!facilities[i].isUsing)
-            {
-                facilities[i].isUsing = true;
-                return facilities[i];
-            }
-        }
-        return null;
-    }
-    public virtual void SetWorking(int survivorId, FacilityBase facility)
-    {
-        string animation = animationDataSetting.GetUseString(floorType, survivorId);
-        facility.SetAnimation(animation);
-        facility.isUsing = true;
-        facility.usingSurvivor = survivorId;
-        facility.onSurvivorEndWork += SetNotWorking;
-
-        FacilityData fdata = facility.GetData();
-        onSaveFacility?.Invoke(floorType, facility.order, fdata);
-    }
-    public virtual void SetNotWorking(int survivorId, FacilityBase facility)
-    {
-        facility.onSurvivorEndWork = null;
-        onShowSurvivor?.Invoke(survivorId, this, facility);
-        facility.isUsing = false;
-        facility.usingSurvivor = 0;
-        FacilityData fdata = facility.GetData();
-        onSaveFacility?.Invoke(floorType, facility.order, fdata);
+        if (limitPositionX == null)
+            limitPositionX = new Vector2(-2.3f, 2.3f);
+        return limitPositionX;
     }
     public virtual void SetCollider(bool enabled)
     {
@@ -75,47 +45,34 @@ public class FloorBase : MonoBehaviour
     {
         mask.SetActive(active);
     }
-    public FacilityBase CheckEmptyFacility()
-    {
-        for (int i = 0; i < facilities.Length; i++)
-        {
-            if (facilities[i].isUsing)
-            {
-                return facilities[i];
-            }
-        }
-        return null;
-    }
-    public virtual void SetProductAmount(double logOutTime)
-    {
-        if (floorProductText != null)
-        {
-            floorProductText.text = "logOut Time:" + ((int)logOutTime).ToString() + " sec";
-        }
-    }
-    public virtual void SetFacilityData(FloorInfoData data, double logOutTime)
+    public virtual void SetData(FloorJsonData data, double logOutTime)
     {
         floorInfoData = data;
-        //處理登出總共秒數 增加物資
-        SetProductAmount(logOutTime);
-        //初始化設施
-        foreach (var facility in data.facilityData)
-        {
-            int order = facility.Key;
-            FacilityData fdata = facility.Value;
-
-            foreach (var facilityBase in facilities)
-            {
-                if (facilityBase.order == order)
-                {
-                    facilityBase.Init(fdata);
-                    facilityBase.onSurvivorEndWork += SetNotWorking;
-
-                }
-            }
-        }
+        SetProductAmount(data.productAmount);
+        SetLevel(data.level);
     }
+    public virtual void SetProductAmount(int amount)
+    {
+        productText.text = "Product:" + amount.ToString();
+        onSaveProduct?.Invoke(floorType, floorInfoData.productAmount);
 
+    }
+    public void OnAddProduct(int amount)
+    {
+        floorInfoData.productAmount += amount;
+        SetProductAmount(floorInfoData.productAmount);
+    }
+    public virtual void SetLevel(int level)
+    {
+        levelText.text = "Level:" + level.ToString();
+        onSaveLevel?.Invoke(floorType, floorInfoData.level);
+    }
+    public virtual void OnAddLevel(int amount)
+    {
+        floorInfoData.level++;
+        SetLevel(floorInfoData.level);
+        onSaveProduct?.Invoke(floorType, floorInfoData.productAmount);
+    }
 }
 public enum FloorType
 {
@@ -124,4 +81,5 @@ public enum FloorType
     Floor_902 = 902,
     Floor_903 = 903,
     Floor_904 = 904,
+    Floor_905 = 905,
 }

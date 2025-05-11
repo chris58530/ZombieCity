@@ -4,7 +4,7 @@ using Zenject;
 
 public class SurvivorView : MonoBehaviour, IView
 {
-    [Inject] private SurvivorViewMediator medaitor;
+    [Inject] private SurvivorViewMediator mediator;
     private SurvivorManager survivorManager;
 
     private void Awake()
@@ -13,18 +13,17 @@ public class SurvivorView : MonoBehaviour, IView
     }
     private void OnEnable()
     {
-        medaitor.Register(this);
+        mediator.Register(this);
     }
     private void OnDisable()
     {
-        medaitor.DeRegister(this);
+        mediator.DeRegister(this);
     }
-    public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, bool> workingSurvivor, FloorBase startFloor)
+    public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, SurvivorJsonData> infoData, FloorBase startFloor)
     {
         GameObject survivorManagerObj = new GameObject("SurvivorManager");
         survivorManagerObj.transform.SetParent(transform);
         survivorManager = survivorManagerObj.AddComponent<SurvivorManager>();
-        survivorManager.onSaveWorkingSurvivor += SaveWorkingSurvivor;
         survivorManager.survivors = new SurvivorBase[data.survivorData.Length];
         for (int i = 0; i < data.survivorData.Length; i++)
         {
@@ -35,20 +34,23 @@ public class SurvivorView : MonoBehaviour, IView
             survivor.transform.parent = survivorManagerObj.transform;
             float randomX = Random.Range(-2f, 2f);
             survivor.transform.position = new Vector2(randomX, -10);
-            if (workingSurvivor.ContainsKey(survivor.id))
+            survivorManager.AddSurvivor(survivor, startFloor);
+            mediator.SetSurvivorDic(survivor.id, survivor);
+        }
+        foreach (KeyValuePair<int, SurvivorJsonData> kvp in infoData)
+        {
+            int id = kvp.Key;
+            SurvivorJsonData survivorInfo = kvp.Value;
+            foreach (SurvivorBase survivor in survivorManager.survivors)
             {
-                if (workingSurvivor[survivor.id])
+                if (survivor.id == id)
                 {
-                    survivor.SetWorking();
+                    survivor.onSaveStayingFloor = SaveStayingFloor;
+                    survivor.onSaveLevel = SaveLevel;
+                    survivor.SetData(survivorInfo);
+                    break;
                 }
             }
-            survivorManager.AddSurvivor(survivor, startFloor);
-            medaitor.SetSurvivorDic(survivor.id, survivor);
-        }
-        for (int i = 0; i < data.survivorData.Length; i++)
-        {
-            SurvivorBase survivor = survivorManager.survivors[i];
-
         }
     }
 
@@ -60,14 +62,21 @@ public class SurvivorView : MonoBehaviour, IView
     {
         survivorManager.OnClickSurvivorComplete(survivor, floor);
     }
-    public void OnLeaveFacility(LeaingFacilitySurvivor leavingFacilitySurvivor)
+    public void AddLevel(int id, int amount)
     {
-        survivorManager.OnLeaveFacility(leavingFacilitySurvivor);
+        survivorManager.AddLevel(id, amount);
     }
-    public void SaveWorkingSurvivor(int id, bool isWorking)
+    public void SetStayingFloor(int id, FloorType floorType)
     {
-        medaitor.SaveWorkingSurvivor(id, isWorking);
+        survivorManager.SetStayingFloor(id, floorType);
     }
-
+    public void SaveStayingFloor(int id, FloorType floorType)
+    {
+        mediator.SaveSurvivorStayingFloor(id, floorType);
+    }
+    public void SaveLevel(int id, int level)
+    {
+        mediator.SaveSurvivorLevel(id, level);
+    }
 }
 

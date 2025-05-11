@@ -13,7 +13,7 @@ public class ResourceInfoCmd : ICommand
     [Listener(GameEvent.ON_INIT_GAME)]
     public void SetData()
     {
-        ResourceInfoData resourceInfoData = playerDataProxy.GetData().resourceInfoData;
+        ResourceJsonData resourceInfoData = playerDataProxy.GetData().resourceInfoData;
        
         proxy.SetResource(resourceInfoData);
     }
