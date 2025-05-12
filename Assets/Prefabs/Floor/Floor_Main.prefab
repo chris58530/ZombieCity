@@ -215,13 +215,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85476d69d1259418bb06b0ec46bb2c4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorProductText: {fileID: 0}
-  mask: {fileID: 5524886799622389412}
+  floorType: 900
   enterPosition: {fileID: 7743951904561344523}
-  mainFacilitie: {fileID: 0}
-  facilities: []
-  floorType: 0
-  floorView: {fileID: 0}
+  limitPositionX: {x: -2, y: 2}
+  productText: {fileID: 0}
+  levelText: {fileID: 0}
+  mask: {fileID: 5524886799622389412}
 --- !u!1 &4781575216484982169
 GameObject:
   m_ObjectHideFlags: 0

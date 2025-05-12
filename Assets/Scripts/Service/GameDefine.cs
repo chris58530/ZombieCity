@@ -31,4 +31,8 @@ public class GameDefine
             return false;
         }
     }
+    public static float GetSurvivorZ()
+    {
+        return -0.01f;
+    }
 }

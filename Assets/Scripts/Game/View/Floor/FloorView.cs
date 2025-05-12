@@ -36,6 +36,8 @@ public class FloorView : MonoBehaviour, IView
         mainFloor.name = "MainFloor";
         mainFloor.SetCollider(false);
         mainFloor.Init(facilityAnimationDataSetting, this);
+        mediator.SetMainFloor(mainFloor);
+        mediator.SetFloor(mainFloor);
 
         for (int i = 0; i < data.floorData.Length; i++)
         {
@@ -48,6 +50,7 @@ public class FloorView : MonoBehaviour, IView
             floor.transform.parent = floorManagerObj.transform;
             floor.SetCollider(false);
             floor.Init(facilityAnimationDataSetting, this);
+            mediator.SetFloor(floor);
         }
         //設定儲存資料
         foreach (KeyValuePair<int, FloorJsonData> kvp in floorInfoData)

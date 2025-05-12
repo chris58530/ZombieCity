@@ -56,6 +56,14 @@ public class FloorViewMediator : IMediator
         int level = floorProxy.AddLevelAmount;
         floorView.AddLevel(floorType, level);
     }
+    public void SetFloor(FloorBase floor)
+    {
+        floorProxy.SetFloor(floor);
+    }
+    public void SetMainFloor(FloorBase floor)
+    {
+        floorProxy.SetMainFloor(floor);
+    }
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         jsonDataProxy.jsonData.floorInfoData[(int)floorType].productAmount = amount;

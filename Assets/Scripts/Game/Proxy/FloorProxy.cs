@@ -23,6 +23,22 @@ public class FloorProxy : IProxy
         startFloor = floorDataSetting.mainFloorPrefab;
         listener.BroadCast(FloorEvent.ON_FLOOR_INIT);
     }
+    public void SetMainFloor(FloorBase floor)
+    {
+        startFloor = floor;
+    }
+    public void SetFloor(FloorBase floor)
+    {
+        if (floorBaseDic.ContainsKey((int)floor.floorType))
+        {
+            floorBaseDic[(int)floor.floorType] = floor;
+        }
+        else
+        {
+            floorBaseDic.Add((int)floor.floorType, floor);
+        }
+    }
+
     public void SetCollider(bool enabled)
     {
         isEnabledCollider = enabled;

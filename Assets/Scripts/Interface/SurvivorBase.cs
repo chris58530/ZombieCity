@@ -19,22 +19,25 @@ public class SurvivorBase : MonoBehaviour
     {
         this.survivorJsonData = survivorJsonData;
     }
-    public void SetStayingFloor(FloorBase stayingFloor)
+    public void SetStayingFloor(FloorBase stayingFloorTarget)
     {
-        this.stayingFloor = stayingFloor.floorType;
-        float floorY = stayingFloor.GetEnterPosition().y +stayingFloor.transform.position.y;
-        float randomX = UnityEngine.Random.Range(stayingFloor.GetLimitPositionX().x, stayingFloor.GetLimitPositionX().y);
-        transform.position = new Vector3(randomX, floorY, 1);
-        Debug.Log($"SetStayingFloor {id} to {floorY}");
+        this.stayingFloor = stayingFloorTarget.floorType;
+        float floorY = stayingFloorTarget.GetEnterPosition().y;
+        float randomX = UnityEngine.Random.Range(stayingFloorTarget.GetLimitPositionX().x, stayingFloorTarget.GetLimitPositionX().y);
+        transform.position = new Vector3(randomX, floorY, GameDefine.GetSurvivorZ());
+        Debug.Log($" {id} SetStayingFloorto {stayingFloorTarget.name}  {stayingFloorTarget.transform.position}");
     }
-    public void SetFlip(bool isFlip)    
+    void Update()
+    {
+    }
+    public void SetFlip(bool isFlip)
     {
         sprite.flipX = isFlip;
     }
     public void OnPick(Vector3 pickPosition)
     {
         sprite.color = Color.white;
-        transform.position = new Vector3(pickPosition.x, pickPosition.y, -0.01f);
+        transform.position = new Vector3(pickPosition.x, pickPosition.y, GameDefine.GetSurvivorZ());
     }
     public void SetCollider(bool isCollider)
     {
@@ -57,6 +60,7 @@ public class SurvivorBase : MonoBehaviour
     }
     public virtual void OnSetStayingFloor(FloorType floorType)
     {
+        //TODO 到main 有問題
         stayingFloor = floorType;
         onSaveStayingFloor?.Invoke(id, floorType);
     }
