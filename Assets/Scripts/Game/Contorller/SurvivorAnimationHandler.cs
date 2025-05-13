@@ -13,6 +13,10 @@ public class SurvivorAnimationHandler : MonoBehaviour
     }
     public void OnAddProduct()
     {
-        floorProxy.AddProduct(floorType,survivorId);
+        floorProxy.AddProduct(floorType, survivorId);
+    }
+    public virtual void OnAddFloorProduct(FloorType floorType, int amount)
+    {
+
     }
 }
