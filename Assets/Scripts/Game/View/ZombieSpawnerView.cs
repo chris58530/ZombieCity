@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
-using NUnit.Framework.Constraints;
 using UnityEngine;
-using UnityEngine.UIElements;
 using Zenject;
 
 
@@ -91,7 +89,7 @@ public class ZombieManager : MonoBehaviour
     public Vector2 spawnPosX; //左右
     public Vector2 spawnPosY;// 上下多少
     private Action deadCallback;
-    private int poolCount = 8;
+    private int poolCount = 15;
     private int zombieHp;
     public Action<ZombieBase, bool> isAutoHitTarget;
     private PoolManager poolManager;
