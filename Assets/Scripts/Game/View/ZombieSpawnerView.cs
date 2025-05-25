@@ -93,7 +93,6 @@ public class ZombieManager : MonoBehaviour
     private int zombieHp;
     public Action<ZombieBase, bool> isAutoHitTarget;
     private PoolManager poolManager;
-    private List<ZombieBase> zombies = new List<ZombieBase>();
     private Dictionary<ZombieBase, int> zombieHpDic = new();
     private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
 
@@ -137,7 +136,6 @@ public class ZombieManager : MonoBehaviour
     {
         AddAutoHitTarget(zombie, false);
 
-        zombies.Remove(zombie);
         zombieHpDic.Remove(zombie);
         zombieMoveTween.Remove(zombie);
         poolManager.Despawn(zombie);
@@ -147,7 +145,6 @@ public class ZombieManager : MonoBehaviour
         ZombieBase zombie = poolManager.Spawn<ZombieBase>();
         zombie.manager = this;
         zombieHpDic.Add(zombie, zombieHp);
-        zombies.Add(zombie);
         DOVirtual.DelayedCall(3f, () =>
           {
               AddAutoHitTarget(zombie, true);

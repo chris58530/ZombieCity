@@ -8,4 +8,11 @@ public class DropItemViewMediator : IMediator
         base.Register(view);
         this.view = view as DropItemView;
     }
+    public void OnSpanwItem()
+    {
+        view.OnSpawnItem(DropItemType.Money, Vector3.zero, () =>
+               {
+                   Debug.Log("Item collected!");
+               });//TODO 
+    }
 }
