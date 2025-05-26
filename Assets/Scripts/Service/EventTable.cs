@@ -83,3 +83,7 @@ public class DrawCardEvent
     public const string ON_DRAW_CARD_SHOW = "DrawCardEvent.ON_DRAW_CARD_SHOW";
     public const string ON_DRAW_CARD_CLOSE = "DrawCardEvent.ON_DRAW_CARD_CLOSE";
 }
+public class DropItemEvent
+{
+    public const string REQUEST_DROP_ITEM = "DropItemEvent.REQUEST_DROP_ITEM";
+}

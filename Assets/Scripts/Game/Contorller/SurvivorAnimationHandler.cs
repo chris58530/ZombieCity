@@ -5,7 +5,7 @@ using Zenject;
 public class SurvivorAnimationHandler : MonoBehaviour
 {
     [Inject] private Listener listener;
-    [Inject] private FloorProxy floorProxy;
+    [Inject]private DropItemProxy dropItemProxy;
     [SerializeField] private int survivorId;
     public void Awake()
     {
@@ -14,10 +14,9 @@ public class SurvivorAnimationHandler : MonoBehaviour
 
     public virtual void AddProduct(FloorType floorType)
     {
-        floorProxy.AddProduct(floorType, survivorId);
+        dropItemProxy.RequestDropItem(new DropItemRequest(DropItemType.ZombieCore, Vector3.zero, 1));
     }
     public virtual void AddProductSP(FloorType floorType)
     {
-        floorProxy.AddProductSP(floorType, survivorId);
     }
 }
