@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7746712090557931486}
   - component: {fileID: 621038787225749570}
   m_Layer: 0
-  m_Name: Item_Coin
+  m_Name: Item_Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0a5c03f54e14ad5b4a5e8804254967, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropItemType: 1
+  dropItemType: 7
   animationView: {fileID: 4011602749699953562}
 --- !u!58 &7746712090557931486
 CircleCollider2D:
@@ -193,7 +193,7 @@ SpriteRenderer:
   m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.90188676, g: 0.59637934, b: 0.19569229, a: 1}
+  m_Color: {r: 0, g: 0.50307846, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
