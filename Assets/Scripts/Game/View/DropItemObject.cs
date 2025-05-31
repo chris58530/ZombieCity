@@ -8,10 +8,12 @@ public class DropItemObject : MonoBehaviour, IPoolable
     public Action<DropItemObject> onCollectCallback;
     public void OnDespawned()
     {
+        
     }
 
     public void OnSpawned()
     {
+
     }
 
     public void Show(Vector3 position, Action<DropItemObject> onCollectCallback)
@@ -30,7 +32,7 @@ public class DropItemObject : MonoBehaviour, IPoolable
 public enum DropItemType
 {
     None,
-    Money,
+    Coin,
     ZombieCore,
 
 }

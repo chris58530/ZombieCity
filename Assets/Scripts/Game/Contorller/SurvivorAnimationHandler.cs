@@ -5,7 +5,7 @@ using Zenject;
 public class SurvivorAnimationHandler : MonoBehaviour
 {
     [Inject] private Listener listener;
-    [Inject]private DropItemProxy dropItemProxy;
+    [Inject] private DropItemProxy dropItemProxy;
     [SerializeField] private int survivorId;
     public void Awake()
     {
