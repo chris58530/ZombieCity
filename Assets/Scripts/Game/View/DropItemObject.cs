@@ -54,8 +54,12 @@ public enum DropItemType
     Coin,
     Satisfaction,
     ZombieCore,
-    
+
     //FloorItem
-    carrit
+    Carrot,
+    Power,
+    dumbbel,
+    fish,
+    crystal
 
 }

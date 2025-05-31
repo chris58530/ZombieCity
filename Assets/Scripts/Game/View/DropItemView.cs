@@ -40,9 +40,10 @@ public class DropItemView : MonoBehaviour, IView
     public void OnSpawnItem(DropItemType dropItemType, Vector3 position, Action collectCallBack)
     {
         float randomX = UnityEngine.Random.Range(-0.2f, 0.2f);
+        
         if (dropItemManagers.TryGetValue(dropItemType, out DropItemManager itemManager))
         {
-            itemManager.SpawnItem(position + new Vector3(randomX, 0, 0), itemKeepTime, collectCallBack);
+            itemManager.SpawnItem(position + new Vector3(randomX, -0.25f, 0), itemKeepTime, collectCallBack);
         }
     }
 }
