@@ -19,7 +19,7 @@ public class ResourceInfoMediator : IMediator
     [Listener(ResourceInfoEvent.ON_UPDATE_RESOURCE)]
     public void OnUpdateResource()
     {
-        view.OnUpdateResource(proxy.moneyAmount, proxy.satisfactionAmount);
+        view.OnUpdateResource(proxy.moneyAmount, proxy.satisfactionAmount,proxy.zombieCoreAmount);
     }
     [Listener(ResourceInfoEvent.ON_ADD_MONEY)]
     public void OnAddMoney()
@@ -32,6 +32,12 @@ public class ResourceInfoMediator : IMediator
     public void OnAddSatisfaction()
     {
         view.OnAddSatisfaction(proxy.satisfactionAmount);
+
+    }
+    [Listener(ResourceInfoEvent.ON_ADD_ZOMBIECORE)]
+    public void OnAddZombieCore()
+    {
+        view.OnAddZombieCore(proxy.zombieCoreAmount);
 
     }
 }

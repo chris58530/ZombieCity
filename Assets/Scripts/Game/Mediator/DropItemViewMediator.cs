@@ -7,6 +7,8 @@ public class DropItemViewMediator : IMediator
 {
     [Inject] private DropItemProxy dropItemProxy;
     [Inject] private FloorProxy floorProxy;
+    [Inject] private ResourceInfoProxy resourceInfoProxy;
+
     private List<Action> logoutActions = new List<Action>();
     private DropItemView view;
     public override void Register(IView view)
@@ -14,22 +16,59 @@ public class DropItemViewMediator : IMediator
         base.Register(view);
         this.view = view as DropItemView;
     }
-    [Listener(DropItemEvent.REQUEST_DROP_ITEM)]
-    public void OnSpanwItem()
+    [Listener(DropItemEvent.REQUEST_DROP_FLOOR_ITEM)]
+    public void OnSpanwFloorItem()
     {
-        DropItemRequest dropItemRequest = dropItemProxy.dropItemRequest;
+        DropRequest dropItemRequest = dropItemProxy.dropRequest;
         DropItemType type = dropItemRequest.dropItemType;
         Vector3 position = dropItemRequest.position;
         int dropAmount = dropItemRequest.dropAmount;
-        Action spawnAction = () =>
+        Action collectAction = () =>
         {
             floorProxy.AddProductSP(floorProxy.AddProductFloor, dropAmount);
         };
-        logoutActions.Add(spawnAction);
+        logoutActions.Add(collectAction);
         view.OnSpawnItem(type, position, () =>
         {
-            logoutActions.Remove(spawnAction);
+            collectAction?.Invoke();
+            logoutActions.Remove(collectAction);
 
+        });
+    }
+    [Listener(DropItemEvent.REQUEST_DROP_RESOURCE_ITEM)]
+    public void OnSpanwRescourceItem()
+    {
+        DropRequest dropItemRequest = dropItemProxy.dropRequest;
+        DropItemType type = dropItemRequest.dropItemType;
+        Vector3 position = dropItemRequest.position;
+        int dropAmount = dropItemRequest.dropAmount;
+
+        Action collectAction = () =>
+        {
+            switch (type)
+            {
+                case DropItemType.Coin:
+                    Debug.Log($"Collecting {dropAmount} coins.");
+                    resourceInfoProxy.AddMoney(dropAmount);
+                    break;
+                case DropItemType.Satisfaction:
+                    resourceInfoProxy.AddSatisfaction(dropAmount);
+                    break;
+                case DropItemType.ZombieCore:
+                    resourceInfoProxy.AddZombieCoreAmount(dropAmount);
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown drop item type: {type}");
+                    resourceInfoProxy.AddMoney(dropAmount);
+                    return;
+            }
+
+        };
+        logoutActions.Add(collectAction);
+        view.OnSpawnItem(type, position, () =>
+        {
+            collectAction?.Invoke();
+            logoutActions.Remove(collectAction);
         });
     }
 }

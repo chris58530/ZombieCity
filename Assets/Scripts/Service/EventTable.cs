@@ -71,6 +71,7 @@ public class ResourceInfoEvent
 {
     public const string ON_ADD_MONEY = "ResourceInfoEvent.ON_ADD_MONEY";
     public const string ON_ADD_SATISFACTION = "ResourceInfoEvent.ON_ADD_SATISFACTION";
+    public const string ON_ADD_ZOMBIECORE = "ResourceInfoEvent.ON_ADD_ZOMBIECORE";
     public const string ON_UPDATE_RESOURCE = "ResourceInfoEvent.ON_UPDATE_RESOURCE";
 }
 public class TrasitionBackGroundEvent
@@ -85,5 +86,6 @@ public class DrawCardEvent
 }
 public class DropItemEvent
 {
-    public const string REQUEST_DROP_ITEM = "DropItemEvent.REQUEST_DROP_ITEM";
+    public const string REQUEST_DROP_FLOOR_ITEM = "DropItemEvent.REQUEST_DROP_FLOOR_ITEM";
+    public const string REQUEST_DROP_RESOURCE_ITEM = "DropItemEvent.REQUEST_DROP_RESOURCE_ITEM";
 }

@@ -45,12 +45,11 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             zombieManager.isAutoHitTarget = AddAutoHitTarget;
             zombieManager.spawnPosX = spawnPosX;
             zombieManager.spawnPosY = spawnPosY;
-            zombieManager.InitZombie(zombiePrefab, hp, () =>
-            {
-                mediator.RequestGetMoney(zombieData.money);
-                Debug.Log("Zombie " + " is dead.");
-                //get reward
-            });
+            zombieManager.InitZombie(zombiePrefab, hp, (zombie) =>
+              {
+                  mediator.RequestGetMoney(zombieData.money, zombie.transform);
+                  Debug.Log("Zombie " + " is dead.");
+              });
 
             zombieManager.transform.SetParent(transform);
             zombiesManager.Add(zombieData.zombieInfo.zombieBasePrefab.id, zombieManager);
@@ -88,7 +87,7 @@ public class ZombieManager : MonoBehaviour
 {
     public Vector2 spawnPosX; //左右
     public Vector2 spawnPosY;// 上下多少
-    private Action deadCallback;
+    private Action<ZombieBase> deadCallback;
     private int poolCount = 15;
     private int zombieHp;
     public Action<ZombieBase, bool> isAutoHitTarget;
@@ -96,13 +95,14 @@ public class ZombieManager : MonoBehaviour
     private Dictionary<ZombieBase, int> zombieHpDic = new();
     private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
 
-    public void InitZombie(ZombieBase zombie, int hp, Action deadCallback)
+    public ZombieBase InitZombie(ZombieBase zombie, int hp, Action<ZombieBase> deadCallback)
     {
         this.deadCallback = deadCallback;
         this.zombieHp = hp;
         poolManager = new GameObject("ZombiePool_").AddComponent<PoolManager>();
         poolManager.transform.SetParent(transform);
         poolManager.RegisterPool(zombie, poolCount, poolManager.transform);
+        return zombie;
     }
     public void HitZombie(ZombieBase zombie)
     {
@@ -127,7 +127,7 @@ public class ZombieManager : MonoBehaviour
 
         zombie.Kill(() => //表演資料
         {
-            deadCallback?.Invoke();//噴錢啥的 邏輯資料
+            deadCallback?.Invoke(zombie);//噴錢啥的 邏輯資料
             ResetZombie(zombie);
         });
 
@@ -142,7 +142,7 @@ public class ZombieManager : MonoBehaviour
     }
     public void SpawnZombie()
     {
-        ZombieBase zombie = poolManager.Spawn<ZombieBase>();
+        ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
         zombie.manager = this;
         zombieHpDic.Add(zombie, zombieHp);
         DOVirtual.DelayedCall(3f, () =>

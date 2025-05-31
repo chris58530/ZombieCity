@@ -45,3 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItemDataSetting: {fileID: 11400000, guid: de985d80c9e52421f9ea6eef69f5ea93, type: 2}
+  itemKeepTime: 2

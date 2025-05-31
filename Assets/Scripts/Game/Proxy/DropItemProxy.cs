@@ -2,19 +2,25 @@ using UnityEngine;
 
 public class DropItemProxy : IProxy
 {
-    public DropItemRequest dropItemRequest;
-    public void RequestDropItem(DropItemRequest dropItemRequest)
+    public DropRequest dropRequest;
+    public void RequestDropFloorItem(DropRequest dropRequest)
     {
-        this.dropItemRequest = dropItemRequest;
-        listener.BroadCast(DropItemEvent.REQUEST_DROP_ITEM);
+        this.dropRequest = dropRequest;
+        listener.BroadCast(DropItemEvent.REQUEST_DROP_FLOOR_ITEM);
+    }
+    public void RequestDropResourceItem(DropRequest dropRequest)
+    {
+        this.dropRequest = dropRequest;
+        listener.BroadCast(DropItemEvent.REQUEST_DROP_RESOURCE_ITEM);
+
     }
 }
-public class DropItemRequest
+public class DropRequest
 {
     public DropItemType dropItemType;
     public Vector3 position;
     public int dropAmount;
-    public DropItemRequest(DropItemType dropItemType, Vector3 position, int dropAmount = 1)
+    public DropRequest(DropItemType dropItemType, Vector3 position, int dropAmount = 1)
     {
         this.dropItemType = dropItemType;
         this.position = position;

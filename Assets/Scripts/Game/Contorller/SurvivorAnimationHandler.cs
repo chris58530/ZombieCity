@@ -14,7 +14,7 @@ public class SurvivorAnimationHandler : MonoBehaviour
 
     public virtual void AddProduct(FloorType floorType)
     {
-        dropItemProxy.RequestDropItem(new DropItemRequest(DropItemType.ZombieCore, Vector3.zero, 1));
+        dropItemProxy.RequestDropResourceItem(new DropRequest(DropItemType.carrit, Vector3.zero, 1));
     }
     public virtual void AddProductSP(FloorType floorType)
     {

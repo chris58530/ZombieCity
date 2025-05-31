@@ -5,7 +5,7 @@ using Zenject;
 public class ZombieSpawnerViewMediator : IMediator
 {
     [Inject] private ZombieSpawnerProxy proxy;
-    [Inject] private ResourceInfoProxy resourceInfoProxy;
+    [Inject] private DropItemProxy dropItemProxy;
     private ZombieSpawnerView view;
     public override void Register(IView view)
     {
@@ -38,8 +38,16 @@ public class ZombieSpawnerViewMediator : IMediator
             proxy.RemoveAutoHitTarget(zombieBase);
     }
 
-    public void RequestGetMoney(int money)
+    public void RequestGetMoney(int money, Transform zombieTransform)
     {
-        resourceInfoProxy.AddMoney(money);
+        DropRequest request = new DropRequest(DropItemType.Coin, zombieTransform.position, money);
+        dropItemProxy.RequestDropResourceItem(request);
+
+        int getCore = Random.Range(0, 1);
+        if(getCore == 0)
+        {
+            request = new DropRequest(DropItemType.ZombieCore, zombieTransform.position, 1);
+            dropItemProxy.RequestDropResourceItem(request);
+        }
     }
 }

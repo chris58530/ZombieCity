@@ -7,6 +7,7 @@ public class DropItemView : MonoBehaviour, IView
 {
     [Inject] private DropItemViewMediator mediator;
     [SerializeField] private DropItemDataSetting dropItemDataSetting;
+    [SerializeField] private float itemKeepTime = 200f;
     private Dictionary<DropItemType, DropItemManager> dropItemManagers = new Dictionary<DropItemType, DropItemManager>();
 
     private void Awake()
@@ -16,6 +17,7 @@ public class DropItemView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+        Initialize();
     }
     private void OnDisable()
     {
@@ -26,7 +28,7 @@ public class DropItemView : MonoBehaviour, IView
         foreach (var dropItemData in dropItemDataSetting.dropItemDatas)
         {
             DropItemObject dropItemObject = dropItemData.dropItemObject;
-            DropItemManager itemManager = new GameObject("DropItemManager_" + dropItemData.dropItemObject.dropItemType).AddComponent<DropItemManager>();
+            DropItemManager itemManager = new GameObject("DropItemManager_" + dropItemObject.dropItemType).AddComponent<DropItemManager>();
             itemManager.InitItem(dropItemObject);
             itemManager.transform.SetParent(transform);
             dropItemManagers.Add(dropItemData.dropItemObject.dropItemType, itemManager);
@@ -37,29 +39,30 @@ public class DropItemView : MonoBehaviour, IView
     /// <param name="collectCallBack"></param> 加進去玩家資料裡面 數量有多少
     public void OnSpawnItem(DropItemType dropItemType, Vector3 position, Action collectCallBack)
     {
+        float randomX = UnityEngine.Random.Range(-0.2f, 0.2f);
         if (dropItemManagers.TryGetValue(dropItemType, out DropItemManager itemManager))
         {
-            itemManager.SpawnItem(position, collectCallBack);
+            itemManager.SpawnItem(position + new Vector3(randomX, 0, 0), itemKeepTime, collectCallBack);
         }
     }
 }
 
 public class DropItemManager : MonoBehaviour
 {
-    private int poolCount = 15;
+    private int poolCount = 5;
     private PoolManager poolManager;
 
     public void InitItem(DropItemObject itemObject)
     {
-        poolManager = new GameObject("ItemPool_").AddComponent<PoolManager>();
+        poolManager = new GameObject("ItemPool_" + itemObject.dropItemType).AddComponent<PoolManager>();
         poolManager.transform.SetParent(transform);
         poolManager.RegisterPool(itemObject, poolCount, poolManager.transform);
     }
 
-    public void SpawnItem(Vector3 position, Action collectCallBack)
+    public void SpawnItem(Vector3 position, float keepTime, Action collectCallBack)
     {
-        DropItemObject dropItemObject = poolManager.Spawn<DropItemObject>();
-        dropItemObject.Show(position, item =>
+        DropItemObject dropItemObject = poolManager.Spawn<DropItemObject>(poolManager.transform);
+        dropItemObject.Show(position, keepTime, item =>
         {
             collectCallBack?.Invoke();
             ResetItem(item);
@@ -67,6 +70,7 @@ public class DropItemManager : MonoBehaviour
     }
     public void ResetItem(DropItemObject itemObject)
     {
+        Debug.Log($"Resetting item: {itemObject.dropItemType}");
         poolManager.Despawn(itemObject);
     }
 }

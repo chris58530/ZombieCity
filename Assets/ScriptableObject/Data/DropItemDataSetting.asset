@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: DropItemDataSetting
   m_EditorClassIdentifier: 
   dropItemDatas:
-  - dropItemObject: {fileID: 0}
+  - dropItemObject: {fileID: 5428377586755460553, guid: ac2aa360a55e142c1bbc6d4b3d6a7430, type: 3}
+  - dropItemObject: {fileID: 5428377586755460553, guid: f469e88b11f754e92a77b797086f37dc, type: 3}

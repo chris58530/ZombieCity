@@ -7,8 +7,9 @@ public class ResourceInfoView : MonoBehaviour, IView
 {
     [Inject] private ResourceInfoMediator mediator;
 
-    [SerializeField]private TMP_Text moneyText;
-    [SerializeField]private TMP_Text satisfactionText;
+    [SerializeField] private TMP_Text moneyText;
+    [SerializeField] private TMP_Text satisfactionText;
+    [SerializeField] private TMP_Text zombieCoreText;
 
     private void Awake()
     {
@@ -24,23 +25,31 @@ public class ResourceInfoView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
-    public void OnUpdateResource(int money , int satisfaction)
+    public void OnUpdateResource(int money, int satisfaction, int zombieCore)
     {
         moneyText.text = money.ToString();
         satisfactionText.text = satisfaction.ToString();
+        zombieCoreText.text = zombieCore.ToString();
+
         AnimateBounce(moneyText.transform);
+        AnimateBounce(zombieCoreText.transform);
         AnimateBounce(satisfactionText.transform);
     }
     public void OnAddMoney(int money)
     {
         moneyText.text = money.ToString();
-        
+
         AnimateBounce(moneyText.transform);
     }
     public void OnAddSatisfaction(int satisfaction)
     {
         satisfactionText.text = satisfaction.ToString();
         AnimateBounce(satisfactionText.transform);
+    }
+    public void OnAddZombieCore(int zombie)
+    {
+        zombieCoreText.text = zombie.ToString();
+        AnimateBounce(zombieCoreText.transform);
     }
 
     private void AnimateBounce(Transform target)

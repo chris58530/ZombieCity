@@ -29,11 +29,12 @@ public class ResourceInfoProxy : IProxy
         listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
         listener.BroadCast(ResourceInfoEvent.ON_ADD_SATISFACTION);
     }
-    public void AddZombieCoreAmount(int zombieCoreAmount)
+    public void AddZombieCoreAmount(int zombieCore)
     {
-        this.zombieCoreAmount += zombieCoreAmount;
+        zombieCoreAmount += zombieCore;
         resourceInfoData.zombieCoreAmount = zombieCoreAmount;
         listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
+        listener.BroadCast(ResourceInfoEvent.ON_ADD_ZOMBIECORE);
     }
     // public void GetResourceInfo(out int money, out int satisfaction) // save to Json
     // {
