@@ -42,7 +42,6 @@ public class DropItemObject : MonoBehaviour, IPoolable
     public void ResetView()
     {
         animationView.StopAnimation();
-        animationView.Hide();
         onCollectCallback = null;
         DOTween.Kill(GetHashCode());
     }
@@ -56,10 +55,10 @@ public enum DropItemType
     ZombieCore,
 
     //FloorItem
-    Carrot,
-    Power,
-    dumbbel,
-    fish,
-    crystal
+    Carrot, //901
+    Power, //902
+    dumbbel, //903
+    fish, //904
+    crystal //905
 
-}
+}   

@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorType: 900
+  survivorAnimation: 900
   enterPosition: {fileID: 7743951904561344523}
   limitPositionX: {x: -2, y: 2}
   productText: {fileID: 0}

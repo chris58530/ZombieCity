@@ -12,7 +12,6 @@ public class SurvivorData //存檔設定
 {
     public SurvivorInfo survivorInfo;
     public int level;
-    public bool isLock;
 }
 [Serializable]
 public class SurvivorInfo //基本設定

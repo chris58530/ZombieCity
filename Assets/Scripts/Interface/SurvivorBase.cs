@@ -15,6 +15,9 @@ public class SurvivorBase : MonoBehaviour
     public Action<int, FloorType> onSaveStayingFloor;
     public Action<int, int> onSaveLevel;
     protected SurvivorJsonData survivorJsonData;
+
+    [Header("Debug")]
+    public string playingAnimationName;
     public void SetData(SurvivorJsonData survivorJsonData)
     {
         this.survivorJsonData = survivorJsonData;
@@ -38,6 +41,7 @@ public class SurvivorBase : MonoBehaviour
     {
         sprite.color = Color.white;
         transform.position = new Vector3(pickPosition.x, pickPosition.y, GameDefine.GetSurvivorZ());
+        animationView.PlayAnimation("Idle");
     }
     public void SetCollider(bool isCollider)
     {
@@ -52,6 +56,17 @@ public class SurvivorBase : MonoBehaviour
         sprite.color = Color.white;
         transform.localScale = Vector3.one;
         transform.position = dropPos;
+    }
+    public void PlayAnimation(string name, Action onComplete = null)
+    {
+        // string animationString = "Survivor_" + id + "_" + name;
+        playingAnimationName = name;
+        animationView?.PlayAnimation(name, onComplete);
+
+    }
+    public AnimationView GetAnimationView()
+    {
+        return animationView;
     }
     public virtual void OnAddLevel(int level)
     {

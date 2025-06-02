@@ -10,7 +10,7 @@ public class SurvivorManager : MonoBehaviour
     private Dictionary<SurvivorBase, FloorBase> survivorFloorDic = new();
     private Dictionary<SurvivorBase, FacilityBase> survivorFacilityDic = new();
     private Dictionary<SurvivorBase, Tween> tweenDic = new();
-
+    private Dictionary<SurvivorBase, Sequence> animationSeqDic = new();
     public void AddSurvivor(SurvivorBase survivor, FloorBase startFloor)
     {
         if (!survivorDict.ContainsKey(survivor.id))
@@ -25,7 +25,7 @@ public class SurvivorManager : MonoBehaviour
         {
             tweenDic.Add(survivor, null);
         }
-        SetSurvivorIdle(survivor);
+        SetSurvivorIdle(survivor, startFloor);
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
@@ -40,6 +40,12 @@ public class SurvivorManager : MonoBehaviour
             survivorFacilityDic[survivor].isUsing = false;
             survivorFacilityDic.Remove(survivor);
         }
+        if (animationSeqDic.ContainsKey(survivor))
+        {
+            Debug.Log($"Killing animation sequence for survivor {survivor.id}");
+            animationSeqDic[survivor].Kill();
+            animationSeqDic.Remove(survivor);
+        }
         survivor.OnPick(pickPos);
 
     }
@@ -49,49 +55,55 @@ public class SurvivorManager : MonoBehaviour
         Vector2 limitX = floor.GetLimitPositionX();
         float clampedX = Mathf.Clamp(survivor.transform.position.x, limitX.x, limitX.y);
         Vector3 dropPos = new Vector3(clampedX, floor.GetEnterPosition().y, survivor.transform.position.z);
-        survivor.OnDrop(dropPos,floor.floorType);
-        SetSurvivorIdle(survivor);
+        survivor.OnDrop(dropPos, floor.floorType);
+        SetSurvivorIdle(survivor, floor);
     }
-    public void SetSurvivorIdle(SurvivorBase survivor, bool skipFacility = false)
+    public void SetSurvivorIdle(SurvivorBase survivor, FloorBase floor)
     {
-        // if (survivor.isWorking) return;
-        // float idleTime = UnityEngine.Random.Range(3f, 4f);
-        // FloorBase floor = survivorFloorDic[survivor];
-        // if (floor == null)
-        // {
-        //     Debug.LogError($"Floor not found for survivor {survivor.name}");
-        //     return;
-        // }
-        // //檢查當下的樓層是否有空的設施
-        // FacilityBase targetFacility = floor.GetEmptyFacilities();
-        // if (targetFacility != null && !skipFacility)
-        // {
-        //     survivorFacilityDic[survivor] = targetFacility;
-        //     survivor.sprite.color = Color.green;
-        //     SetSurvivorMove(survivor, targetFacility.transform.position, () =>
-        //     {
-        //         //tiredTime 之後建立新的設定檔 設施/倖存者編號、秒數
-        //         //StartWork之後倖存者會關閉 直到拖拽點擊設施又重新出現
-        //         survivor.SetWorking();
-        //         floor.SetWorking(survivor.id, targetFacility);
-        //         onSaveWorkingSurvivor?.Invoke(survivor.id, true);
-        //         tweenDic[survivor]?.Kill();
-        //     });
-        //     return;
-        // }
-        // Vector2 limitX = floor.GetLimitPositionX();
-        // float randomX = UnityEngine.Random.Range(limitX.x, limitX.y);
-        // Vector2 destination = new Vector2(randomX, floor.GetEnterPosition().y);
-        // tweenDic[survivor] = DOVirtual.DelayedCall(idleTime, () =>
-        // {
-        //     SetSurvivorMove(survivor, destination, () =>
-        //     {
-        //         SetSurvivorIdle(survivor);
-        //     });
-        // });
+        survivor.PlayAnimation("Idle", () =>
+        {
+            int repeatCount = UnityEngine.Random.Range(5, 10);
+
+            animationSeqDic[survivor] = DOTween.Sequence();
+            Action finishCallback = () =>
+            {
+                SetSurvivorMove(survivor, floor.GetLimitPositionX(), () =>
+                 {
+                     SetSurvivorIdle(survivor, floor);
+                 });
+            };
+            string clipName = "Survivior" + survivor.id + "_" + floor.survivorAnimation.ToString(); ;
+            //TODO clipName wrong
+            // if (floor.survivorAnimation == string.Empty || survivor.GetAnimationView().GetAnimationLengthByClipName(clipName) <= 0)
+            // {
+            //     finishCallback?.Invoke();
+            //     Debug.LogWarning($"Floor {floor.floorType} has no survivor animation set.");
+            //     return;
+            // }
+            // 播放 floor.survivorAnimation 動畫
+
+            for (int i = 0; i < repeatCount; i++)
+            {
+                float animationTime = survivor.GetAnimationView().GetAnimationLength(floor.survivorAnimation);
+                animationSeqDic[survivor].AppendCallback(() =>
+              {
+                  survivor.PlayAnimation(floor.survivorAnimation);
+                  Debug.Log($"Survivor playing animation {survivor.id} / {animationTime} /{floor.survivorAnimation} on floor {floor.floorType}");
+              });
+                // 等待動畫播完（
+                animationSeqDic[survivor].AppendInterval(0.84f); //TODO 操 這個方法是壞的 先哈扣
+            }
+            animationSeqDic[survivor].OnComplete(() =>
+          {
+              finishCallback?.Invoke();
+          });
+        });
     }
-    public void SetSurvivorMove(SurvivorBase survivor, Vector2 destination, Action callBack)
+    public void SetSurvivorMove(SurvivorBase survivor, Vector2 limitPositionX, Action callBack)
     {
+        survivor.PlayAnimation("Move");
+        float moveX = UnityEngine.Random.Range(limitPositionX.x, limitPositionX.y);
+        Vector2 destination = new Vector3(moveX, survivor.transform.position.y, survivor.transform.position.z);
         float distance = Vector2.Distance(survivor.transform.position, destination);
         float speed = .3f;
         float duration = distance / speed;

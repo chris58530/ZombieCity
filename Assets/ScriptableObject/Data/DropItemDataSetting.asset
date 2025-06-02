@@ -16,3 +16,7 @@ MonoBehaviour:
   - dropItemObject: {fileID: 5428377586755460553, guid: ac2aa360a55e142c1bbc6d4b3d6a7430, type: 3}
   - dropItemObject: {fileID: 5428377586755460553, guid: f469e88b11f754e92a77b797086f37dc, type: 3}
   - dropItemObject: {fileID: 5428377586755460553, guid: 2302afa4e197241d3bbb62c94c0453c2, type: 3}
+  - dropItemObject: {fileID: 5428377586755460553, guid: d4b835f242c68674b9b0b828177a908d, type: 3}
+  - dropItemObject: {fileID: 5428377586755460553, guid: d5415f6e105b5ff4e986336c6c66609c, type: 3}
+  - dropItemObject: {fileID: 5428377586755460553, guid: 2fbe9a5e5d476874eb3fe7ec7ffae374, type: 3}
+  - dropItemObject: {fileID: 5428377586755460553, guid: 1f4471e03b6ceb648b44524da5a90bc1, type: 3}

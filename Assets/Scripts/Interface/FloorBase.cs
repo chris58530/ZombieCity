@@ -7,6 +7,7 @@ using UnityEngine;
 public class FloorBase : MonoBehaviour
 {
     public FloorType floorType;
+    public string survivorAnimation;
     [Header("場地限制")]
     [SerializeField] private Transform enterPosition; //get y
     [SerializeField] private Vector2 limitPositionX;

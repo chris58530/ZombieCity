@@ -49,7 +49,9 @@ public class SurvivorView : MonoBehaviour, IView
                     survivor.onSaveStayingFloor = SaveStayingFloor;
                     survivor.onSaveLevel = SaveLevel;
                     survivor.SetData(survivorInfo);
-                    survivor.SetStayingFloor(floorBaseDic[survivorInfo.stayingFloor] == null ? startFloor : floorBaseDic[survivorInfo.stayingFloor]);
+                    FloorBase floor = floorBaseDic[survivorInfo.stayingFloor] == null ? startFloor : floorBaseDic[survivorInfo.stayingFloor];
+                    survivor.SetStayingFloor(floor);
+                    survivorManager.AddSurvivor(survivor, floor);
                     break;
                 }
             }
@@ -81,4 +83,3 @@ public class SurvivorView : MonoBehaviour, IView
         mediator.SaveSurvivorLevel(id, level);
     }
 }
-

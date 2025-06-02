@@ -26,15 +26,6 @@ public class DropItemViewMediator : IMediator
         Action collectAction = () =>
         {
             floorProxy.AddProductSP(floorProxy.AddProductFloor, dropAmount);
-            switch (type)
-            {
-
-                case DropItemType.Carrot:
-                    Debug.Log($"Collecting {dropAmount} carrots.");
-                    break;
-                default:
-                    return;
-            }
         };
         logoutActions.Add(collectAction);
         view.OnSpawnItem(type, position, () =>
