@@ -19,7 +19,14 @@ public class DropItemObject : MonoBehaviour, IPoolable
 
     public void Show(Vector3 position, float keepTime, Action<DropItemObject> onCollectCallback)
     {
-        transform.position = position;
+        float angle = UnityEngine.Random.Range(70f, 110f);
+        Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
+        Vector3 offset = direction * 1f + Vector3.up * 0.6f;
+        Vector3 startPosition = position ;
+        transform.position = startPosition+ new Vector3(0, .5f, 0);
+
+        Vector3 targetPosition = position + direction * 1f;
+        transform.DOJump(targetPosition, 0.3f, 3, .8f).SetEase(Ease.InQuad);
         this.onCollectCallback = onCollectCallback;
 
         DOVirtual.DelayedCall(keepTime, () =>
@@ -61,4 +68,4 @@ public enum DropItemType
     fish, //904
     crystal //905
 
-}   
+}

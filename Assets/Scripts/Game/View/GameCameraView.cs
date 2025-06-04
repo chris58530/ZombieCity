@@ -35,7 +35,7 @@ public class GameCameraView : MonoBehaviour, IView
 
         });
     }
-    public void InitSwipe(GameCamera gameCamera, float minY)
+    public void InitSwipe(GameCamera gameCamera)
     {
         this.gameCamera = gameCamera;
 
@@ -45,7 +45,7 @@ public class GameCameraView : MonoBehaviour, IView
             return;
         }
 
-        cameraSwipeController.Init(gameCamera, minY);
+        cameraSwipeController.Init(gameCamera);
 
     }
     public void StartSwipe()

@@ -6,7 +6,6 @@ public class GameCameraProxy : IProxy
     public Dictionary<CameraType, GameCamera> gameCameras = new();
     public GameCamera mainCamera;
     public bool canSwipe;
-    public float minY;
     public void SetCamera(CameraType type, GameCamera camera)
     {
         mainCamera = camera;

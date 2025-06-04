@@ -19,13 +19,12 @@ public class GameCameraViewMediator : IMediator
     public void OpenSwipe()
     {
         GameCamera camera = proxy.mainCamera;
-        float minY = proxy.minY;
         if (camera == null)
         {
             return;
         }
 
-        view.InitSwipe(camera, minY);
+        view.InitSwipe(camera);
     }
     [Listener(CameraEvent.OPEN_CAMERA_SWIPE)]
     public void StartSwipe()

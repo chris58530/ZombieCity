@@ -12,11 +12,10 @@ public class CameraSwipeController : MonoBehaviour
     private float velocity = 0f;
 
 
-    public void Init(GameCamera camera, float minY)
+    public void Init(GameCamera camera)
     {
         gameCamera = camera;
         camera.transform.parent = this.transform;
-        this.minY = minY;
     }
 
 

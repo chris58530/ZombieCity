@@ -8,7 +8,6 @@ public class GameCameraCmd : ICommand
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
-        proxy.minY = -18;
         proxy.EnabelSwipe();
     }
     // [Listener(CameraEvent.ON_USE_FEATURE_CAMERA)]
