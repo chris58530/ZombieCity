@@ -22,13 +22,13 @@ MonoBehaviour:
   - floorPrefab: {fileID: 8756793108607572294, guid: d2eb7e69e7a494ea2a2dc4b3fe6ec811, type: 3}
     unlockPrice: 300
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: daf970906e5f0ae4994b122ba9f5b6c9, type: 3}
     unlockPrice: 600
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 42014594168641d4f8a13f04a64b6807, type: 3}
     unlockPrice: 300
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 0d797bc665c650c4790df6235fd91692, type: 3}
     unlockPrice: 300
     isLock: 0
   - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}

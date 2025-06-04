@@ -45,10 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameCamera: {fileID: 0}
-  moveSpeed: 10
-  scrollSpeed: 5
-  minY: -40
+  moveSpeed: 0.2
+  scrollSpeed: 7.39
+  minY: -26.5
   maxY: -5
+  openSwipe: 0
 --- !u!1 &3677581827470003238
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,3 +97,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraSwipeController: {fileID: 7077299469396761335}
   gameCamera: {fileID: 0}
+  isFrist: 1
