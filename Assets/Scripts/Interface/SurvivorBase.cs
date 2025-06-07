@@ -61,12 +61,8 @@ public class SurvivorBase : MonoBehaviour
     {
         // string animationString = "Survivor_" + id + "_" + name;
         playingAnimationName = name;
-        animationView?.PlayAnimation(name, onComplete);
+        animationView?.PlayAnimation(name, 0, onComplete);
 
-    }
-    public AnimationView GetAnimationView()
-    {
-        return animationView;
     }
     public virtual void OnAddLevel(int level)
     {

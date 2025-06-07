@@ -24,10 +24,6 @@ public class CameraSwipeController : MonoBehaviour
     {
         if (!openSwipe) return;
         SwipeCamera();
-
-#if UNITY_EDITOR
-        Debug.Log("openSwipe: " + openSwipe);
-#endif
     }
     private void SwipeCamera()
     {

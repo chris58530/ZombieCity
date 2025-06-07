@@ -84,11 +84,9 @@ public class SurvivorManager : MonoBehaviour
 
             for (int i = 0; i < repeatCount; i++)
             {
-                float animationTime = survivor.GetAnimationView().GetAnimationLength(floor.survivorAnimation);
                 animationSeqDic[survivor].AppendCallback(() =>
               {
                   survivor.PlayAnimation(floor.survivorAnimation);
-                  Debug.Log($"Survivor playing animation {survivor.id} / {animationTime} /{floor.survivorAnimation} on floor {floor.floorType}");
               });
                 // 等待動畫播完（
                 animationSeqDic[survivor].AppendInterval(0.84f); //TODO 操 這個方法是壞的 先哈扣
