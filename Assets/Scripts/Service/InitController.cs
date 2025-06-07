@@ -22,6 +22,8 @@ public class InitController : MonoBehaviour
         StartExecution();
         listener.RegisterListener(this);
         clickObject.SetActive(false);
+        QualitySettings.vSyncCount = 0;   // 把垂直同步關掉
+        Application.targetFrameRate = 60;
     }
 
     private void StartExecution()
