@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItemType: 6
+  dropItemBounceType: 2
+  collectPerformanceType: 1
   animationView: {fileID: 4011602749699953562}
 --- !u!58 &7746712090557931486
 CircleCollider2D:
@@ -99,6 +101,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Delegates:
   - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5428377586755460553}
+          m_TargetAssemblyTypeName: DropItemObject, Assembly-CSharp
+          m_MethodName: OnCollect
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 0
     callback:
       m_PersistentCalls:
         m_Calls:
@@ -237,3 +255,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fbcf8b550e347339339288750c53b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoResetObj: 0
+  resetClip: {fileID: 0}
+  FrameEvent: []
