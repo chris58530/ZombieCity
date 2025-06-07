@@ -81,6 +81,10 @@ public class DropItemObject : MonoBehaviour, IPoolable
         onCollectCallback = null;
         DOTween.Kill(GetHashCode());
     }
+    public void OnDisable()
+    {
+        onCollectCallback?.Invoke(this);
+    }
 }
 public enum DropItemType
 {

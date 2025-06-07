@@ -52,7 +52,7 @@ public class FloorProxy : IProxy
     public void AddProduct(FloorType floorType, int id)
     {
         AddProductFloor = floorType;
-        AddProductAmount = id/10;
+        AddProductAmount = id;
         //TODO 根據id查找對應數量 = (基數＋等級倍率)
         //新增SO Setting 
         listener.BroadCast(FloorEvent.ON_ADD_PRODUCT);

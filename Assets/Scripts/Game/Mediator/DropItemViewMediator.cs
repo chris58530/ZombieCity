@@ -25,12 +25,33 @@ public class DropItemViewMediator : IMediator
         int dropAmount = dropItemRequest.dropAmount;
         Action collectAction = () =>
         {
-            floorProxy.AddProductSP(floorProxy.AddProductFloor, dropAmount);
+            switch (type)
+            {
+                case DropItemType.Carrot:
+                    floorProxy.AddProduct(FloorType.Floor_901, dropAmount);
+                    break;
+                case DropItemType.Power:
+                    floorProxy.AddProduct(FloorType.Floor_902, dropAmount);
+                    break;
+                case DropItemType.dumbbel:
+                    floorProxy.AddProduct(FloorType.Floor_903, dropAmount);
+                    break;
+                case DropItemType.fish:
+                    floorProxy.AddProduct(FloorType.Floor_904, dropAmount);
+                    break;
+                case DropItemType.crystal:
+                    floorProxy.AddProduct(FloorType.Floor_905, dropAmount);
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown drop item type: {type}");
+                    return;
+            }
         };
         logoutActions.Add(collectAction);
         view.OnSpawnItem(type, position, () =>
         {
             collectAction?.Invoke();
+            Debug.Log($"Collecting {dropAmount} of {type} at position {position}");
             logoutActions.Remove(collectAction);
 
         });

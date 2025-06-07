@@ -67,10 +67,12 @@ public class FloorViewMediator : IMediator
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         jsonDataProxy.jsonData.floorInfoData[(int)floorType].productAmount = amount;
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     public void SaveFloorLevel(FloorType floorType, int level)
     {
         jsonDataProxy.jsonData.floorInfoData[(int)floorType].level = level;
+        listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
     }
     public void OnClickSkyWatcher()
     {

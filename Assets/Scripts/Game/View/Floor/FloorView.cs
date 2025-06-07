@@ -86,6 +86,7 @@ public class FloorView : MonoBehaviour, IView
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         mediator.SaveFloorProduct(floorType, amount);
+        Debug.Log($"SaveFloorProduct: {floorType} Amount: {amount}");
     }
     public void SaveFloorLevel(FloorType floorType, int level)
     {
