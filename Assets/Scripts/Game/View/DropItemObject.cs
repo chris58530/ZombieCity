@@ -5,6 +5,8 @@ using UnityEngine;
 public class DropItemObject : MonoBehaviour, IPoolable
 {
     public DropItemType dropItemType;
+    public DropItemBounceType dropItemBounceType;
+    public CollectPerformanceType collectPerformanceType;
     public AnimationView animationView;
     private Action<DropItemObject> onCollectCallback;
     public void OnDespawned()
@@ -21,12 +23,27 @@ public class DropItemObject : MonoBehaviour, IPoolable
     {
         this.onCollectCallback = onCollectCallback;
 
-        float angle = UnityEngine.Random.Range(50f, 130f);
+        float angle;
+        do
+        {
+            switch (dropItemBounceType)
+            {
+                case DropItemBounceType.Small:
+                    angle = UnityEngine.Random.Range(85f, 95f);
+                    break;
+                case DropItemBounceType.Big:
+                    angle = UnityEngine.Random.Range(30f, 150f);
+                    break;
+                default:
+                    angle = UnityEngine.Random.Range(85f, 95f);
+                    break;
+            }
+        } while (angle == 90);
         Vector3 direction = new Vector3(Mathf.Cos(angle * Mathf.Deg2Rad), 0, Mathf.Sin(angle * Mathf.Deg2Rad)).normalized;
 
-        float dropHeight = 1f;
+        float dropHeight = .5f;
         float groundY = startPosition.y - dropHeight;
-        Vector3 targetPosition = startPosition + direction * 1.5f;
+        Vector3 targetPosition = startPosition + direction * 2f;
         targetPosition.y = groundY;
 
         transform.position = startPosition;
@@ -42,12 +59,21 @@ public class DropItemObject : MonoBehaviour, IPoolable
     }
     public void OnCollect() // Button Click
     {
-        Vector3 target = transform.position + new Vector3(-10f, 10f, 0f); // 向左上
-        transform.DOMove(target, 2f).SetEase(Ease.InOutQuad).OnComplete(() =>
+        if (collectPerformanceType == CollectPerformanceType.Move)
+        {
+            Vector3 target = new Vector3(-2f, transform.position.y + 2.8f, 0f); // 向左上
+
+            transform.DOMove(target, 1f).SetEase(Ease.InOutQuad).OnComplete(() =>
+            {
+                onCollectCallback?.Invoke(this);
+                ResetView();
+            });
+        }
+        else
         {
             onCollectCallback?.Invoke(this);
             ResetView();
-        });
+        }
     }
     public void ResetView()
     {
@@ -70,5 +96,15 @@ public enum DropItemType
     dumbbel, //903
     fish, //904
     crystal //905
-
+}
+public enum DropItemBounceType
+{
+    None,
+    Small, // 小跳
+    Big,
+}
+public enum CollectPerformanceType
+{
+    None,
+    Move,
 }

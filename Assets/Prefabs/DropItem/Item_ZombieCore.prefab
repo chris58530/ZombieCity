@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropItemType: 3
+  dropItemBounceType: 1
   animationView: {fileID: 4011602749699953562}
 --- !u!58 &7746712090557931486
 CircleCollider2D:
@@ -237,4 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fbcf8b550e347339339288750c53b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  autoResetObj: 0
+  resetClip: {fileID: 0}
+  FrameEvent: []

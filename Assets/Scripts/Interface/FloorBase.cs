@@ -55,7 +55,7 @@ public class FloorBase : MonoBehaviour
 
     protected virtual void SetProductAmount(int amount)
     {
-        productText.text = "Product:" + amount.ToString();
+        productText.text = ":" + amount.ToString();
         onSaveProduct?.Invoke(floorType, floorInfoData.productAmount);
 
     }
