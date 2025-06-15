@@ -89,3 +89,8 @@ public class DropItemEvent
     public const string REQUEST_DROP_FLOOR_ITEM = "DropItemEvent.REQUEST_DROP_FLOOR_ITEM";
     public const string REQUEST_DROP_RESOURCE_ITEM = "DropItemEvent.REQUEST_DROP_RESOURCE_ITEM";
 }
+public class CampCarEvent
+{
+    public const string ON_SELECT_LEVEL_SHOW = "CampCarEvent.ON_SELECT_LEVEL_SHOW";
+    public const string ON_SELECT_LEVEL_HIDE = "CampCarEvent.ON_SELECT_LEVEL_HIDE";
+}

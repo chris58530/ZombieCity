@@ -97,4 +97,9 @@ public class FloorView : MonoBehaviour, IView
         //MainFloor 使用
         mediator.OnClickSkyWatcher();
     }
+    public void OnClickCampCar()
+    {
+        //MainFloor 使用
+        mediator.OnClickCampCar();
+    }
 }

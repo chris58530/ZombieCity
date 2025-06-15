@@ -77,7 +77,10 @@ public class JsonDataCmd : ICommand
             {
                 { 901, new FloorJsonData { level = 1, productAmount = 0 } },
                 { 902, new FloorJsonData { level = 1, productAmount = 0 } },
-                { 903, new FloorJsonData { level = 1, productAmount = 0 } }
+                { 903, new FloorJsonData { level = 1, productAmount = 0 } },
+                { 904, new FloorJsonData { level = 1, productAmount = 0 } },
+                { 905, new FloorJsonData { level = 1, productAmount = 0 } },
+                { 906, new FloorJsonData { level = 1, productAmount = 0 } } 
             },
             survivorInfoData = new Dictionary<int, SurvivorJsonData>
             {

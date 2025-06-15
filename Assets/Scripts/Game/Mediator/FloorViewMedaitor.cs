@@ -79,4 +79,9 @@ public class FloorViewMediator : IMediator
         listener.BroadCast(TrasitionBackGroundEvent.ON_TRASITION_BACKGROUND);
         listener.BroadCast(DrawCardEvent.ON_DRAW_CARD_SHOW);
     }
+    public void OnClickCampCar()
+    {
+        listener.BroadCast(TrasitionBackGroundEvent.ON_TRASITION_BACKGROUND);
+        listener.BroadCast(CampCarEvent.ON_SELECT_LEVEL_SHOW);
+    }
 }

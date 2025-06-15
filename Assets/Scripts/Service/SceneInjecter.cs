@@ -30,6 +30,7 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<DrawCardProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<DropItemProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<DropItemViewMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<SelectLevelViewMediator>().AsSingle().NonLazy();
     }
 
 
