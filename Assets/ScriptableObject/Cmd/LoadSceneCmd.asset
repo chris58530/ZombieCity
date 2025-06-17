@@ -16,3 +16,4 @@ MonoBehaviour:
   sceneNames:
   - BaseScene
   - UIScene
+  - BattleScene
