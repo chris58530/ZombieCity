@@ -69,6 +69,26 @@ public class DropItemObject : MonoBehaviour, IPoolable
                 ResetView();
             });
         }
+        else if (collectPerformanceType == CollectPerformanceType.Coin)
+        {
+            Vector3 target = new Vector3(0f, transform.position.y + 20.8f, 0f); // 向上
+
+            transform.DOMove(target, 1f).SetEase(Ease.InOutQuad).OnComplete(() =>
+            {
+                onCollectCallback?.Invoke(this);
+                ResetView();
+            });
+        }
+        else if (collectPerformanceType == CollectPerformanceType.ZombieCore)
+        {
+            Vector3 target = new Vector3(3f, transform.position.y + 20.8f, 0f); // 向上
+
+            transform.DOMove(target, 1f).SetEase(Ease.InOutQuad).OnComplete(() =>
+            {
+                onCollectCallback?.Invoke(this);
+                ResetView();
+            });
+        }
         else
         {
             onCollectCallback?.Invoke(this);
@@ -111,4 +131,6 @@ public enum CollectPerformanceType
 {
     None,
     Move,
+    Coin,
+    ZombieCore
 }

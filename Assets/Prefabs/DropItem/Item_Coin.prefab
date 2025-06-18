@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dropItemType: 1
   dropItemBounceType: 1
-  collectPerformanceType: 0
+  collectPerformanceType: 2
   animationView: {fileID: 4011602749699953562}
 --- !u!58 &7746712090557931486
 CircleCollider2D:
