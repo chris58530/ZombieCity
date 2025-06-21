@@ -6,18 +6,18 @@ public class SelectLevelView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
     private void Awake()
     {
-        InjectService.Instance.Inject(this);
-        root.SetActive(false);
+       //by許杯 InjectService.Instance.Inject(this);
+        //by許杯 root.SetActive(false);
     }
 
     private void OnEnable()
     {
-        mediator.Register(this);
+        //by許杯 mediator.Register(this);
     }
 
     private void OnDisable()
     {
-        mediator.DeRegister(this);
+         //by許杯 mediator.DeRegister(this);
     }
 
     public void ShowSelectLevel()
