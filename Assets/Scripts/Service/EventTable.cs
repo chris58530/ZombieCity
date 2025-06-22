@@ -93,4 +93,5 @@ public class CampCarEvent
 {
     public const string ON_SELECT_LEVEL_SHOW = "CampCarEvent.ON_SELECT_LEVEL_SHOW";
     public const string ON_SELECT_LEVEL_HIDE = "CampCarEvent.ON_SELECT_LEVEL_HIDE";
+    public const string ON_BATTLE_CAR_SHOW = "CampCarEvent.ON_BATTLE_CAR_SHOW";
 }
