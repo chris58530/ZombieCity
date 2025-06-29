@@ -7,7 +7,7 @@ public class BattleCampCarView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
     [SerializeField] private BattleCampCarController battleCampCarController;
     [SerializeField] private GameObject followCamera;
-    private BattleSetting battleSetting;
+    private BattleZombieSpawnData battleSetting;
     [Header("Test")]
     public bool isTest = false;
     public GameObject testRoot;
@@ -25,22 +25,19 @@ public class BattleCampCarView : MonoBehaviour, IView
     private void OnEnable()
     {
         // mediator.Register(this);
-        battleCampCarController.StartForwardMovement();
     }
 
     private void OnDisable()
     {
         // mediator.DeRegister(this);
-        battleCampCarController.ResetView();
     }
-    public void SetBattleSetting(BattleSetting setting)
+    public void SetBattleSetting(BattleZombieSpawnData setting)
     {
         battleSetting = setting;
     }
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
-        battleCampCarController.SetFollowCamera(followCamera);
     }
 
     public void HideBattleCampCar()
@@ -49,26 +46,27 @@ public class BattleCampCarView : MonoBehaviour, IView
     }
 }
 [Serializable]
-public class TriggerZombieSetting
+public class WaveSetting
 {
-    public float triggerMeter;
-    public float spawnYRange;
-    public BattleSpaceSetting[] zombieSettings;
+    public float triggerSecond;
+    public ZombieSpwnSetting[] zombieSpwnSettings;
 
 }
 [Serializable]
-public class BattleSpaceSetting
+public class ZombieSpwnSetting
 {
-    public SpaceType spaceType;
-    public ZombieType zombieType;
+    public ZombieSpawnData zombieType;
+
     public int zombieCount;
 }
-public enum SpaceType
+[Serializable]
+public class ZombieSpawnData
 {
-    Right,
-    Middle,
-    Left
+    public ZombieType zombieType;
+    public int level;
+
 }
+
 public enum ZombieType
 {
     Normal,
