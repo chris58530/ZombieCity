@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 126837030}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpawnPosRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 373918099}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 420635473}
   - component: {fileID: 420635471}
   - component: {fileID: 420635470}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Main Camera (Test)
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -315,7 +315,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 464110635}
-  m_Layer: 0
+  - component: {fileID: 464110636}
+  m_Layer: 10
   m_Name: BattleBackGroundView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -338,6 +339,19 @@ Transform:
   - {fileID: 1799515850}
   m_Father: {fileID: 2066285721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &464110636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 464110634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b951b3f36e746a69ac76fe138eaf70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 1799515849}
 --- !u!1 &792348710
 GameObject:
   m_ObjectHideFlags: 0
@@ -348,7 +362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 792348711}
   - component: {fileID: 792348712}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleCampCarView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -386,7 +400,7 @@ MonoBehaviour:
   root: {fileID: 2057960682}
   battleCampCarController: {fileID: 1787207870}
   followCamera: {fileID: 420635468}
-  isTest: 1
+  isTest: 0
   testRoot: {fileID: 2065806247}
 --- !u!1 &945964160
 GameObject:
@@ -398,7 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 945964161}
   - component: {fileID: 945964162}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleSceneUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +499,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1413437250}
   - component: {fileID: 1413437251}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleSceneBackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -571,7 +585,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1417256692}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1479732142}
   - component: {fileID: 1479732143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleZombieSpawnerView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -643,6 +657,7 @@ MonoBehaviour:
   zombies:
   - {fileID: -2795948003020557179, guid: a2b0fe53062044f6695156ce306763a2, type: 3}
   - {fileID: -2795948003020557179, guid: daef17b7dd8054d36aef89b518ae61ca, type: 3}
+  root: {fileID: 1417256691}
 --- !u!1 &1598293918
 GameObject:
   m_ObjectHideFlags: 0
@@ -652,7 +667,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1598293919}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TapEnergyRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +700,7 @@ GameObject:
   - component: {fileID: 1787207868}
   - component: {fileID: 1787207869}
   - component: {fileID: 1787207870}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CampCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -784,7 +799,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1799515850}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +831,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1845860789}
-  m_Layer: 0
+  - component: {fileID: 1845860790}
+  m_Layer: 10
   m_Name: BattleSkillView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,6 +855,19 @@ Transform:
   - {fileID: 373918099}
   m_Father: {fileID: 2066285721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1845860790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845860788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9929bca6af345efa9dcded7899493c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root: {fileID: 373918098}
 --- !u!1 &2057960682
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,7 +877,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2057960683}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,7 +909,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2065806248}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TestRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +941,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2066285721}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BattleScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}

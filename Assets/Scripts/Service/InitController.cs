@@ -11,6 +11,7 @@ public class InitController : MonoBehaviour
     [Inject] private DiContainer container;
     public StateControllerSetting InitStateControllerSetting;
     public StateControllerSetting GameStateControllerSetting;
+    public StateControllerSetting BattleStateControllerSetting;
     public TextMeshProUGUI progressText;
     public GameObject clickObject;
     public GameObject panel;

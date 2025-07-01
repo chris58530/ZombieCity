@@ -16,8 +16,7 @@ public class BattleCampCarView : MonoBehaviour, IView
             Destroy(testRoot);
         }
         // InjectService.Instance.Inject(this);
-        root.SetActive(false);
-        ShowBattleCampCar();
+        ResetView();
     }
 
     private void OnEnable()
@@ -29,13 +28,17 @@ public class BattleCampCarView : MonoBehaviour, IView
     {
         // mediator.DeRegister(this);
     }
-   
+
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
     }
 
     public void HideBattleCampCar()
+    {
+        root.SetActive(false);
+    }
+    public void ResetView()
     {
         root.SetActive(false);
     }

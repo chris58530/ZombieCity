@@ -7,7 +7,8 @@ public class GameEvent
     public const string ON_START_GAME = "GameEvent.ON_START_GAME";
     public const string ON_QUIT_GAME = "GameEvent.ON_QUIT_GAME";
 }
-public class JsonDataEvent{
+public class JsonDataEvent
+{
     public const string ON_SET_PLAYER_DATA = "PlayerData.ON_SET_PLAYER_DATA";
     public const string ON_UPDATE_PLAYER_DATA = "PlayerData.ON_UPDATE_PLAYER_DATA";
 }
@@ -94,4 +95,8 @@ public class CampCarEvent
     public const string ON_SELECT_LEVEL_SHOW = "CampCarEvent.ON_SELECT_LEVEL_SHOW";
     public const string ON_SELECT_LEVEL_HIDE = "CampCarEvent.ON_SELECT_LEVEL_HIDE";
     public const string ON_BATTLE_CAR_SHOW = "CampCarEvent.ON_BATTLE_CAR_SHOW";
+}
+public class SelectLevelEvent
+{
+    public const string ON_SELECT_LEVEL_CLICKED = "SelectLevelEvent.ON_SELECT_LEVEL_CLICKED";
 }

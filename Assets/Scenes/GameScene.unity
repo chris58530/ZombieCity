@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitStateControllerSetting: {fileID: 11400000, guid: 805e0b56028724880ad478cef6a35bf0, type: 2}
   GameStateControllerSetting: {fileID: 11400000, guid: 0453139d9bc4048f2870674f154c714b, type: 2}
+  BattleStateControllerSetting: {fileID: 11400000, guid: 6b196db9457994485ab2aef7b08475b6, type: 2}
   progressText: {fileID: 1857957466}
   clickObject: {fileID: 1206554664}
   panel: {fileID: 649869930}

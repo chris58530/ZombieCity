@@ -6,18 +6,18 @@ public class SelectLevelView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
     private void Awake()
     {
-       //by許杯 InjectService.Instance.Inject(this);
-        //by許杯 root.SetActive(false);
+        InjectService.Instance.Inject(this);
+        ResetView();
     }
 
     private void OnEnable()
     {
-        //by許杯 mediator.Register(this);
+        mediator.Register(this);
     }
 
     private void OnDisable()
     {
-         //by許杯 mediator.DeRegister(this);
+        mediator.DeRegister(this);
     }
 
     public void ShowSelectLevel()
@@ -28,22 +28,12 @@ public class SelectLevelView : MonoBehaviour, IView
     {
         root.SetActive(false);
     }
-}
-public class SelectLevelViewMediator : IMediator
-{
-    private SelectLevelView view;
-    public override void Register(IView view)
+    public void SelectLevelClicked(int levelId)
     {
-        base.Register(view);
-        this.view = view as SelectLevelView;
+        mediator.SelectLevelClicked(levelId);
     }
-    public override void DeRegister(IView view)
+    public void ResetView()
     {
-        base.DeRegister(view);
-    }
-    [Listener(CampCarEvent.ON_SELECT_LEVEL_SHOW)]
-    public void ShowSelectLevel()
-    {
-        view.ShowSelectLevel();
+        root.SetActive(false);
     }
 }

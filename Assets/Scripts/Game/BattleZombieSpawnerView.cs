@@ -7,11 +7,12 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 {
     [SerializeField] private BattleZombieSpawnData battleSetting;
     [SerializeField] private List<ZombieBase> zombies;
-    void Start()
+    [SerializeField] private GameObject root;
+    private void Awake()
     {
-        StartCoroutine(SpawnWaves());
+        ResetView();
     }
-
+    [ContextMenu("Start Spawning")]
     public void StartSpawning()
     {
         StartCoroutine(SpawnWaves());
@@ -22,7 +23,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     }
     public void ResetView()
     {
-
+        root.SetActive(false);
     }
 
     private IEnumerator SpawnWaves()
