@@ -11,7 +11,7 @@ public class FloorCmd : ICommand
     {
         isLazy = true;
     }
-    [Listener(GameEvent.ON_INIT_GAME)]
+    [Listener(GameEvent.ON_GAME_STATE_START)]
     public void InitFloor()
     {
         // FloorProductData floorProductData = playerDataProxy.GetData().floorProductData;

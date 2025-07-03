@@ -1,5 +1,8 @@
+using Zenject;
+
 public class SelectLevelViewMediator : IMediator
 {
+    [Inject] private BattleProxy battleProxy;
     private SelectLevelView view;
     public override void Register(IView view)
     {
@@ -15,15 +18,10 @@ public class SelectLevelViewMediator : IMediator
     {
         view.ShowSelectLevel();
     }
-    public void SelectLevelClicked(int levelId)
+    public void SelectLevelClicked(BattleZombieSpawnData battleZombieSpawnData)
     {
-        //add levelId
-        //add spawnSo to proxy
-        //todo
+        battleProxy.SetData(battleZombieSpawnData);
         listener.BroadCast(SelectLevelEvent.ON_SELECT_LEVEL_CLICKED);
     }
-}
-public class LevelProxy : IProxy
-{
-   
+
 }

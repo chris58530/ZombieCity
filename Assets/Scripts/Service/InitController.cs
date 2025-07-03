@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections;
 using DG.Tweening;
 using Zenject;
+using System;
 
 public class InitController : MonoBehaviour
 {
@@ -15,24 +16,18 @@ public class InitController : MonoBehaviour
     public TextMeshProUGUI progressText;
     public GameObject clickObject;
     public GameObject panel;
-    private int totalCommands;
-    private int completedCommands;
-
+    public GameState curState = GameState.Init;
     private void OnEnable()
     {
-        StartExecution();
+        OnInitState();
         listener.RegisterListener(this);
         clickObject.SetActive(false);
         QualitySettings.vSyncCount = 0;   // 把垂直同步關掉
         Application.targetFrameRate = 60;
     }
 
-    private void StartExecution()
+    private void OnInitState()
     {
-        totalCommands = InitStateControllerSetting.commands.Length;
-        completedCommands = 0;
-        UpdateProgress();
-
         foreach (var cmd in InitStateControllerSetting.commands)
         {
             cmd.Initialize(this, listener, container);
@@ -51,29 +46,53 @@ public class InitController : MonoBehaviour
             hasStartedCompletion = true;
             StartCoroutine(OnCmdCompleteCoroutine());
         }
-    }
 
+    }
+    public void RequestChangeState(GameState state)
+    {
+        curState = state;
+        switch (state)
+        {
+            case GameState.Game:
+                listener.BroadCast(GameEvent.ON_GAME_STATE_END);
+                CompleteState(BattleStateControllerSetting);
+                ChangeState(GameStateControllerSetting, () =>
+                {
+                    listener.BroadCast(GameEvent.ON_GAME_STATE_START);
+
+                });
+                break;
+
+            case GameState.Battle:
+                listener.BroadCast(GameEvent.ON_GAME_STATE_END);
+                clickObject.SetActive(false);
+                CompleteState(GameStateControllerSetting);
+                ChangeState(BattleStateControllerSetting, () =>
+                {
+                    listener.BroadCast(GameEvent.ON_BATTLE_STATE_START);
+                });
+                break;
+        }
+    }
+    private void CompleteState(StateControllerSetting stateControllerSetting)
+    {
+        foreach (var cmd in stateControllerSetting.commands)
+        {
+            if (!cmd.isLazy)
+            {
+                cmd.SetComplete();
+            }
+        }
+    }
     private IEnumerator OnCmdCompleteCoroutine()
     {
         yield return new WaitForSeconds(1f);
         LogService.Instance.Log("ON_INIT_GAME");
 
-        completedCommands++;
-        UpdateProgress();
-        Transition();
-    }
-
-    private void UpdateProgress()
-    {
-        float progress = totalCommands > 0 ? (float)completedCommands / totalCommands * 100f : 100f;
         if (progressText != null)
         {
             progressText.text = $"Loading...";
         }
-    }
-
-    private void Transition()
-    {
         clickObject.SetActive(true);
         if (progressText != null)
         {
@@ -85,7 +104,7 @@ public class InitController : MonoBehaviour
             cmd.Execute(this);
         }
 
-        listener.BroadCast(GameEvent.ON_INIT_GAME);
+        listener.BroadCast(GameEvent.ON_GAME_STATE_START);
     }
     public void OnClick()
     {
@@ -93,5 +112,19 @@ public class InitController : MonoBehaviour
         clickObject.SetActive(false);
         listener.BroadCast(CameraEvent.MOVE_TO_GAME_VIEW);
     }
-
+    public void ChangeState(StateControllerSetting stateControllerSetting, Action callBack = null)
+    {
+        foreach (var cmd in stateControllerSetting.commands)
+        {
+            cmd.Initialize(this, listener, container);
+            cmd.Execute(this);
+        }
+        callBack?.Invoke();
+    }
+}
+public enum GameState
+{
+    Init,
+    Game,
+    Battle
 }
