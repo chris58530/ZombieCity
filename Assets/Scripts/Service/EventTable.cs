@@ -3,6 +3,7 @@ using CW.Common;
 
 public class GameEvent
 {
+    public const string REQUEST_CHANGE_STATE = "GameEvent.REQUEST_CHANGE_STATE";
     public const string ON_GAME_STATE_START = "GameEvent.ON_GAME_STATE_START";
     public const string ON_GAME_STATE_END = "GameEvent.ON_GAME_STATE_END";
     public const string ON_BATTLE_STATE_START = "GameEvent.ON_BATTLE_STATE_START";

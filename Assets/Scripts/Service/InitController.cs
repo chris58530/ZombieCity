@@ -10,13 +10,13 @@ public class InitController : MonoBehaviour
 {
     [Inject] private Listener listener;
     [Inject] private DiContainer container;
+    [Inject] private GameStateProxy gameStateProxy;
     public StateControllerSetting InitStateControllerSetting;
     public StateControllerSetting GameStateControllerSetting;
     public StateControllerSetting BattleStateControllerSetting;
     public TextMeshProUGUI progressText;
     public GameObject clickObject;
     public GameObject panel;
-    public GameState curState = GameState.Init;
     private void OnEnable()
     {
         OnInitState();
@@ -48,9 +48,10 @@ public class InitController : MonoBehaviour
         }
 
     }
-    public void RequestChangeState(GameState state)
+    [Listener(GameEvent.REQUEST_CHANGE_STATE)]
+    public void RequestChangeState()
     {
-        curState = state;
+        GameState state = gameStateProxy.curState;
         switch (state)
         {
             case GameState.Game:
@@ -70,6 +71,7 @@ public class InitController : MonoBehaviour
                 ChangeState(BattleStateControllerSetting, () =>
                 {
                     listener.BroadCast(GameEvent.ON_BATTLE_STATE_START);
+                    //todo 串連
                 });
                 break;
         }
@@ -120,6 +122,15 @@ public class InitController : MonoBehaviour
             cmd.Execute(this);
         }
         callBack?.Invoke();
+    }
+}
+public class GameStateProxy : IProxy
+{
+    public GameState curState = GameState.Init;
+    public void RequestChangeState(GameState state)
+    {
+        curState = state;
+        listener.BroadCast(GameEvent.REQUEST_CHANGE_STATE);
     }
 }
 public enum GameState
