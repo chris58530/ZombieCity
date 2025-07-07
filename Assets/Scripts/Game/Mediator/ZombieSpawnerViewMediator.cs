@@ -17,11 +17,15 @@ public class ZombieSpawnerViewMediator : IMediator
     {
         view.Initialize(proxy.zombieDataSetting);
     }
-    [Listener(ZombieSpawnerEvent.ON_ZOMBIE_SPAWN)]
+    [Listener(ZombieSpawnerEvent.START_SPAWN_ZOMBIE)]
     public void OnZombieSpawn()
     {
-        int id = proxy.spawnId;
-        view.OnZombieSpawned(id);
+        view.StartSpanwZombie();
+    }
+    [Listener(ZombieSpawnerEvent.STOP_SPAWN_ZOMBIE)]
+    public void StopSpawnZombie()
+    {
+        view.StopSpawnZombie();
     }
 
     [Listener(ZombieSpawnerEvent.ON_ZOMBIE_HIT)]
@@ -30,6 +34,7 @@ public class ZombieSpawnerViewMediator : IMediator
         ZombieBase zombie = proxy.hitZombie;
         view.OnZombieHit(zombie);
     }
+
     public void AddAutoHitTarget(ZombieBase zombieBase, bool isTarget)
     {
         if (isTarget)
@@ -44,7 +49,7 @@ public class ZombieSpawnerViewMediator : IMediator
         dropItemProxy.RequestDropResourceItem(request);
 
         int getCore = Random.Range(0, 1);
-        if(getCore == 0)
+        if (getCore == 0)
         {
             request = new DropRequest(DropItemType.ZombieCore, zombieTransform.position, 1);
             dropItemProxy.RequestDropResourceItem(request);

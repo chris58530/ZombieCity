@@ -5,7 +5,6 @@ public class ZombieSpawnerProxy : IProxy
 {
     public List<ZombieBase> autoHitTarget = new List<ZombieBase>();
     public ZombieDataSetting zombieDataSetting;
-    public int spawnId;
     public float spawnRate = 0.5f;
     public ZombieBase hitZombie;
 
@@ -13,14 +12,9 @@ public class ZombieSpawnerProxy : IProxy
     {
         this.zombieDataSetting = zombieDataSetting;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_INIT);
+        listener.BroadCast(ZombieSpawnerEvent.START_SPAWN_ZOMBIE);
 
     }
-    public void OnSpawnZombie(int id)
-    {
-        this.spawnId = id;
-        listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_SPAWN);
-    }
-
     public void AddAutoHitTarget(ZombieBase zombieBase)
     {
         if (!autoHitTarget.Contains(zombieBase))

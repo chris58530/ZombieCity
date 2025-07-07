@@ -10,6 +10,7 @@ public class ZombieSpawnerView : MonoBehaviour, IView
     [Inject] private ZombieSpawnerViewMediator mediator;
     [SerializeField] private Vector2 spawnPosX; //左右
     [SerializeField] private Vector2 spawnPosY;// 上下多少範圍
+    private Tween spawnTween;
     private Dictionary<int, ZombieManager> zombiesManager = new Dictionary<int, ZombieManager>();
     public void Awake()
     {
@@ -55,16 +56,22 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             zombiesManager.Add(zombieData.zombieInfo.zombieBasePrefab.id, zombieManager);
         }
     }
-    public void OnZombieSpawned(int id)
+    public void StartSpanwZombie()
     {
-        if (zombiesManager.ContainsKey(id))
+        
+        spawnTween = DOVirtual.DelayedCall(1f, () =>
         {
-            zombiesManager[id].SpawnZombie();
-        }
-        else
-        {
-            Debug.LogWarning("Zombie ID not found in manager.");
-        }
+            Debug.Log("Start spawning zombies.");
+            int spawnId = UnityEngine.Random.Range(0, zombiesManager.Count);
+            if (zombiesManager.ContainsKey(spawnId))
+            {
+                zombiesManager[spawnId].SpawnZombie();
+            }
+        }).SetLoops(-1, LoopType.Restart);
+    }
+    public void StopSpawnZombie()
+    {
+        spawnTween?.Kill();
     }
     public void OnZombieHit(ZombieBase zombie)
     {

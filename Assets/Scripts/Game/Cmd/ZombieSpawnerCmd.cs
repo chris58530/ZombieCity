@@ -9,27 +9,23 @@ public class ZombieSpawnerCmd : ICommand
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
-
     }
     [Listener(GameEvent.ON_GAME_STATE_START)]
     public void StartZombieSpawn()
     {
         proxy.SetZombieInit(zombieDataSetting);
     }
-    [Listener(DebugEvent.ON_ZOMBIE_SPAWN)]
-    public void SpawnZombie()
+
+    [Listener(GameEvent.ON_GAME_STATE_END)]
+    private void StopSpawn()
     {
-        int data = Random.Range(0, zombieDataSetting.zombieData.Length);
-
-        ZombieData zombieData = zombieDataSetting.zombieData[data];
-
-        proxy.OnSpawnZombie(zombieData.zombieInfo.zombieBasePrefab.id);
+        listener.BroadCast(ZombieSpawnerEvent.STOP_SPAWN_ZOMBIE);
+        SetComplete();
     }
     [Listener(ClickHitEvent.ON_CLICK_ZOMBIE)]
     public void OnClickHitZombie()
     {
         ZombieBase zombie = clickHitProxy.hitZombie;
-
         proxy.SetHitZombie(zombie);
     }
 

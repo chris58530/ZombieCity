@@ -8,18 +8,18 @@ public class DebugView : MonoBehaviour, IView
     private void OnEnable()
     {
         listener.RegisterListener(this);
-        InvokeRepeating("SpawnZombie", 0, 1f);
+        // InvokeRepeating("SpawnZombie", 0, 1f);
 
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
         {
-            listener.BroadCast(DebugEvent.ON_DEBUG_EVENT);
+            listener.BroadCast(GameEvent.ON_GAME_STATE_START);
         }
         if (Input.GetKeyDown(KeyCode.O))
         {
-            listener.BroadCast(DebugEvent.ON_ZOMBIE_SPAWN);
+            listener.BroadCast(GameEvent.ON_GAME_STATE_END);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -50,7 +50,7 @@ public class DebugView : MonoBehaviour, IView
     {
         floorProxy.AddLevel(FloorType.Floor_901, 1);
     }
-     public void OnAddProductFloor2()
+    public void OnAddProductFloor2()
     {
         floorProxy.AddProduct(FloorType.Floor_902, 1);
     }
@@ -58,5 +58,5 @@ public class DebugView : MonoBehaviour, IView
     {
         floorProxy.AddLevel(FloorType.Floor_902, 1);
     }
-    
+
 }
