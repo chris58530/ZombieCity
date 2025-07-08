@@ -55,6 +55,7 @@ public class InitController : MonoBehaviour
         switch (state)
         {
             case GameState.Game:
+                Debug.Log("Change to Game State");
                 listener.BroadCast(GameEvent.ON_GAME_STATE_END);
                 CompleteState(BattleStateControllerSetting);
                 ChangeState(GameStateControllerSetting, () =>
@@ -65,6 +66,7 @@ public class InitController : MonoBehaviour
                 break;
 
             case GameState.Battle:
+                Debug.Log("Change to Battle State");
                 listener.BroadCast(GameEvent.ON_GAME_STATE_END);
                 clickObject.SetActive(false);
                 CompleteState(GameStateControllerSetting);
@@ -85,6 +87,7 @@ public class InitController : MonoBehaviour
                 cmd.SetComplete();
             }
         }
+        
     }
     private IEnumerator OnCmdCompleteCoroutine()
     {
@@ -105,7 +108,6 @@ public class InitController : MonoBehaviour
             cmd.Initialize(this, listener, container);
             cmd.Execute(this);
         }
-
         listener.BroadCast(GameEvent.ON_GAME_STATE_START);
     }
     public void OnClick()

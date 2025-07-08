@@ -61,7 +61,6 @@ public class FloorView : MonoBehaviour, IView
             {
                 if ((int)floor.floorType == floorId)
                 {
-                    Debug.Log("InitFloor:" + floorId + "產品數量：" + floorInfo.productAmount + " 等級：" + floorInfo.level);
                     floor.onSaveProduct += SaveFloorProduct;
                     floor.onSaveLevel += SaveFloorLevel;
                     floor.SetData(floorInfo, logOutTime);
@@ -86,7 +85,6 @@ public class FloorView : MonoBehaviour, IView
     public void SaveFloorProduct(FloorType floorType, int amount)
     {
         mediator.SaveFloorProduct(floorType, amount);
-        Debug.Log($"SaveFloorProduct: {floorType} Amount: {amount}");
     }
     public void SaveFloorLevel(FloorType floorType, int level)
     {

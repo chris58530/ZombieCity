@@ -41,6 +41,11 @@ public class ZombieSpawnerView : MonoBehaviour, IView
                 continue;
             }
             int zombId = zombieData.zombieInfo.zombieBasePrefab.id;
+            if (zombiesManager.ContainsKey(zombId))
+            {
+                Debug.Log($"ZombieManager with id {zombId} already exists. Skipping initialization.");
+                continue;
+            }
             int hp = zombieData.hp;
             ZombieManager zombieManager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
             zombieManager.isAutoHitTarget = AddAutoHitTarget;
@@ -58,20 +63,29 @@ public class ZombieSpawnerView : MonoBehaviour, IView
     }
     public void StartSpanwZombie()
     {
-        
         spawnTween = DOVirtual.DelayedCall(1f, () =>
         {
-            Debug.Log("Start spawning zombies.");
-            int spawnId = UnityEngine.Random.Range(0, zombiesManager.Count);
-            if (zombiesManager.ContainsKey(spawnId))
+            if (zombiesManager.Count == 0)
             {
-                zombiesManager[spawnId].SpawnZombie();
+                Debug.LogWarning("No zombie managers available.");
+                return;
             }
+
+            Debug.Log("Start spawning zombies.");
+            var keys = new List<int>(zombiesManager.Keys);
+            int spawnId = keys[UnityEngine.Random.Range(0, keys.Count)];
+            zombiesManager[spawnId].SpawnZombie();
+
         }).SetLoops(-1, LoopType.Restart);
     }
     public void StopSpawnZombie()
     {
+        Debug.Log("Stop spawning zombies.");
         spawnTween?.Kill();
+        foreach (var manager in zombiesManager.Values)
+        {
+            manager.ResetView();
+        }
     }
     public void OnZombieHit(ZombieBase zombie)
     {
@@ -142,10 +156,23 @@ public class ZombieManager : MonoBehaviour
     public void ResetZombie(ZombieBase zombie)
     {
         AddAutoHitTarget(zombie, false);
-
         zombieHpDic.Remove(zombie);
         zombieMoveTween.Remove(zombie);
         poolManager.Despawn(zombie);
+    }
+    public void ResetView()
+    {
+        foreach (var zombie in zombieHpDic.Keys)
+        {
+            if (zombie != null)
+            {
+                zombieMoveTween[zombie].Kill();
+                AddAutoHitTarget(zombie, false);
+                poolManager.Despawn(zombie);
+            }
+        }
+        zombieHpDic.Clear();
+        zombieMoveTween.Clear();
     }
     public void SpawnZombie()
     {

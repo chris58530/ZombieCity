@@ -21,7 +21,6 @@ public class SurvivorView : MonoBehaviour, IView
     }
     public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, SurvivorJsonData> infoData, FloorBase startFloor, Dictionary<int, FloorBase> floorBaseDic)
     {
-        Debug.Log("InitSurvivor");
         GameObject survivorManagerObj = new GameObject("SurvivorManager");
         survivorManagerObj.transform.SetParent(transform);
         survivorManager = survivorManagerObj.AddComponent<SurvivorManager>();

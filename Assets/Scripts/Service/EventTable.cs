@@ -43,8 +43,8 @@ public class CameraEvent
 public class ZombieSpawnerEvent
 {
     public const string ON_ZOMBIE_INIT = "ZombieSpawner.ON_ZOMBIE_INIT";
-    public const string START_SPAWN_ZOMBIE = "ZombieSpawner.ON_ZOMBIE_SPAWN";
-    public const string STOP_SPAWN_ZOMBIE = "ZombieSpawner.ON_ZOMBIE_SPAWN";
+    public const string START_SPAWN_ZOMBIE = "ZombieSpawner.START_SPAWN_ZOMBIE";
+    public const string STOP_SPAWN_ZOMBIE = "ZombieSpawner.STOP_SPAWN_ZOMBIE";
     public const string ON_ZOMBIE_HIT = "ZombieSpawner.ON_ZOMBIE_HIT";
 
 }

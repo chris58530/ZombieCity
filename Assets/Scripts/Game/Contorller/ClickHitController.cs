@@ -13,7 +13,6 @@ public class ClickHitController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("ClickHitController");
             Vector3 mouseScreenPos = Input.mousePosition;
             mouseScreenPos.z = 10f;
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(mouseScreenPos);
