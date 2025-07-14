@@ -8,10 +8,33 @@ public class GameCameraProxy : IProxy
     public bool canSwipe;
     public void SetCamera(CameraType type, GameCamera camera)
     {
-        mainCamera = camera;
+        if (type == CameraType.Game)
+        {
+            mainCamera = camera;
+        }
+        Debug.Log($"Setting camera of type {type}");
         gameCameras[type] = camera;
     }
-  
+    public void UseCamera(CameraType type)
+    {
+        if (gameCameras.TryGetValue(type, out var camera))
+        {
+            mainCamera = camera;
+            camera.gameObject.SetActive(true);
+            foreach (var cam in gameCameras.Values)
+            {
+                if (cam != camera)
+                {
+                    cam.gameObject.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Camera of type {type} not found.");
+        }
+    }
+
     public void EnabelSwipe()
     {
         canSwipe = true;

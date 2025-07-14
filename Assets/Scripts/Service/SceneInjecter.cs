@@ -35,6 +35,9 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<BattleCampCarProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BattleProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<GameStateProxy>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<LevelComfirmViewMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BattleBackGroundViewMediator>().AsSingle().NonLazy();
+        
     }
 
 }

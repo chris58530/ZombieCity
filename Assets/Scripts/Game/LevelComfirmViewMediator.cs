@@ -3,7 +3,7 @@ using Zenject;
 
 public class LevelComfirmViewMediator : IMediator
 {
-    [Inject]private GameStateProxy gameStateProxy;
+    [Inject] private GameStateProxy gameStateProxy;
     private LevelComfirmView view;
 
     public override void Register(IView view)
@@ -24,5 +24,10 @@ public class LevelComfirmViewMediator : IMediator
     public void ConfirmLevel()
     {
         gameStateProxy.RequestChangeState(GameState.Battle);
+    }
+    [Listener(GameEvent.ON_GAME_STATE_END)]
+    public void HideSelectLevel()
+    {
+        view.ResetView();
     }
 }

@@ -23,5 +23,10 @@ public class SelectLevelViewMediator : IMediator
         battleProxy.SetData(battleZombieSpawnData);
         listener.BroadCast(SelectLevelEvent.ON_SELECT_LEVEL_CLICKED);
     }
+    [Listener(GameEvent.ON_GAME_STATE_END)]
+    public void HideSelectLevel()
+    {
+        view.ResetView();
+    }
 
 }

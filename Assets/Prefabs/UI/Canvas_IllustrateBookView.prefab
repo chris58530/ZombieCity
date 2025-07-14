@@ -1573,8 +1573,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9128406261081356307}
   m_HandleRect: {fileID: 1200896813401814004}
   m_Direction: 2
-  m_Value: 0.9999999
-  m_Size: 0.2562258
+  m_Value: 0.99999946
+  m_Size: 0.25622582
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2385,7 +2385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.90188676, g: 0.6985645, b: 0.2977927, a: 0.392}
+  m_Color: {r: 0.8113208, g: 0.4247953, b: 0.6491378, a: 0.392}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3973,7 +3973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.5529412}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3989,7 +3989,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 3.78
 --- !u!1 &6233640713177112906
 GameObject:
   m_ObjectHideFlags: 0
@@ -4423,10 +4423,10 @@ Canvas:
   m_GameObject: {fileID: 6949561170947581617}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -4912,7 +4912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00024414062}
+  m_AnchoredPosition: {x: 0, y: 0.0026855469}
   m_SizeDelta: {x: 0, y: 6160}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1536509719137167190
@@ -5446,7 +5446,7 @@ GameObject:
   - component: {fileID: 4577592922656989476}
   - component: {fileID: 2417997355471042359}
   m_Layer: 5
-  m_Name: IllustrateBookView
+  m_Name: Canvas_IllustrateBookView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

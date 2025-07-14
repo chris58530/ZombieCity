@@ -1,8 +1,8 @@
 using UnityEngine;
-
+using Zenject;
 public class LevelComfirmView : MonoBehaviour,IView
 {
-    [Zenject.Inject] private LevelComfirmViewMediator mediator;
+    [Inject] private LevelComfirmViewMediator mediator;
 
     [SerializeField] private GameObject root;
 

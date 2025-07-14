@@ -11,6 +11,7 @@ public class InitController : MonoBehaviour
     [Inject] private Listener listener;
     [Inject] private DiContainer container;
     [Inject] private GameStateProxy gameStateProxy;
+    [Inject] private GameCameraProxy gameCameraProxy;
     public StateControllerSetting InitStateControllerSetting;
     public StateControllerSetting GameStateControllerSetting;
     public StateControllerSetting BattleStateControllerSetting;
@@ -60,6 +61,7 @@ public class InitController : MonoBehaviour
                 CompleteState(BattleStateControllerSetting);
                 ChangeState(GameStateControllerSetting, () =>
                 {
+                    gameCameraProxy.UseCamera(CameraType.Game);
                     listener.BroadCast(GameEvent.ON_GAME_STATE_START);
 
                 });
@@ -72,6 +74,7 @@ public class InitController : MonoBehaviour
                 CompleteState(GameStateControllerSetting);
                 ChangeState(BattleStateControllerSetting, () =>
                 {
+                    gameCameraProxy.UseCamera(CameraType.Battle);
                     listener.BroadCast(GameEvent.ON_BATTLE_STATE_START);
                     //todo 串連
                 });
