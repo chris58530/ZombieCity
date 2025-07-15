@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 public class BattleZombieSpawnerView : MonoBehaviour, IView
 {
+    [Zenject.Inject] private BattleZombieSpawnerViewMediator mediator;
     [SerializeField] private BattleZombieSpawnData battleSetting;
     [SerializeField] private List<ZombieBase> zombies;
     [SerializeField] private GameObject root;
@@ -15,6 +16,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [ContextMenu("Start Spawning")]
     public void StartSpawning()
     {
+        Debug.Log("Start Spawning Zombies Battle");
         StartCoroutine(SpawnWaves());
     }
     public void SetBattleSetting(BattleZombieSpawnData setting)
@@ -45,6 +47,11 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                     if (prefab != null)
                     {
                         ZombieBase zombie = Instantiate(prefab, spawnPos, Quaternion.identity);
+                        zombie.gameObject.layer = LayerMask.NameToLayer("Battle");
+                        foreach (Transform child in zombie.transform)
+                        {
+                            child.gameObject.layer = LayerMask.NameToLayer("Battle");
+                        }
                     }
                     else
                     {

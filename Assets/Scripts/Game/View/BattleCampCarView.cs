@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BattleCampCarView : MonoBehaviour, IView
 {
-    // [Zenject.Inject] private BattleCampCarViewMediator mediator;
+    [Zenject.Inject] private BattleCampCarViewMediator mediator;
     [SerializeField] private GameObject root;
     [SerializeField] private BattleCampCarController battleCampCarController;
     [SerializeField] private GameObject followCamera;
@@ -15,18 +15,18 @@ public class BattleCampCarView : MonoBehaviour, IView
         {
             Destroy(testRoot);
         }
-        // InjectService.Instance.Inject(this);
+        InjectService.Instance.Inject(this);
         ResetView();
     }
 
     private void OnEnable()
     {
-        // mediator.Register(this);
+        mediator.Register(this);
     }
 
     private void OnDisable()
     {
-        // mediator.DeRegister(this);
+        mediator.DeRegister(this);
     }
 
     public void ShowBattleCampCar()
