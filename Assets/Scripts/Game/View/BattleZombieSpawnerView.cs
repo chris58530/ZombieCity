@@ -9,6 +9,8 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [SerializeField] private BattleZombieSpawnData battleSetting;
     [SerializeField] private List<ZombieBase> zombies;
     [SerializeField] private GameObject root;
+    private ZombieManager zombieManager;
+    //todo use this to spawn zombies objectpool
     private void Awake()
     {
         InjectService.Instance.Inject(this);

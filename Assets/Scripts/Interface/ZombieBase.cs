@@ -63,8 +63,10 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     public void ChangeLayer(string layerName)
     {
+        int layer = LayerMask.NameToLayer(layerName);
+
         gameObject.layer = LayerMask.NameToLayer(layerName);
-        sprite.sortingLayerName = layerName;
+        sprite.gameObject.layer = layer;
         foreach (Transform child in transform)
         {
             child.gameObject.layer = LayerMask.NameToLayer(layerName);
