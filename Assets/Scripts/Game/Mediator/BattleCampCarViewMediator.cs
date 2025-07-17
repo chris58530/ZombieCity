@@ -13,9 +13,15 @@ public class BattleCampCarViewMediator : IMediator
         base.DeRegister(view);
     }
 
-    [Listener(CampCarEvent.ON_BATTLE_CAR_SHOW)]
+    // [Listener(CampCarEvent.ON_BATTLE_CAR_SHOW)]
+    [Listener(GameEvent.ON_BATTLE_STATE_START)]
     public void ShowBattleCampCar()
     {
         view.ShowBattleCampCar();
+    }
+    [Listener(GameEvent.ON_BATTLE_STATE_END)]
+    public void HideBattleCampCar()
+    {
+        view.HideBattleCampCar();
     }
 }

@@ -11,12 +11,22 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
     private void Awake()
     {
+        InjectService.Instance.Inject(this);
         ResetView();
+    }
+    private void OnEnable()
+    {
+        mediator.Register(this);
+    }
+    private void OnDisable()
+    {
+        mediator.DeRegister(this);
     }
     [ContextMenu("Start Spawning")]
     public void StartSpawning()
     {
         Debug.Log("Start Spawning Zombies Battle");
+        root.SetActive(true);
         StartCoroutine(SpawnWaves());
     }
     public void SetBattleSetting(BattleZombieSpawnData setting)
@@ -47,11 +57,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                     if (prefab != null)
                     {
                         ZombieBase zombie = Instantiate(prefab, spawnPos, Quaternion.identity);
-                        zombie.gameObject.layer = LayerMask.NameToLayer("Battle");
-                        foreach (Transform child in zombie.transform)
-                        {
-                            child.gameObject.layer = LayerMask.NameToLayer("Battle");
-                        }
+                        zombie.ChangeLayer("Battle");
                     }
                     else
                     {

@@ -4,6 +4,8 @@ public class BattleCampCarView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleCampCarViewMediator mediator;
     [SerializeField] private GameObject root;
+    [Header("CampCar")]
+    [SerializeField]private float moveSpeed;
     [SerializeField] private BattleCampCarController battleCampCarController;
     [SerializeField] private GameObject followCamera;
     [Header("Test")]
@@ -11,10 +13,6 @@ public class BattleCampCarView : MonoBehaviour, IView
     public GameObject testRoot;
     private void Awake()
     {
-        if (!isTest)
-        {
-            Destroy(testRoot);
-        }
         InjectService.Instance.Inject(this);
         ResetView();
     }
@@ -31,7 +29,9 @@ public class BattleCampCarView : MonoBehaviour, IView
 
     public void ShowBattleCampCar()
     {
+        Debug.Log("ShowBattleCampCar");
         root.SetActive(true);
+        battleCampCarController.MoveToMiddle(moveSpeed);
     }
 
     public void HideBattleCampCar()

@@ -61,6 +61,15 @@ public class ZombieBase : MonoBehaviour, IPoolable
     {
         Reset();
     }
+    public void ChangeLayer(string layerName)
+    {
+        gameObject.layer = LayerMask.NameToLayer(layerName);
+        sprite.sortingLayerName = layerName;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+        }
+    }
     public void Reset()
     {
         IsDead = false;
