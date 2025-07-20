@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleSetting: {fileID: 0}
+  zombieLevelData: {fileID: 11400000, guid: 6c6b0865b038d4f9abab5a75ab91fb4f, type: 2}
   zombies:
   - {fileID: -2795948003020557179, guid: a2b0fe53062044f6695156ce306763a2, type: 3}
   - {fileID: -2795948003020557179, guid: daef17b7dd8054d36aef89b518ae61ca, type: 3}

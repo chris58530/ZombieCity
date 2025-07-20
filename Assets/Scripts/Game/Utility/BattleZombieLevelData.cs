@@ -5,13 +5,12 @@ using UnityEngine;
 [Serializable]
 public class BattleZombieLevelData : ScriptableObject
 {
-    public int zombieID;
     public List<ZombieLevelData> zombieLevelDatas;
     public int GetHp(int level)
     {
         foreach (var data in zombieLevelDatas)
         {
-            if (zombieID == level)
+            if (data.zombieID == level)
             {
                 return Mathf.RoundToInt(data.hpCurve.Evaluate(level));
             }
@@ -22,7 +21,7 @@ public class BattleZombieLevelData : ScriptableObject
     {
         foreach (var data in zombieLevelDatas)
         {
-            if (zombieID== level)
+            if (data.zombieID== level)
             {
                 return Mathf.RoundToInt(data.attkCurve.Evaluate(level));
             }
@@ -33,6 +32,7 @@ public class BattleZombieLevelData : ScriptableObject
 [Serializable]
 public class ZombieLevelData
 {
+    public int zombieID;
     public AnimationCurve hpCurve;
     public AnimationCurve attkCurve;
 }
