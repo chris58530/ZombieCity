@@ -9,6 +9,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public SpriteRenderer sprite;
     public bool isFresh;
     public ZombieManager manager;
+    public float attack;
     public bool IsDead { get; private set; } = false;
     public ZombieBase GetZombie()
     {

@@ -7,14 +7,16 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleZombieSpawnerViewMediator mediator;
     [SerializeField] private BattleZombieSpawnData battleSetting;
+    [SerializeField] private BattleZombieLevelData zombieLevelData;
     [SerializeField] private List<ZombieBase> zombies;
     [SerializeField] private GameObject root;
     [SerializeField] private float spawnY;
-    private ZombieManager zombieManager;
-    //todo use this to spawn zombies objectpool
+    private Dictionary<int, ZombieManager> zombiesManager = new Dictionary<int, ZombieManager>();
+
     private void Awake()
     {
         InjectService.Instance.Inject(this);
+        InitializeAllZombies();
         ResetView();
     }
     private void OnEnable()
@@ -33,10 +35,28 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         root.SetActive(true);
         StartCoroutine(SpawnWaves());
     }
-    public void SetBattleSetting(BattleZombieSpawnData setting)
+    public void InitializeAllZombies()
     {
-        battleSetting = setting;
+        foreach (var zombie in zombies)
+        {
+            int zombId = zombie.id;
+            if (zombiesManager.ContainsKey(zombId))
+            {
+                Debug.Log($"ZombieManager with id {zombId} already exists. Skipping initialization.");
+                continue;
+            }
+            ZombieManager manager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
+            manager.InitZombie(zombie, 1, (zombie) =>
+              {
+                  //   mediator.RequestGetMoney(zombieData.money, zombie.transform);
+                  Debug.Log("Zombie " + " is dead.");
+              });
+
+            manager.transform.SetParent(transform);
+            zombiesManager.Add(zombId, manager);
+        }
     }
+ 
     public void ResetView()
     {
         root.SetActive(false);
@@ -52,21 +72,12 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
             {
                 for (int i = 0; i < spawnSetting.zombieCount; i++)
                 {
-
                     float spanwPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
-
-                    ZombieBase prefab = zombies.Find(z => z.id == spawnSetting.zombieType.zombieID);
-                    if (prefab != null)
-                    {
-                        Vector3 spanwPos = new Vector3(spanwPosX, spawnY, 0f);
-                        ZombieBase zombie = Instantiate(prefab, spanwPos, Quaternion.identity);
-                        zombie.ChangeLayer("Battle");
-                    }
-                    else
-                    {
-                        Debug.LogWarning($"Zombie prefab with id {spawnSetting.zombieType.zombieID} not found.");
-                    }
-
+                    Vector2 spawnPos = new Vector2(spanwPosX, spawnY);
+                    int zombieId = spawnSetting.zombieType.zombieID;
+                    int hp = zombieLevelData.GetHp(zombieId);
+                    float atk = zombieLevelData.GetAttack(zombieId);
+                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hp, atk);
                 }
             }
         }

@@ -102,4 +102,8 @@ public class ZombieSpawnerView : MonoBehaviour, IView
     {
         mediator.AddAutoHitTarget(zombieBase, isTarget);
     }
+    public void SetBattleData(int hp , float atk)
+    {
+        
+    }
 }

@@ -14,9 +14,11 @@ public class ZombieManager : MonoBehaviour
     private PoolManager poolManager;
     private Dictionary<ZombieBase, int> zombieHpDic = new();
     private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
+    public int managerID;
 
     public ZombieBase InitZombie(ZombieBase zombie, int hp, Action<ZombieBase> deadCallback)
     {
+        managerID = zombie.id;
         this.deadCallback = deadCallback;
         this.zombieHp = hp;
         poolManager = new GameObject("ZombiePool_").AddComponent<PoolManager>();
@@ -113,5 +115,18 @@ public class ZombieManager : MonoBehaviour
         isAutoHitTarget?.Invoke(zombie, isTarget);
         zombie.SetIsTarget(isTarget);
     }
+    public void SpawnBattleZombie(Vector2 spanwPoint, int hp, float atk)
+    {
+        ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
+        zombie.ChangeLayer("Battle");
+        zombie.manager = this;
+        zombieHpDic.Add(zombie, hp);
+        zombie.attack = atk;
+        DOVirtual.DelayedCall(3f, () =>
+         {
+             AddAutoHitTarget(zombie, true);
 
+         }).SetId(zombie.GetHashCode());
+        zombie.transform.position = spanwPoint;
+    }
 }
