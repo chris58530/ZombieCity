@@ -9,6 +9,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [SerializeField] private BattleZombieSpawnData battleSetting;
     [SerializeField] private List<ZombieBase> zombies;
     [SerializeField] private GameObject root;
+    [SerializeField] private float spawnY;
     private ZombieManager zombieManager;
     //todo use this to spawn zombies objectpool
     private void Awake()
@@ -25,8 +26,9 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         mediator.DeRegister(this);
     }
     [ContextMenu("Start Spawning")]
-    public void StartSpawning()
+    public void StartSpawning(BattleZombieSpawnData battleZombieSpawnData)
     {
+        battleSetting = battleZombieSpawnData;
         Debug.Log("Start Spawning Zombies Battle");
         root.SetActive(true);
         StartCoroutine(SpawnWaves());
@@ -50,15 +52,14 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
             {
                 for (int i = 0; i < spawnSetting.zombieCount; i++)
                 {
-                    Vector2 spawnPos = new Vector2(
-                        UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y),
-                        0f // 固定 Y 軸座標，可依需求調整
-                    );
+
+                    float spanwPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
 
                     ZombieBase prefab = zombies.Find(z => z.id == spawnSetting.zombieType.zombieID);
                     if (prefab != null)
                     {
-                        ZombieBase zombie = Instantiate(prefab, spawnPos, Quaternion.identity);
+                        Vector3 spanwPos = new Vector3(spanwPosX, spawnY, 0f);
+                        ZombieBase zombie = Instantiate(prefab, spanwPos, Quaternion.identity);
                         zombie.ChangeLayer("Battle");
                     }
                     else
