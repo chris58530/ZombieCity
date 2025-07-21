@@ -56,7 +56,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
             zombiesManager.Add(zombId, manager);
         }
     }
- 
+
     public void ResetView()
     {
         root.SetActive(false);
@@ -77,7 +77,8 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                     int zombieId = spawnSetting.zombieType.zombieID;
                     int hp = zombieLevelData.GetHp(zombieId);
                     float atk = zombieLevelData.GetAttack(zombieId);
-                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hp, atk);
+                    IHittable hittable = mediator.GetCampCar();
+                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk);
                 }
             }
         }

@@ -115,7 +115,7 @@ public class ZombieManager : MonoBehaviour
         isAutoHitTarget?.Invoke(zombie, isTarget);
         zombie.SetIsTarget(isTarget);
     }
-    public void SpawnBattleZombie(Vector2 spanwPoint, int hp, float atk)
+    public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk)
     {
         ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
         zombie.ChangeLayer("Battle");
@@ -123,10 +123,14 @@ public class ZombieManager : MonoBehaviour
         zombieHpDic.Add(zombie, hp);
         zombie.attack = atk;
         DOVirtual.DelayedCall(3f, () =>
-         {
-             AddAutoHitTarget(zombie, true);
+        {
+            AddAutoHitTarget(zombie, true);
+        }).SetId(zombie.GetHashCode());
+        zombie.transform.position = spawnPoint;
 
-         }).SetId(zombie.GetHashCode());
-        zombie.transform.position = spanwPoint;
+        zombie.Move(campCar, () =>
+        {
+            zombie.Attack(campCar);
+        });
     }
 }

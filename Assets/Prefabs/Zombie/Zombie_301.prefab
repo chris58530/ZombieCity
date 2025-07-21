@@ -49,6 +49,10 @@ MonoBehaviour:
   id: 301
   animationView: {fileID: 2316459397491258982}
   sprite: {fileID: 1531684855689379088}
+  isFresh: 0
+  manager: {fileID: 0}
+  attack: 0
+  moveDuration: 5
 --- !u!61 &4845904299228209334
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -79,7 +83,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -163,6 +167,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fbcf8b550e347339339288750c53b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  autoResetObj: 0
+  resetClip: {fileID: 0}
+  FrameEvent: []
 --- !u!1 &4071410023954538116
 GameObject:
   m_ObjectHideFlags: 0

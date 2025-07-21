@@ -9,8 +9,10 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public SpriteRenderer sprite;
     public bool isFresh;
     public ZombieManager manager;
-    public float attack;
     public bool IsDead { get; private set; } = false;
+    [Header("Battle")]
+    public float attack;
+    public float moveDuration = 5f;
     public ZombieBase GetZombie()
     {
         return this;
@@ -73,6 +75,50 @@ public class ZombieBase : MonoBehaviour, IPoolable
             child.gameObject.layer = LayerMask.NameToLayer(layerName);
         }
     }
+    #region Battle專用
+    private Tween moveTween;
+    public virtual void Move(IHittable hittable, Action callBack = null)
+    {
+        Vector2 targetPosition = hittable.GetFixedPosition();
+        moveTween = transform.DOMove(targetPosition, moveDuration)
+           .OnComplete(() =>
+           {
+               callBack?.Invoke();
+           });
+    }
+    public virtual void Attack(IHittable hittable)
+    {
+        Debug.Log("Attack " + hittable.GetFixedPosition());
+        moveTween?.Kill();
+        hittable.Hit();
+        Idle();
+    }
+    public virtual void Idle()
+    {
+
+    }
+    public virtual void GetHurt()
+    {
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<IHittable>(out IHittable hittable))
+        {
+            moveTween?.Kill();
+            Attack(hittable);
+        }
+        ;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<IHittable>(out IHittable hittable))
+        {
+            Move(hittable);
+        }
+    }
+    #endregion
     public void Reset()
     {
         IsDead = false;

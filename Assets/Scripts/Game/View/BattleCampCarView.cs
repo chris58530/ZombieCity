@@ -20,6 +20,7 @@ public class BattleCampCarView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+        mediator.RegisterHittableTarget(battleCampCarController);
     }
 
     private void OnDisable()

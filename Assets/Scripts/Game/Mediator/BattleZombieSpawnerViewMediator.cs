@@ -2,7 +2,7 @@ using Zenject;
 
 public class BattleZombieSpawnerViewMediator : IMediator
 {
-    [Inject]private BattleProxy battleProxy;
+    [Inject] private BattleProxy battleProxy;
     private BattleZombieSpawnerView view;
 
     public override void Register(IView view)
@@ -21,5 +21,9 @@ public class BattleZombieSpawnerViewMediator : IMediator
     public void StopSpawningZombies()
     {
         view.ResetView();
+    }
+    public IHittable GetCampCar()
+    {
+        return battleProxy.campCar;
     }
 }

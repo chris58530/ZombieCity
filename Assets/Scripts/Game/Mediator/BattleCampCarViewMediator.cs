@@ -1,5 +1,8 @@
+using Zenject;
+
 public class BattleCampCarViewMediator : IMediator
 {
+    [Inject]private BattleProxy battleProxy;
     private BattleCampCarView view;
 
     public override void Register(IView view)
@@ -23,5 +26,9 @@ public class BattleCampCarViewMediator : IMediator
     public void HideBattleCampCar()
     {
         view.HideBattleCampCar();
+    }
+    public void RegisterHittableTarget(IHittable hittable)
+    {
+        battleProxy.campCar = hittable;
     }
 }
