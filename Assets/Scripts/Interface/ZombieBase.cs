@@ -12,7 +12,9 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public bool IsDead { get; private set; } = false;
     [Header("Battle")]
     public float attack;
+    public float speed = 1.0f;
     public float moveDuration = 5f;
+    public float attackDistance = 1.0f;
     public ZombieBase GetZombie()
     {
         return this;
@@ -77,21 +79,67 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     #region Battle專用
     private Tween moveTween;
-    public virtual void Move(IHittable hittable, Action callBack = null)
+    public bool ismoving = false;
+    public IHittable chaseTarget;
+    public virtual void FixedUpdate()
     {
-        Vector2 targetPosition = hittable.GetFixedPosition();
-        moveTween = transform.DOMove(targetPosition, moveDuration)
-           .OnComplete(() =>
-           {
-               callBack?.Invoke();
-           });
+        if (!ismoving) return;
+        if (NotInAttackRange())
+        {
+            Move();
+        }
+        else
+        {
+            Attack();
+        }
     }
-    public virtual void Attack(IHittable hittable)
+    public void LateUpdate()
     {
-        Debug.Log("Attack " + hittable.GetFixedPosition());
-        moveTween?.Kill();
-        hittable.Hit();
-        Idle();
+
+    }
+    public void SetBattleData(IHittable hittable)
+    {
+        chaseTarget = hittable;
+    }
+    public bool NotInAttackRange()
+    {
+        return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > attackDistance;
+    }
+    public void StartMove()
+    {
+        ismoving = true;
+    }
+    public virtual void Move()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, chaseTarget.GetFixedPosition(), speed * Time.fixedDeltaTime);
+    }
+    public virtual void Attack()
+    {
+        Vector2 targetPosition = chaseTarget.GetFixedPosition();
+        Vector2 currentPosition = transform.position;
+        float totalDistance = Vector2.Distance(currentPosition, targetPosition);
+        Vector2 direction = (targetPosition - currentPosition).normalized;
+        float distanceToMove = totalDistance - attackDistance;
+        Vector2 intermediateTarget = currentPosition + direction * distanceToMove;
+        ismoving = false;
+        transform.DOMove(intermediateTarget, speed/3).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            if (chaseTarget != null)
+            {
+                chaseTarget.Hit();
+            }
+            StepBack();
+        });
+
+    }
+    public void StepBack()
+    {
+        float stepDistance = speed * 3f;
+        Vector2 targetPosition = (Vector2)transform.position + Vector2.up * speed * 3f;
+        transform.DOMove(targetPosition, 3f).SetEase(Ease.Linear).OnComplete(() =>
+        {
+            ismoving = true;
+        });
     }
     public virtual void Idle()
     {
@@ -104,19 +152,11 @@ public class ZombieBase : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<IHittable>(out IHittable hittable))
-        {
-            moveTween?.Kill();
-            Attack(hittable);
-        }
-        ;
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<IHittable>(out IHittable hittable))
-        {
-            Move(hittable);
-        }
+
     }
     #endregion
     public void Reset()

@@ -17,8 +17,8 @@ public class BattleCampCarController : MonoBehaviour, IHittable
 
     public void MoveToMiddle(float moveSpeed)
     {
-        transform.position = new Vector3(transform.position.x, -7f, transform.position.z);
-        transform.DOMoveY(-2.5f, moveSpeed).SetEase(Ease.InOutQuad);
+        transform.position = new Vector3(transform.position.x, 6.5f, transform.position.z);
+        transform.DOMoveY(-4.5f, moveSpeed).SetEase(Ease.InOutQuad);
     }
 
 }

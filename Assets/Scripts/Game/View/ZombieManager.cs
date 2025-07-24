@@ -127,10 +127,7 @@ public class ZombieManager : MonoBehaviour
             AddAutoHitTarget(zombie, true);
         }).SetId(zombie.GetHashCode());
         zombie.transform.position = spawnPoint;
-
-        zombie.Move(campCar, () =>
-        {
-            zombie.Attack(campCar);
-        });
+        zombie.SetBattleData(campCar);
+        zombie.ismoving = true;
     }
 }
