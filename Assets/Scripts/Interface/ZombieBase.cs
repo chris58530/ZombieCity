@@ -14,7 +14,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public float attack;
     public float speed = 1.0f;
     public float moveDuration = 5f;
-    public float attackDistance = 1.0f;
+    public float startAttackDistance = 3.0f;
     public ZombieBase GetZombie()
     {
         return this;
@@ -79,11 +79,11 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     #region Battle專用
     private Tween moveTween;
-    public bool ismoving = false;
+    public bool isMoving = false;
     public IHittable chaseTarget;
     public virtual void FixedUpdate()
     {
-        if (!ismoving) return;
+        if (!isMoving) return;
         if (NotInAttackRange())
         {
             Move();
@@ -91,6 +91,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
         else
         {
             Attack();
+            return;
         }
     }
     public void LateUpdate()
@@ -103,11 +104,11 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     public bool NotInAttackRange()
     {
-        return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > attackDistance;
+        return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > startAttackDistance;
     }
     public void StartMove()
     {
-        ismoving = true;
+        isMoving = true;
     }
     public virtual void Move()
     {
@@ -115,14 +116,13 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     public virtual void Attack()
     {
-        Vector2 targetPosition = chaseTarget.GetFixedPosition();
-        Vector2 currentPosition = transform.position;
-        float totalDistance = Vector2.Distance(currentPosition, targetPosition);
-        Vector2 direction = (targetPosition - currentPosition).normalized;
-        float distanceToMove = totalDistance - attackDistance;
-        Vector2 intermediateTarget = currentPosition + direction * distanceToMove;
-        ismoving = false;
-        transform.DOMove(intermediateTarget, speed/3).SetEase(Ease.Linear).OnComplete(() =>
+        // 計算朝向目標的方向
+        Vector2 moveDir = (chaseTarget.GetFixedPosition() - (Vector2)transform.position).normalized;
+        // 直接向前衝刺固定距離，不管目標實際位置
+        Vector2 attackPos = (Vector2)transform.position + moveDir * 2f;
+        
+        isMoving = false;
+        transform.DOMove(attackPos, speed/10).SetEase(Ease.Linear).OnComplete(() =>
         {
             if (chaseTarget != null)
             {
@@ -138,7 +138,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
         Vector2 targetPosition = (Vector2)transform.position + Vector2.up * speed * 3f;
         transform.DOMove(targetPosition, 3f).SetEase(Ease.Linear).OnComplete(() =>
         {
-            ismoving = true;
+            isMoving = true;
         });
     }
     public virtual void Idle()

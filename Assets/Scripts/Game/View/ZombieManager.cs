@@ -128,6 +128,6 @@ public class ZombieManager : MonoBehaviour
         }).SetId(zombie.GetHashCode());
         zombie.transform.position = spawnPoint;
         zombie.SetBattleData(campCar);
-        zombie.ismoving = true;
+        zombie.StartMove();
     }
 }
