@@ -4,7 +4,7 @@ using DG.Tweening;
 public class BattleCampCarController : MonoBehaviour, IHittable
 {
     public float hp;
-    public float moveSpeed = .5f; // 基礎移動速度
+    private float moveSpeed = .5f; // 基礎移動速度
     private const float MOVE_LIMIT = 2f; // X軸移動限制
     private const float MINIMUM_DRAG_DISTANCE = 10f; // 最小拖曳距離，避免輕微觸碰就移動
 
