@@ -31,8 +31,8 @@ public class GunView : MonoBehaviour, IView
 
     private void Initialize()
     {
+        if(baseGunManager)return;
         baseGunManager = new GameObject("BaseGunManager").AddComponent<PoolManager>();
-        baseGunManager.transform.SetParent(transform);
         baseGunManager.RegisterPool(baseBulletPrefabs, 20, baseGunManager.transform);
         StartShoot();
     }
@@ -49,8 +49,16 @@ public class GunView : MonoBehaviour, IView
         {
             RecycleBullet(bulletBase);
         };
-        bullet.SetUp(BulletTarget.Zombie, onHitCallBack);
         bullet.gameObject.SetActive(true);
+        bullet.SetUp(BulletTarget.Zombie,PathMode.Straight, onHitCallBack);
+        bullet.SetLayer("Battle");
+        bullet.DoPathMove();
+        
+        //防呆 自動回收
+        DOVirtual.DelayedCall(3, () =>
+        { 
+            RecycleBullet(bullet);
+        });
     }
     public void StartShoot()
     {

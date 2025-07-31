@@ -66,7 +66,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     {
         Reset();
     }
-    public void ChangeLayer(string layerName)
+    public void SetLayer(string layerName)
     {
         int layer = LayerMask.NameToLayer(layerName);
 

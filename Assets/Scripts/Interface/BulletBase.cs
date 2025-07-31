@@ -1,14 +1,45 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class BulletBase : MonoBehaviour,IPoolable
 {
     public Action<BulletBase> onHitCallBack;
     public BulletTarget bulletTarget;
-    public void SetUp(BulletTarget bulletTarget, Action<BulletBase> onHitCallBack = null)
+    public PathMode pathMode;
+    public SpriteRenderer sprite;
+    public void SetUp(BulletTarget bulletTarget, PathMode pathMode, Action<BulletBase> onHitCallBack = null)
     {
         this.bulletTarget = bulletTarget;
+        this.pathMode = pathMode;
         this.onHitCallBack = onHitCallBack;
+    }
+     public void SetLayer(string layerName)
+    {
+        int layer = LayerMask.NameToLayer(layerName);
+        gameObject.layer = LayerMask.NameToLayer(layerName);
+        sprite.gameObject.layer = layer;
+        foreach (Transform child in transform)
+        {
+            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+        }
+    }
+    public void DoPathMove()
+    {
+        if (pathMode == PathMode.Straight)
+        {
+            StraightMove();
+        }
+        else if (pathMode == PathMode.Curve)
+        {
+            // Implement curve movement logic here
+        }
+
+    }
+    private void StraightMove()
+    {
+               transform.DOMove(transform.position + transform.up * 10, 1f)
+            .SetEase(Ease.Linear);
     }
     public bool IsTarget(IHittable hittable)
     {
@@ -45,4 +76,9 @@ public enum BulletTarget
     Player,
     Car,
     None
+}
+public enum PathMode
+{
+    Straight,
+    Curve,
 }

@@ -118,7 +118,7 @@ public class ZombieManager : MonoBehaviour
     public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk)
     {
         ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
-        zombie.ChangeLayer("Battle");
+        zombie.SetLayer("Battle");
         zombie.manager = this;
         zombieHpDic.Add(zombie, hp);
         zombie.attack = atk;
