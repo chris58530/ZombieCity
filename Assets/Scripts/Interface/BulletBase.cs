@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class BulletBase : MonoBehaviour,IPoolable
+public class BulletBase : MonoBehaviour, IPoolable
 {
     public Action<BulletBase> onHitCallBack;
     public BulletTarget bulletTarget;
@@ -14,7 +14,7 @@ public class BulletBase : MonoBehaviour,IPoolable
         this.pathMode = pathMode;
         this.onHitCallBack = onHitCallBack;
     }
-     public void SetLayer(string layerName)
+    public void SetLayer(string layerName)
     {
         int layer = LayerMask.NameToLayer(layerName);
         gameObject.layer = LayerMask.NameToLayer(layerName);
@@ -38,10 +38,10 @@ public class BulletBase : MonoBehaviour,IPoolable
     }
     private void StraightMove()
     {
-               transform.DOMove(transform.position + transform.up * 10, 1f)
-            .SetEase(Ease.Linear);
+        transform.DOMove(transform.position + transform.up * 10, 1f)
+     .SetEase(Ease.Linear);
     }
-    public bool IsTarget(IHittable hittable)
+    public bool HitTarget(IHittable hittable)
     {
         switch (bulletTarget)
         {
@@ -57,16 +57,27 @@ public class BulletBase : MonoBehaviour,IPoolable
     }
     public void OnDespawned()
     {
+        onHitCallBack = null;
+        bulletTarget = BulletTarget.None;
+        pathMode = PathMode.Straight;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
     }
 
     public void OnSpawned()
     {
     }
-    private void OTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent(out IHittable hittable)) return;
-        if (!IsTarget(hittable)) return;
-        hittable.Hit();
+
+        if (!HitTarget(hittable))
+        {
+            return;
+        }
+        Debug.Log($"Bullet hit {hittable.GetType().Name}");
+        hittable.GetDamaged(1);
         onHitCallBack?.Invoke(this);
     }
 }

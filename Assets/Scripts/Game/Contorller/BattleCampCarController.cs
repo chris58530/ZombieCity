@@ -11,7 +11,7 @@ public class BattleCampCarController : MonoBehaviour, IHittable
     private bool isDragging = false;
     private Vector2 lastInputPos;
     private Vector2 currentInputPos;
-    
+
     private void Update()
     {
         HandleTouchInput();
@@ -81,7 +81,7 @@ public class BattleCampCarController : MonoBehaviour, IHittable
     {
         // 計算位移並套用移動速度和時間
         float displacement = (currentInputPos.x - lastInputPos.x) * moveSpeed * Time.deltaTime;
-        
+
         // 更新並限制位置
         float newX = Mathf.Clamp(transform.position.x + displacement, -MOVE_LIMIT, MOVE_LIMIT);
         transform.position = new Vector3(newX, transform.position.y, transform.position.z);
@@ -92,20 +92,19 @@ public class BattleCampCarController : MonoBehaviour, IHittable
         return transform.position;
     }
 
-    public void Hit()
-    {
-        hp -= 1;
-    }
-
     public void MoveToMiddle(float moveSpeed)
     {
         transform.position = new Vector3(transform.position.x, 6.5f, transform.position.z);
         transform.DOMoveY(-4.5f, moveSpeed).SetEase(Ease.InOutQuad);
     }
 
+    public void GetDamaged(int damage)
+    {
+        hp -= damage;
+    }
 }
 public interface IHittable
 {
-    void Hit();
+    void GetDamaged(int damage);
     Vector2 GetFixedPosition();
 }

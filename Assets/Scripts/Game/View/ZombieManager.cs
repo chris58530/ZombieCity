@@ -57,8 +57,10 @@ public class ZombieManager : MonoBehaviour
     public void ResetZombie(ZombieBase zombie)
     {
         AddAutoHitTarget(zombie, false);
-        zombieHpDic.Remove(zombie);
-        zombieMoveTween.Remove(zombie);
+        if (zombieHpDic.ContainsKey(zombie))
+            zombieHpDic.Remove(zombie);
+        if (zombieMoveTween.ContainsKey(zombie))
+            zombieMoveTween.Remove(zombie);
         poolManager.Despawn(zombie);
     }
     public void ResetView()
@@ -120,12 +122,12 @@ public class ZombieManager : MonoBehaviour
         ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
         zombie.SetLayer("Battle");
         zombie.manager = this;
-        zombieHpDic.Add(zombie, hp);
-        zombie.attack = atk;
-        DOVirtual.DelayedCall(3f, () =>
+        zombie.hp = hp;
+        zombie.deadCallBack = (zombie) =>
         {
-            AddAutoHitTarget(zombie, true);
-        }).SetId(zombie.GetHashCode());
+            Debug.Log("Zombie is dead.");
+        };
+        zombie.attack = atk;
         zombie.transform.position = spawnPoint;
         zombie.SetBattleData(campCar);
         zombie.StartMove();

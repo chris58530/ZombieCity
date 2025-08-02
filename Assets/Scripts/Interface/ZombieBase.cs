@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class ZombieBase : MonoBehaviour, IPoolable
+public class ZombieBase : MonoBehaviour, IPoolable, IHittable
 {
     public int id;
     public AnimationView animationView;
@@ -10,6 +10,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     public bool isFresh;
     public ZombieManager manager;
     public bool IsDead { get; private set; } = false;
+    public Collider2D collider2D;
     [Header("Battle")]
     public float attack;
     public float speed = 1.0f;
@@ -78,13 +79,14 @@ public class ZombieBase : MonoBehaviour, IPoolable
         }
     }
     #region Battle專用
-    private Tween moveTween;
     public bool isMoving = false;
     public IHittable chaseTarget;
+    public Action<ZombieBase> deadCallBack;
+    public int hp;
     public virtual void FixedUpdate()
     {
         if (!isMoving) return;
-        if (NotInAttackRange())
+        if (NotInAttackRange)
         {
             Move();
         }
@@ -102,9 +104,12 @@ public class ZombieBase : MonoBehaviour, IPoolable
     {
         chaseTarget = hittable;
     }
-    public bool NotInAttackRange()
+    public bool NotInAttackRange
     {
-        return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > startAttackDistance;
+        get
+        {
+            return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > startAttackDistance;
+        }
     }
     public void StartMove()
     {
@@ -112,7 +117,7 @@ public class ZombieBase : MonoBehaviour, IPoolable
     }
     public virtual void Move()
     {
-        transform.position = Vector2.MoveTowards(transform.position, chaseTarget.GetFixedPosition(), speed * Time.fixedDeltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, -100), speed * Time.fixedDeltaTime);
     }
     public virtual void Attack()
     {
@@ -120,13 +125,13 @@ public class ZombieBase : MonoBehaviour, IPoolable
         Vector2 moveDir = (chaseTarget.GetFixedPosition() - (Vector2)transform.position).normalized;
         // 直接向前衝刺固定距離，不管目標實際位置
         Vector2 attackPos = (Vector2)transform.position + moveDir * 2f;
-        
+
         isMoving = false;
-        transform.DOMove(attackPos, speed/10).SetEase(Ease.Linear).OnComplete(() =>
+        transform.DOMove(attackPos, speed / 5).SetEase(Ease.Linear).OnComplete(() =>
         {
             if (chaseTarget != null)
             {
-                chaseTarget.Hit();
+                chaseTarget.GetDamaged(1);
             }
             StepBack();
         });
@@ -145,9 +150,18 @@ public class ZombieBase : MonoBehaviour, IPoolable
     {
 
     }
-    public virtual void GetHurt()
+    public virtual void GetDamaged(int damage)
     {
-
+        hp -= damage;
+        Hit();
+        if (hp <= 0)
+        {
+            Kill(() =>
+            {
+                deadCallBack?.Invoke(this);
+                manager.ResetZombie(this);
+            });
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -167,5 +181,10 @@ public class ZombieBase : MonoBehaviour, IPoolable
         transform.position = Vector2.zero;
         DOTween.Kill(GetHashCode());
 
+    }
+
+    public Vector2 GetFixedPosition()
+    {
+        throw new NotImplementedException();
     }
 }

@@ -10,7 +10,7 @@ public class GunView : MonoBehaviour, IView
     [SerializeField] private Transform shootPoint;
     [SerializeField] private BulletBase baseBulletPrefabs;
     [SerializeField] private AnimationView animationView_Base;
-    [SerializeField] private float shootRate = 0.3f;
+    private float shootRate = 0.3f;
     private PoolManager baseGunManager;
     private Tween shootTween;
     private void Awake()
@@ -31,7 +31,7 @@ public class GunView : MonoBehaviour, IView
 
     private void Initialize()
     {
-        if(baseGunManager)return;
+        if (baseGunManager) return;
         baseGunManager = new GameObject("BaseGunManager").AddComponent<PoolManager>();
         baseGunManager.RegisterPool(baseBulletPrefabs, 20, baseGunManager.transform);
         StartShoot();
@@ -43,22 +43,24 @@ public class GunView : MonoBehaviour, IView
     private void SpawnBullet()
     {
         BulletBase bullet = baseGunManager.Spawn<BulletBase>(baseGunManager.transform);
+        //防呆 自動回收
+        Tween recycleTween = DOVirtual.DelayedCall(3, () =>
+        {
+            RecycleBullet(bullet);
+        });
         bullet.transform.position = shootPoint.position;
         bullet.transform.rotation = shootPoint.rotation;
         Action<BulletBase> onHitCallBack = (BulletBase bulletBase) =>
         {
+            recycleTween?.Kill();
             RecycleBullet(bulletBase);
         };
         bullet.gameObject.SetActive(true);
-        bullet.SetUp(BulletTarget.Zombie,PathMode.Straight, onHitCallBack);
+        bullet.SetUp(BulletTarget.Zombie, PathMode.Straight, onHitCallBack);
         bullet.SetLayer("Battle");
         bullet.DoPathMove();
-        
-        //防呆 自動回收
-        DOVirtual.DelayedCall(3, () =>
-        { 
-            RecycleBullet(bullet);
-        });
+
+
     }
     public void StartShoot()
     {
