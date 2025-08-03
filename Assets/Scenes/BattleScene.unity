@@ -429,15 +429,6 @@ MonoBehaviour:
   shootPoint: {fileID: 1458366278}
   baseBulletPrefabs: {fileID: -5625354469149499587, guid: 679787b643c14405ebebcc63104cb34a, type: 3}
   animationView_Base: {fileID: 0}
-  isTest: 0
-  gunData:
-    level: 0
-    attackCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
 --- !u!1 &792348710
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,6 +478,7 @@ MonoBehaviour:
   moveSpeed: 3
   battleCampCarController: {fileID: 1787207870}
   followCamera: {fileID: 0}
+  gunView: {fileID: 770094080}
   isTest: 0
   testRoot: {fileID: 2065806247}
 --- !u!1 &945964160

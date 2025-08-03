@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class BattleCampCarController : MonoBehaviour, IHittable
 {
@@ -92,10 +93,13 @@ public class BattleCampCarController : MonoBehaviour, IHittable
         return transform.position;
     }
 
-    public void MoveToMiddle(float moveSpeed)
+    public void MoveToMiddle(float moveSpeed, Action callBack)
     {
         transform.position = new Vector3(transform.position.x, 6.5f, transform.position.z);
-        transform.DOMoveY(-4.5f, moveSpeed).SetEase(Ease.InOutQuad);
+        transform.DOMoveY(-4.5f, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(() =>
+        {
+            callBack?.Invoke();
+        });
     }
 
     public void GetDamaged(int damage)

@@ -34,7 +34,6 @@ public class GunView : MonoBehaviour, IView
         if (baseGunManager) return;
         baseGunManager = new GameObject("BaseGunManager").AddComponent<PoolManager>();
         baseGunManager.RegisterPool(baseBulletPrefabs, 20, baseGunManager.transform);
-        StartShoot();
     }
     private void RecycleBullet(BulletBase bullet)
     {
