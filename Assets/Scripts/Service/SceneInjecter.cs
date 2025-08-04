@@ -41,7 +41,8 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<BattleZombieSpawnerViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<GunViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<GunProxy>().AsSingle().NonLazy();
-        
+        Container.BindInterfacesAndSelfTo<BattleMenuViewMediator>().AsSingle().NonLazy();
+
     }
 
 }

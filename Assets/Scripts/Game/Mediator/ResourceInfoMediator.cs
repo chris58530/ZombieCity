@@ -19,7 +19,7 @@ public class ResourceInfoMediator : IMediator
     [Listener(ResourceInfoEvent.ON_UPDATE_RESOURCE)]
     public void OnUpdateResource()
     {
-        view.OnUpdateResource(proxy.moneyAmount, proxy.satisfactionAmount,proxy.zombieCoreAmount);
+        view.OnUpdateResource(proxy.moneyAmount, proxy.satisfactionAmount, proxy.zombieCoreAmount);
     }
     [Listener(ResourceInfoEvent.ON_ADD_MONEY)]
     public void OnAddMoney()
@@ -38,6 +38,16 @@ public class ResourceInfoMediator : IMediator
     public void OnAddZombieCore()
     {
         view.OnAddZombieCore(proxy.zombieCoreAmount);
-
+    }
+    [Listener(GameEvent.ON_GAME_STATE_END)]
+    public void OnGameStateEnd()
+    {
+        view.Hide();
+    }
+    [Listener(GameEvent.ON_GAME_STATE_START)]
+    public void OnGameStateStart()
+    {
+        view.Show();
+        OnUpdateResource();
     }
 }

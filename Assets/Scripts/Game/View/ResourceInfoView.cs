@@ -6,6 +6,7 @@ using DG.Tweening;
 public class ResourceInfoView : MonoBehaviour, IView
 {
     [Inject] private ResourceInfoMediator mediator;
+    [SerializeField] private GameObject root;
 
     [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text satisfactionText;
@@ -25,6 +26,16 @@ public class ResourceInfoView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
+    public void Hide()
+    {
+        root.SetActive(false);
+
+    }
+    public void Show()
+    {
+        root.SetActive(true);
+    }
+
     public void OnUpdateResource(int money, int satisfaction, int zombieCore)
     {
         moneyText.text = money.ToString();
