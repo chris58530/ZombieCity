@@ -3,7 +3,7 @@ using Zenject;
 
 public class BattleMenuViewMediator : IMediator
 {
-    [Inject] private BattleMenuView view;
+    private BattleMenuView view;
 
     public override void Register(IView view)
     {
