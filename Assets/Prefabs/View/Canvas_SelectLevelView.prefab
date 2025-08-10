@@ -800,7 +800,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8627581468012508553}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1721197404141757069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1310,7 +1322,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4616408042068002137}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3459446545736572588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1431,7 +1455,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5911612489824883116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3886404722721988935
 GameObject:
   m_ObjectHideFlags: 0
@@ -1833,7 +1869,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9121716625706504062}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &5016979464748411210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2380,7 +2428,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8131718298938516704}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7196683078914372016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,4 +2651,16 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8632442144454287191}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5840630386780723142}
+        m_TargetAssemblyTypeName: SelectLevelView, Assembly-CSharp
+        m_MethodName: SelectLevelClicked
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 11400000, guid: 381d27a0b52ff4bf0ad8f1b34c21859f, type: 2}
+          m_ObjectArgumentAssemblyTypeName: BattleZombieSpawnData, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
