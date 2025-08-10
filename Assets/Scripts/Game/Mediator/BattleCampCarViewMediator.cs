@@ -2,7 +2,7 @@ using Zenject;
 
 public class BattleCampCarViewMediator : IMediator
 {
-    [Inject]private BattleProxy battleProxy;
+    [Inject] private BattleProxy battleProxy;
     private BattleCampCarView view;
 
     public override void Register(IView view)
@@ -25,7 +25,7 @@ public class BattleCampCarViewMediator : IMediator
     [Listener(GameEvent.ON_BATTLE_STATE_END)]
     public void HideBattleCampCar()
     {
-        view.HideBattleCampCar();
+        view.ResetView();
     }
     public void RegisterHittableTarget(IHittable hittable)
     {

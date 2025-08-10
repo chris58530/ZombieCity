@@ -8,39 +8,36 @@ public class BulletBase : MonoBehaviour, IPoolable
     public BulletTarget bulletTarget;
     public PathMode pathMode;
     public SpriteRenderer sprite;
+
     public void SetUp(BulletTarget bulletTarget, PathMode pathMode, Action<BulletBase> onHitCallBack = null)
     {
         this.bulletTarget = bulletTarget;
         this.pathMode = pathMode;
         this.onHitCallBack = onHitCallBack;
     }
+
     public void SetLayer(string layerName)
     {
         int layer = LayerMask.NameToLayer(layerName);
-        gameObject.layer = LayerMask.NameToLayer(layerName);
+        gameObject.layer = layer;
         sprite.gameObject.layer = layer;
         foreach (Transform child in transform)
         {
-            child.gameObject.layer = LayerMask.NameToLayer(layerName);
+            child.gameObject.layer = layer;
         }
     }
-    public void DoPathMove()
+
+    public virtual void DoPathMove(PathMode mode = PathMode.Straight)
     {
         if (pathMode == PathMode.Straight)
         {
-            StraightMove();
+            transform.DOMove(transform.position + transform.up * 10, 1f)
+                .SetEase(Ease.Linear);
         }
-        else if (pathMode == PathMode.Curve)
-        {
-            // Implement curve movement logic here
-        }
+    }
 
-    }
-    private void StraightMove()
-    {
-        transform.DOMove(transform.position + transform.up * 10, 1f)
-     .SetEase(Ease.Linear);
-    }
+    public virtual void OnHitTarget(IHittable hittable) { }
+
     public bool HitTarget(IHittable hittable)
     {
         switch (bulletTarget)
@@ -55,6 +52,7 @@ public class BulletBase : MonoBehaviour, IPoolable
                 return false;
         }
     }
+
     public void OnDespawned()
     {
         onHitCallBack = null;
@@ -64,20 +62,14 @@ public class BulletBase : MonoBehaviour, IPoolable
         transform.rotation = Quaternion.identity;
     }
 
-    public void OnSpawned()
-    {
-    }
+    public void OnSpawned() { }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent(out IHittable hittable)) return;
+        if (!HitTarget(hittable)) return;
 
-        if (!HitTarget(hittable))
-        {
-            return;
-        }
-        Debug.Log($"Bullet hit {hittable.GetType().Name}");
-        hittable.GetDamaged(1);
+        OnHitTarget(hittable);
         onHitCallBack?.Invoke(this);
     }
 }

@@ -17,7 +17,6 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     {
         InjectService.Instance.Inject(this);
         InitializeAllZombies();
-        ResetView();
     }
     private void OnEnable()
     {
@@ -26,6 +25,24 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     private void OnDisable()
     {
         mediator.DeRegister(this);
+    }
+    public void ResetView()
+    {
+        StopAllCoroutines();
+        battleSetting = null;
+        RecycleAll();
+        root.SetActive(false);
+    }
+
+    public void RecycleAll()
+    {
+        foreach (var manager in zombiesManager.Values)
+        {
+            if (manager != null)
+            {
+                manager.ResetView();
+            }
+        }
     }
     [ContextMenu("Start Spawning")]
     public void StartSpawning(BattleZombieSpawnData battleZombieSpawnData)
@@ -57,10 +74,6 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         }
     }
 
-    public void ResetView()
-    {
-        root.SetActive(false);
-    }
 
     private IEnumerator SpawnWaves()
     {
@@ -78,6 +91,14 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                     int hp = zombieLevelData.GetHp(zombieId);
                     float atk = zombieLevelData.GetAttack(zombieId);
                     IHittable hittable = mediator.GetCampCar();
+
+                    // 防止字典鍵不存在的錯誤
+                    if (!zombiesManager.ContainsKey(zombieId))
+                    {
+                        Debug.LogWarning($"找不到 ID 為 {zombieId} 的殭屍管理器。請確保該殭屍在 zombies 列表中並正確初始化。");
+                        continue; // 跳過這個殭屍的生成
+                    }
+
                     zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk);
                 }
             }

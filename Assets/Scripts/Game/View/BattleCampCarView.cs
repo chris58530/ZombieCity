@@ -32,17 +32,17 @@ public class BattleCampCarView : MonoBehaviour, IView
 
     public void ShowBattleCampCar()
     {
-        Debug.Log("ShowBattleCampCar");
         root.SetActive(true);
         battleCampCarController.MoveToMiddle(moveSpeed, gunView.StartShoot);
     }
 
-    public void HideBattleCampCar()
-    {
-        root.SetActive(false);
-    }
+
     public void ResetView()
     {
+        Debug.Log("ResetView called in BattleCampCarView");
+
+        gunView.ResetView();
+        battleCampCarController.ResetView();
         root.SetActive(false);
     }
 }
