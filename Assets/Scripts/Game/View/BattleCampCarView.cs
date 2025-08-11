@@ -33,7 +33,7 @@ public class BattleCampCarView : MonoBehaviour, IView
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
-        battleCampCarController.MoveToMiddle(moveSpeed, gunView.StartShoot);
+        battleCampCarController.MoveToMiddle(moveSpeed);
     }
 
 

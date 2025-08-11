@@ -21,6 +21,14 @@ public class SurvivorView : MonoBehaviour, IView
     }
     public void InitSurvivor(SurvivorDataSetting data, Dictionary<int, SurvivorJsonData> infoData, FloorBase startFloor, Dictionary<int, FloorBase> floorBaseDic)
     {
+        // 清理現有的 Survivor Manager
+        if (survivorManager != null)
+        {
+            Debug.Log("清理舊的 Survivor Manager");
+            Destroy(survivorManager.gameObject);
+            survivorManager = null;
+        }
+
         GameObject survivorManagerObj = new GameObject("SurvivorManager");
         survivorManagerObj.transform.SetParent(transform);
         survivorManager = survivorManagerObj.AddComponent<SurvivorManager>();

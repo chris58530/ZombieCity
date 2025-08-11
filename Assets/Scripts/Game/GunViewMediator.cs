@@ -18,6 +18,5 @@ public class GunViewMediator : IMediator
     }
     public void OnStartShoot()
     {
-        view.StartShoot();
     }
 }

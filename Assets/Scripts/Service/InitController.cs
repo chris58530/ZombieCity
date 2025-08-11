@@ -86,6 +86,7 @@ public class InitController : MonoBehaviour
         ChangeState(GameStateControllerSetting, () =>
         {
             gameCameraProxy.UseCamera(CameraType.Game);
+            gameCameraProxy.EnabelSwipe(); // 啟用滑動功能
             listener.BroadCast(GameEvent.ON_GAME_STATE_START);
         });
     }

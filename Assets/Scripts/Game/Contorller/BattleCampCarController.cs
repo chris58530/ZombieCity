@@ -98,7 +98,7 @@ public class BattleCampCarController : MonoBehaviour, IHittable
         return transform.position;
     }
 
-    public void MoveToMiddle(float moveSpeed, Action callBack)
+    public void MoveToMiddle(float moveSpeed, Action callBack = null)
     {
         root.SetActive(true);
         transform.position = new Vector3(transform.position.x, 6.5f, transform.position.z);

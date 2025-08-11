@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class BulletBase : MonoBehaviour, IPoolable
 {
+    public BulletType bulletType;
     public Action<BulletBase> onHitCallBack;
     public BulletTarget bulletTarget;
     public PathMode pathMode;
     public SpriteRenderer sprite;
+    public float damage = 1;
 
-    public void SetUp(BulletTarget bulletTarget, PathMode pathMode, Action<BulletBase> onHitCallBack = null)
+    public void SetUp(BulletTarget bulletTarget, PathMode pathMode, float damage, Action<BulletBase> onHitCallBack = null)
     {
         this.bulletTarget = bulletTarget;
         this.pathMode = pathMode;
         this.onHitCallBack = onHitCallBack;
+        this.damage = damage;
     }
 
     public void SetLayer(string layerName)
@@ -53,7 +56,7 @@ public class BulletBase : MonoBehaviour, IPoolable
         }
     }
 
-    public void OnDespawned()
+    public virtual void OnDespawned()
     {
         onHitCallBack = null;
         bulletTarget = BulletTarget.None;
@@ -72,6 +75,14 @@ public class BulletBase : MonoBehaviour, IPoolable
         OnHitTarget(hittable);
         onHitCallBack?.Invoke(this);
     }
+}
+public enum BulletType
+{
+    Normal,
+    Tracking,
+    Area,
+    Piercing,
+    None
 }
 public enum BulletTarget
 {
