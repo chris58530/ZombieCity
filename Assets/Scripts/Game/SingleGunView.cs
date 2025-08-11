@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 public class SingleGunView : MonoBehaviour
 {
-    [SerializeField] private GameObject root;
     [SerializeField] private AnimationView animationView;//包含所有角色的動畫
     private GunData gunData;
     private PoolManager gunManager;
@@ -15,7 +13,6 @@ public class SingleGunView : MonoBehaviour
     public void ResetView()
     {
         gunData = null;
-        root.SetActive(false);
     }
 
     // 每個 SingleGunView 只需要一個 PoolManager
@@ -38,7 +35,6 @@ public class SingleGunView : MonoBehaviour
             return;
         }
 
-        root.SetActive(true);
         animationView.PlayAnimation("Gun_Idle_" + gunData.ID);
     }
     public void StartShoot()

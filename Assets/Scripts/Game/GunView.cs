@@ -8,13 +8,16 @@ using DG.Tweening;
 public class GunView : MonoBehaviour, IView
 {
     [Inject] private GunViewMediator mediator;
+
+    [Header("露營車砲台")]
+    [SerializeField] private SingleGunView baseGunView;
+
+    [Header("倖存者炮台")]
     [SerializeField] private SingleGunView[] singleGunViews;
 
-    [Header("Base Gun")]
+    [Header("子彈")]
     [SerializeField] private BulletBase[] bulletPrefabs;
-    [SerializeField] private AnimationView animationView_Base;
 
-    private float shootRate = 0.3f;
     private Dictionary<BulletType, PoolManager> bulletManagers = new Dictionary<BulletType, PoolManager>();
     private Tween shootTween;
 
