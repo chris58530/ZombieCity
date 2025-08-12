@@ -26,7 +26,8 @@ public class SelectLevelView : MonoBehaviour, IView
     }
     public void HideSelectLevel()
     {
-        root.SetActive(false);
+        mediator.OnLeaveClick();
+        ResetView();
     }
     public void SelectLevelClicked(BattleZombieSpawnData battleZombieSpawnData)
     {

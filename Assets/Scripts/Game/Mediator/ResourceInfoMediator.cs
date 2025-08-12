@@ -39,12 +39,14 @@ public class ResourceInfoMediator : IMediator
     {
         view.OnAddZombieCore(proxy.zombieCoreAmount);
     }
-    [Listener(GameEvent.ON_GAME_STATE_END)]
-    public void OnGameStateEnd()
+    [Listener(ResourceInfoEvent.HIDE)]
+    public void Hide()
     {
         view.Hide();
     }
     [Listener(GameEvent.ON_GAME_STATE_START)]
+    [Listener(ResourceInfoEvent.SHOW)]
+
     public void OnGameStateStart()
     {
         view.Show();

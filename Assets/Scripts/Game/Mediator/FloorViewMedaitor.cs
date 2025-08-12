@@ -8,6 +8,7 @@ public class FloorViewMediator : IMediator
     [Inject] private JsonDataProxy jsonDataProxy;
     [Inject] private SurvivorProxy survivorProxy;
     [Inject] private ClickHitProxy clickHitProxy;
+    [Inject] private ResourceInfoProxy resourceInfoProxy;
     private FloorView floorView;
 
     public override void DeRegister(IView view)
@@ -81,6 +82,7 @@ public class FloorViewMediator : IMediator
     }
     public void OnClickCampCar()
     {
+        resourceInfoProxy.RequestHideResourceInfo();
         listener.BroadCast(TrasitionBackGroundEvent.ON_TRASITION_BACKGROUND);
         listener.BroadCast(CampCarEvent.ON_SELECT_LEVEL_SHOW);
     }

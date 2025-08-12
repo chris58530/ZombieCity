@@ -3,6 +3,8 @@ using Zenject;
 public class SelectLevelViewMediator : IMediator
 {
     [Inject] private BattleProxy battleProxy;
+    [Inject] private ResourceInfoProxy resourceInfoProxy;
+
     private SelectLevelView view;
     public override void Register(IView view)
     {
@@ -27,6 +29,10 @@ public class SelectLevelViewMediator : IMediator
     public void HideSelectLevel()
     {
         view.ResetView();
+    }
+    public void OnLeaveClick()
+    {
+        resourceInfoProxy.RequestShowResourceInfo();
     }
 
 }

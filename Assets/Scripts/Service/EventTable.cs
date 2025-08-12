@@ -77,6 +77,8 @@ public class ResourceInfoEvent
     public const string ON_ADD_SATISFACTION = "ResourceInfoEvent.ON_ADD_SATISFACTION";
     public const string ON_ADD_ZOMBIECORE = "ResourceInfoEvent.ON_ADD_ZOMBIECORE";
     public const string ON_UPDATE_RESOURCE = "ResourceInfoEvent.ON_UPDATE_RESOURCE";
+    public const string HIDE = "ResourceInfoEvent.HIDE";
+    public const string SHOW = "ResourceInfoEvent.SHOW";
 }
 public class TrasitionBackGroundEvent
 {

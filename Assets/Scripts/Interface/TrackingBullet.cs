@@ -15,11 +15,9 @@ public class TrackingBullet : BulletBase
 
     public override void DoPathMove(PathMode mode = PathMode.Straight)
     {
-        // 初始移動，使用直線路徑
         moveTween = transform.DOMove(transform.position + transform.up * 10, 3f)
             .SetEase(Ease.Linear);
 
-        // 啟動目標追蹤更新
         StartTracking();
     }
 

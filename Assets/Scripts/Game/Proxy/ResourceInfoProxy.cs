@@ -36,6 +36,14 @@ public class ResourceInfoProxy : IProxy
         listener.BroadCast(JsonDataEvent.ON_UPDATE_PLAYER_DATA);
         listener.BroadCast(ResourceInfoEvent.ON_ADD_ZOMBIECORE);
     }
+    public void RequestHideResourceInfo()
+    {
+        listener.BroadCast(ResourceInfoEvent.HIDE);
+    }
+    public void RequestShowResourceInfo()
+    {
+        listener.BroadCast(ResourceInfoEvent.SHOW);
+    }
     // public void GetResourceInfo(out int money, out int satisfaction) // save to Json
     // {
     //     money = moneyAmount;
