@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 public class SingleGunView : MonoBehaviour
 {
+    [SerializeField] private GunAnimationEventHandler gunAnimationEventHandler;
     [SerializeField] private AnimationView animationView;//包含所有角色的動畫
     private GunData gunData;
     private PoolManager gunManager;
@@ -9,13 +10,32 @@ public class SingleGunView : MonoBehaviour
     // 讓外部可以獲取這把槍的資料
     public GunData GunData => gunData;
     public BulletType BulletType => gunData?.bulletType ?? BulletType.Normal;
+    public Action<int> onShootAnimationEvent;
+    private void OnEnable()
+    {
+        if (gunAnimationEventHandler != null)
+        {
+            gunAnimationEventHandler.onShootAnimationEvent += ShootAnimationEvent;
+        }
+        else
+        {
+            Debug.LogWarning($"[{gameObject.name}] gunAnimationEventHandler 為空，請在 Inspector 中設置此引用");
+        }
+    }
+    
+    private void OnDisable()
+    {
+        if (gunAnimationEventHandler != null)
+        {
+            gunAnimationEventHandler.onShootAnimationEvent -= ShootAnimationEvent;
+        }
+    }
 
     public void ResetView()
     {
         gunData = null;
     }
 
-    // 每個 SingleGunView 只需要一個 PoolManager
     public void SetGunData(GunData data, PoolManager manager)
     {
         gunManager = manager;
@@ -42,8 +62,11 @@ public class SingleGunView : MonoBehaviour
         animationView.PlayAnimation("Gun_Shooting_" + gunData.ID);
     }
 
-    public void ShootAnimationEvent()
+    public void ShootAnimationEvent(int gunIndex)
     {
+        // 首先通知監聽器有射擊事件發生
+        onShootAnimationEvent?.Invoke(gunIndex);
+
         if (gunData == null)
         {
             Debug.LogError("嘗試使用未設置數據的槍進行射擊");
@@ -93,5 +116,12 @@ public class SingleGunView : MonoBehaviour
 
         // 播放動畫（如果有）
 
+    }
+    
+    // 直接執行射擊，可由 GunView 調用
+    public void Shoot()
+    {
+        // 直接調用射擊邏輯，使用默認索引 0
+        ShootAnimationEvent(0);
     }
 }
