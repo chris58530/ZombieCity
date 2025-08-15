@@ -10,7 +10,7 @@ public class BattleSkillViewMediator : IMediator
     [Listener(GameEvent.ON_BATTLE_STATE_START)]
     public void ShowBattleSkills()
     {
-        view.ShowBattleSkills();
+        // view.ShowBattleSkills();
     }
 
     [Listener(GameEvent.ON_BATTLE_STATE_END)]

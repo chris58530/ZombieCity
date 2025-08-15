@@ -4,7 +4,7 @@ public class SingleGunView : MonoBehaviour
 {
     [SerializeField] private GunAnimationEventHandler gunAnimationEventHandler;
     [SerializeField] private AnimationView animationView;//包含所有角色的動畫
-    private GunData gunData;
+    [SerializeField] private GunData gunData;
     private PoolManager gunManager;
 
     // 讓外部可以獲取這把槍的資料
@@ -13,22 +13,8 @@ public class SingleGunView : MonoBehaviour
     public Action<int> onShootAnimationEvent;
     private void OnEnable()
     {
-        if (gunAnimationEventHandler != null)
-        {
-            gunAnimationEventHandler.onShootAnimationEvent += ShootAnimationEvent;
-        }
-        else
-        {
-            Debug.LogWarning($"[{gameObject.name}] gunAnimationEventHandler 為空，請在 Inspector 中設置此引用");
-        }
-    }
-    
-    private void OnDisable()
-    {
-        if (gunAnimationEventHandler != null)
-        {
-            gunAnimationEventHandler.onShootAnimationEvent -= ShootAnimationEvent;
-        }
+        gunAnimationEventHandler.onShootAnimationEvent += ShootAnimationEvent;
+        StartShoot();
     }
 
     public void ResetView()
@@ -55,18 +41,15 @@ public class SingleGunView : MonoBehaviour
             return;
         }
 
-        animationView.PlayAnimation("Gun_Idle_" + gunData.ID);
+        animationView.PlayAnimation("Idle_" + gunData.ID);
     }
     public void StartShoot()
     {
-        animationView.PlayAnimation("Gun_Shooting_" + gunData.ID);
+        animationView.PlayAnimation("Shoot_" + gunData.ID);
     }
 
-    public void ShootAnimationEvent(int gunIndex)
+    public void ShootAnimationEvent(int todo)
     {
-        // 首先通知監聽器有射擊事件發生
-        onShootAnimationEvent?.Invoke(gunIndex);
-
         if (gunData == null)
         {
             Debug.LogError("嘗試使用未設置數據的槍進行射擊");
@@ -116,12 +99,5 @@ public class SingleGunView : MonoBehaviour
 
         // 播放動畫（如果有）
 
-    }
-    
-    // 直接執行射擊，可由 GunView 調用
-    public void Shoot()
-    {
-        // 直接調用射擊邏輯，使用默認索引 0
-        ShootAnimationEvent(0);
     }
 }

@@ -611,7 +611,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de8635ba7abe4bf3891c4ae296691bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunAnimationEventHandler: {fileID: 628593746}
   animationView: {fileID: 628593745}
+  gunData:
+    level: 0
+    attackCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    pathMode: 0
+    target: 0
+    bulletType: 0
+    sprite: {fileID: 0}
+    shootPoint: {fileID: 0}
+    ID: 102
 --- !u!1 &588178674
 GameObject:
   m_ObjectHideFlags: 0
@@ -1263,7 +1278,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de8635ba7abe4bf3891c4ae296691bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunAnimationEventHandler: {fileID: 588178679}
   animationView: {fileID: 588178678}
+  gunData:
+    level: 0
+    attackCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    pathMode: 0
+    target: 0
+    bulletType: 0
+    sprite: {fileID: 0}
+    shootPoint: {fileID: 0}
+    ID: 101
 --- !u!1 &1413437249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,7 +1458,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6de8635ba7abe4bf3891c4ae296691bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunAnimationEventHandler: {fileID: 532296303}
   animationView: {fileID: 532296301}
+  gunData:
+    level: 0
+    attackCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    pathMode: 0
+    target: 0
+    bulletType: 0
+    sprite: {fileID: 0}
+    shootPoint: {fileID: 0}
+    ID: 103
 --- !u!1 &1479732141
 GameObject:
   m_ObjectHideFlags: 0
