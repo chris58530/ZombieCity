@@ -17,6 +17,7 @@ public class GunView : MonoBehaviour, IView
 
     [Header("子彈")]
     [SerializeField] private BulletBase[] bulletPrefabs;
+    private GunDataSetting currentGunDataSetting;
 
     private Dictionary<BulletType, PoolManager> bulletManagers = new Dictionary<BulletType, PoolManager>();
     private Tween shootTween;
@@ -162,6 +163,25 @@ public class GunView : MonoBehaviour, IView
         if (bullet is PiercingBullet) return BulletType.Piercing;
         return BulletType.Normal;
     }
+    public void SetUpGun(GunDataSetting gunDataSetting)
+    {
+        currentGunDataSetting = gunDataSetting;
+
+        baseGunView.SetGunData(gunDataSetting.campCarGunData, bulletManagers[gunDataSetting.campCarGunData.bulletType]);
+
+        for (int i = 0; i < singleGunViews.Length; i++)
+        {
+            if (i < gunDataSetting.gunDatas.Length)
+            {
+                GunData gunData = gunDataSetting.gunDatas[i];
+                SetSingleGun(i, gunData);
+            }
+            else
+            {
+                Debug.LogWarning($"索引 {i} 處沒有對應的槍數據，請確保 gunDatas 的長度足夠");
+            }
+        }
+    }
 
     // 設置單個槍的數據和對應的子彈管理器
     public void SetSingleGun(int singleGunIndex, GunData gunData)
@@ -213,16 +233,3 @@ public class GunView : MonoBehaviour, IView
     }
 }
 
-[Serializable]
-public class GunData
-{
-    public int level;
-    public AnimationCurve attackCurve;
-    public PathMode pathMode;
-    public BulletTarget target;
-    public BulletType bulletType;
-    public Sprite sprite;
-    public Transform shootPoint;
-    public int ID;
-
-}

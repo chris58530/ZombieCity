@@ -11,6 +11,7 @@ public class BattleCampCarView : MonoBehaviour, IView
     [Header("Gun")]
     [SerializeField] private GunView gunView;
     [Header("Test")]
+    [SerializeField] private GunDataSetting gunDataSetting;
     public bool isTest = false;
     public GameObject testRoot;
     private void Awake()
@@ -33,7 +34,10 @@ public class BattleCampCarView : MonoBehaviour, IView
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
-        battleCampCarController.MoveToMiddle(moveSpeed);
+        battleCampCarController.MoveToMiddle(moveSpeed, () =>
+        {
+            RequestStartShoot();
+        });
     }
 
 
@@ -44,6 +48,10 @@ public class BattleCampCarView : MonoBehaviour, IView
         gunView.ResetView();
         battleCampCarController.ResetView();
         root.SetActive(false);
+    }
+    private void RequestStartShoot()
+    {
+        mediator.RequestStartShoot(gunDataSetting);
     }
 }
 

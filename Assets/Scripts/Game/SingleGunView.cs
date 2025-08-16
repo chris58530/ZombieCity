@@ -6,6 +6,7 @@ public class SingleGunView : MonoBehaviour
     [SerializeField] private AnimationView animationView;//包含所有角色的動畫
     [SerializeField] private GunData gunData;
     private PoolManager gunManager;
+    [SerializeField] private Transform shootPoint;
 
     // 讓外部可以獲取這把槍的資料
     public GunData GunData => gunData;
@@ -14,7 +15,6 @@ public class SingleGunView : MonoBehaviour
     private void OnEnable()
     {
         gunAnimationEventHandler.onShootAnimationEvent += ShootAnimationEvent;
-        StartShoot();
     }
 
     public void ResetView()
@@ -42,6 +42,8 @@ public class SingleGunView : MonoBehaviour
         }
 
         animationView.PlayAnimation("Idle_" + gunData.ID);
+        StartShoot();
+
     }
     public void StartShoot()
     {
@@ -62,12 +64,6 @@ public class SingleGunView : MonoBehaviour
             return;
         }
 
-        if (gunData.shootPoint == null)
-        {
-            Debug.LogError("槍的射擊點未設置");
-            return;
-        }
-
         var bullet = gunManager.Spawn<BulletBase>(gunManager.transform);
         if (bullet == null)
         {
@@ -76,8 +72,8 @@ public class SingleGunView : MonoBehaviour
         }
 
         // 設置子彈位置和旋轉
-        bullet.transform.position = gunData.shootPoint.position;
-        bullet.transform.rotation = gunData.shootPoint.rotation;
+        bullet.transform.position = shootPoint.position;
+        bullet.transform.rotation = shootPoint.rotation;
 
         // 設置子彈回調
         Action<BulletBase> onHitCallBack = bulletBase =>

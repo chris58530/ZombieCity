@@ -105,3 +105,8 @@ public class SelectLevelEvent
 {
     public const string ON_SELECT_LEVEL_CLICKED = "SelectLevelEvent.ON_SELECT_LEVEL_CLICKED";
 }
+public class GunEvent
+{
+    public const string ON_GUN_START_SHOOT = "GunEvent.ON_GUN_START_SHOOT";
+    public const string ON_GUN_STOP_SHOOT = "GunEvent.ON_GUN_STOP_SHOOT";
+}

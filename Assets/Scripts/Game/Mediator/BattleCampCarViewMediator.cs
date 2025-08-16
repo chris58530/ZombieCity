@@ -3,6 +3,7 @@ using Zenject;
 public class BattleCampCarViewMediator : IMediator
 {
     [Inject] private BattleProxy battleProxy;
+    [Inject] private GunProxy gunProxy;
     private BattleCampCarView view;
 
     public override void Register(IView view)
@@ -30,5 +31,9 @@ public class BattleCampCarViewMediator : IMediator
     public void RegisterHittableTarget(IHittable hittable)
     {
         battleProxy.campCar = hittable;
+    }
+    public void RequestStartShoot(GunDataSetting gunDataSetting)
+    {
+        gunProxy.RequestStartGun(gunDataSetting);
     }
 }

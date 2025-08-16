@@ -16,7 +16,10 @@ public class GunViewMediator : IMediator
         base.DeRegister(view);
         this.view = null;
     }
+    [Listener(GunEvent.ON_GUN_START_SHOOT)]
     public void OnStartShoot()
     {
+        GunDataSetting setting = gunProxy.gunDataSetting;
+        view.SetUpGun(setting);
     }
 }
