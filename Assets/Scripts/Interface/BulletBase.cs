@@ -39,7 +39,11 @@ public class BulletBase : MonoBehaviour, IPoolable
         }
     }
 
-    public virtual void OnHitTarget(IHittable hittable) { }
+    public virtual void OnHitTarget(IHittable hittable)
+    {
+
+        hittable.GetDamaged(damage);
+    }
 
     public bool HitTarget(IHittable hittable)
     {
@@ -67,7 +71,7 @@ public class BulletBase : MonoBehaviour, IPoolable
 
     public void OnSpawned() { }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.TryGetComponent(out IHittable hittable)) return;
         if (!HitTarget(hittable)) return;

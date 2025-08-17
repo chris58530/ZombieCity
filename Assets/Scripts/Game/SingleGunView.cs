@@ -89,7 +89,7 @@ public class SingleGunView : MonoBehaviour
 
         // 啟用子彈
         bullet.gameObject.SetActive(true);
-        bullet.SetUp(gunData.target, gunData.pathMode, damage, onHitCallBack);
+        bullet.SetUp(BulletTarget.Zombie, gunData.pathMode, damage, onHitCallBack);
         bullet.SetLayer("Battle");
         bullet.DoPathMove();
 

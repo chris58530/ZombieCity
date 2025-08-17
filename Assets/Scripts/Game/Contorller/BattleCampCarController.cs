@@ -115,6 +115,6 @@ public class BattleCampCarController : MonoBehaviour, IHittable
 }
 public interface IHittable
 {
-    void GetDamaged(int damage);
+    void GetDamaged(float damage);
     Vector2 GetFixedPosition();
 }
