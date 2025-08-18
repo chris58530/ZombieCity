@@ -42,7 +42,7 @@ public class BulletBase : MonoBehaviour, IPoolable
     public virtual void OnHitTarget(IHittable hittable)
     {
 
-        hittable.GetDamaged(damage);
+        hittable.GetDamaged(1);
     }
 
     public bool HitTarget(IHittable hittable)
