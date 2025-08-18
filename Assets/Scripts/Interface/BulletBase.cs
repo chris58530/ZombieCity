@@ -50,7 +50,7 @@ public class BulletBase : MonoBehaviour, IPoolable
         switch (bulletTarget)
         {
             case BulletTarget.Zombie:
-                return hittable is ZombieBase;
+                return hittable is SafeZombieBase || hittable is BattleZombieBase;
             case BulletTarget.Player:
             case BulletTarget.Car:
                 return hittable is BattleCampCarController;

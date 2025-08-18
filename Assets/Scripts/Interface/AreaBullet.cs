@@ -82,14 +82,18 @@ public class AreaBullet : BulletBase
     public override void OnHitTarget(IHittable hittable)
     {
         // 對目標造成傷害
-        if (hittable is ZombieBase zombie)
+        if (hittable is SafeZombieBase zombie)
         {
             zombie.GetDamaged(2); // 範圍傷害可能更高
+        }
+        else if (hittable is BattleZombieBase battleZombie)
+        {
+            battleZombie.GetDamaged(2); // 範圍傷害可能更高
         }
     }
 
     // 覆蓋碰撞處理，子彈飛行途中不會被碰撞物阻擋
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         // 不執行任何操作，讓子彈繼續飛行到目標位置
     }

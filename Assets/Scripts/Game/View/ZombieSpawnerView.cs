@@ -23,7 +23,7 @@ public class ZombieSpawnerView : MonoBehaviour, IView
     {
         mediator.DeRegister(this);
     }
-    public void Initialize(ZombieDataSetting data)
+    public void Initialize(SafeZombieDataSetting data)
     {
         if (data == null || data.zombieData == null || data.zombieData.Length == 0)
         {
@@ -33,7 +33,7 @@ public class ZombieSpawnerView : MonoBehaviour, IView
 
         foreach (var zombieData in data.zombieData)
         {
-            ZombieBase zombiePrefab = zombieData.zombieInfo.zombieBasePrefab;
+            SafeZombieBase zombiePrefab = zombieData.zombieInfo.zombieBasePrefab;
 
             if (zombieData.isLock)
             {
@@ -86,7 +86,7 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             manager.ResetView();
         }
     }
-    public void OnZombieHit(ZombieBase zombie)
+    public void OnZombieHit(SafeZombieBase zombie)
     {
         foreach (var manager in zombiesManager.Values)
         {
@@ -98,12 +98,12 @@ public class ZombieSpawnerView : MonoBehaviour, IView
             manager.HitZombie(zombie);
         }
     }
-    public void AddAutoHitTarget(ZombieBase zombieBase, bool isTarget)
+    public void AddAutoHitTarget(SafeZombieBase zombieBase, bool isTarget)
     {
         mediator.AddAutoHitTarget(zombieBase, isTarget);
     }
-    public void SetBattleData(int hp , float atk)
+    public void SetBattleData(int hp, float atk)
     {
-        
+
     }
 }

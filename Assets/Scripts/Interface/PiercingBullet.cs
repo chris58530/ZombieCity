@@ -16,9 +16,13 @@ public class PiercingBullet : BulletBase
         currentPierceCount++;
 
         // 對目標造成傷害
-        if (hittable is ZombieBase zombie)
+        if (hittable is SafeZombieBase zombie)
         {
             zombie.GetDamaged(1); // 可以設置不同的傷害值
+        }
+        else if (hittable is BattleZombieBase battleZombie)
+        {
+            battleZombie.GetDamaged(1); // 可以設置不同的傷害值
         }
 
         // 如果達到最大貫穿次數，則通知回收
@@ -32,5 +36,16 @@ public class PiercingBullet : BulletBase
     {
         base.OnDespawned();
         currentPierceCount = 0;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (!collision.TryGetComponent(out IHittable hittable)) return;
+        if (!HitTarget(hittable)) return;
+
+        OnHitTarget(hittable);
+
+        // 貫穿子彈不會在第一次命中時就回收，除非達到最大貫穿次數
+        // 回收邏輯在 OnHitTarget 中處理
     }
 }

@@ -5,7 +5,7 @@ public class ZombieSpawnerCmd : ICommand
 {
     [Inject] private ZombieSpawnerProxy proxy;
     [Inject] private ClickHitProxy clickHitProxy;
-    [SerializeField] private ZombieDataSetting zombieDataSetting;
+    [SerializeField] private SafeZombieDataSetting zombieDataSetting;
     public override void Execute(MonoBehaviour mono)
     {
         isLazy = true;
@@ -25,7 +25,7 @@ public class ZombieSpawnerCmd : ICommand
     [Listener(ClickHitEvent.ON_CLICK_ZOMBIE)]
     public void OnClickHitZombie()
     {
-        ZombieBase zombie = clickHitProxy.hitZombie;
+        SafeZombieBase zombie = clickHitProxy.hitZombie;
         proxy.SetHitZombie(zombie);
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class ClickHitController : MonoBehaviour
 {
     public Action<FloorBase> onClickSurvivorUp;
-    public Action<ZombieBase> onClickZombie;
+    public Action<SafeZombieBase> onClickZombie;
     public Action<SurvivorBase, Vector3> onClickSurvivor;
     public bool isPicking;
     private SurvivorBase currentSurvivor;
@@ -21,7 +21,7 @@ public class ClickHitController : MonoBehaviour
 
             if (hit.collider == null) return;
 
-            ZombieBase zombie = hit.collider.GetComponent<ZombieBase>();
+            SafeZombieBase zombie = hit.collider.GetComponent<SafeZombieBase>();
             if (zombie != null)
             {
                 OnClickZombie(zombie);
@@ -66,7 +66,7 @@ public class ClickHitController : MonoBehaviour
             onClickSurvivorUp?.Invoke(floor);
         }
     }
-    private void OnClickZombie(ZombieBase zombie)
+    private void OnClickZombie(SafeZombieBase zombie)
     {
         onClickZombie?.Invoke(zombie);
     }

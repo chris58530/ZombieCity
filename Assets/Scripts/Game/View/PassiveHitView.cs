@@ -30,7 +30,7 @@ public class PassiveHitView : MonoBehaviour, IView
             {
                 GameObject bullet = Instantiate(hitEffectPrefab, shootPoint.position, Quaternion.identity);
                 bullet.transform.SetParent(shootPoint);
-                ZombieBase target = mediator.GetHitTarget();
+                SafeZombieBase target = mediator.GetHitTarget();
                 if (target == null)
                 {
                     Destroy(bullet);

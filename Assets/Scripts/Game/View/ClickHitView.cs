@@ -4,7 +4,7 @@ public class ClickHitView : MonoBehaviour, IView
 {
     [Inject] private ClickHitViewMediator mediator;
     private ClickHitController clickController;
-    [SerializeField]private GameObject clickMask;
+    [SerializeField] private GameObject clickMask;
 
     public void Awake()
     {
@@ -30,13 +30,13 @@ public class ClickHitView : MonoBehaviour, IView
     {
 
     }
-    public void OnClickZombie(ZombieBase zombie)
+    public void OnClickZombie(SafeZombieBase zombie)
     {
         mediator.OnClickZombie(zombie);
     }
     public void OnClickSurvivor(SurvivorBase survivor, Vector3 pickPos)
     {
-        mediator.OnClickSurvivor(survivor,pickPos);
+        mediator.OnClickSurvivor(survivor, pickPos);
         clickMask.SetActive(true);
     }
     public void OnClickUp(FloorBase floor)

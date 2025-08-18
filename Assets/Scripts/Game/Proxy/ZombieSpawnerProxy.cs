@@ -3,33 +3,33 @@ using UnityEngine;
 
 public class ZombieSpawnerProxy : IProxy
 {
-    public List<ZombieBase> autoHitTarget = new List<ZombieBase>();
-    public ZombieDataSetting zombieDataSetting;
+    public List<SafeZombieBase> autoHitTarget = new List<SafeZombieBase>();
+    public SafeZombieDataSetting zombieDataSetting;
     public float spawnRate = 0.5f;
-    public ZombieBase hitZombie;
+    public SafeZombieBase hitZombie;
 
-    public void SetZombieInit(ZombieDataSetting zombieDataSetting)
+    public void SetZombieInit(SafeZombieDataSetting zombieDataSetting)
     {
         this.zombieDataSetting = zombieDataSetting;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_INIT);
         listener.BroadCast(ZombieSpawnerEvent.START_SPAWN_ZOMBIE);
 
     }
-    public void AddAutoHitTarget(ZombieBase zombieBase)
+    public void AddAutoHitTarget(SafeZombieBase zombieBase)
     {
         if (!autoHitTarget.Contains(zombieBase))
         {
             autoHitTarget.Add(zombieBase);
         }
     }
-    public void RemoveAutoHitTarget(ZombieBase zombieBase)
+    public void RemoveAutoHitTarget(SafeZombieBase zombieBase)
     {
         if (autoHitTarget.Contains(zombieBase))
         {
             autoHitTarget.Remove(zombieBase);
         }
     }
-    public ZombieBase GetRamdomHitTarget()
+    public SafeZombieBase GetRamdomHitTarget()
     {
         if (autoHitTarget.Count == 0)
         {
@@ -39,7 +39,7 @@ public class ZombieSpawnerProxy : IProxy
         return autoHitTarget[randomIndex];
     }
 
-    public void SetHitZombie(ZombieBase zombieBase)
+    public void SetHitZombie(SafeZombieBase zombieBase)
     {
         this.hitZombie = zombieBase;
         listener.BroadCast(ZombieSpawnerEvent.ON_ZOMBIE_HIT);

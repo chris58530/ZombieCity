@@ -16,6 +16,6 @@ public class BattleSkillViewMediator : IMediator
     [Listener(GameEvent.ON_BATTLE_STATE_END)]
     public void HideBattleSkills()
     {
-        view.ResetView();
+        // view.ResetView();
     }
 }

@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class ClickHitProxy : IProxy
 {
-    public ZombieBase hitZombie;
+    public SafeZombieBase hitZombie;
     public SurvivorBase hitSurvivor;
     public Vector3 pickPos;
     public FloorBase clickUpFloor;
-    public void HitZombie(ZombieBase hitZombie)
+    public void HitZombie(SafeZombieBase hitZombie)
     {
         this.hitZombie = hitZombie;
         listener.BroadCast(ClickHitEvent.ON_CLICK_ZOMBIE);

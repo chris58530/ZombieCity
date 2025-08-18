@@ -1588,11 +1588,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f966d220ae64b24b0c13e7fbd47dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleSetting: {fileID: 0}
   zombieLevelData: {fileID: 11400000, guid: 6c6b0865b038d4f9abab5a75ab91fb4f, type: 2}
   zombies:
-  - {fileID: -2795948003020557179, guid: a2b0fe53062044f6695156ce306763a2, type: 3}
-  - {fileID: -2795948003020557179, guid: daef17b7dd8054d36aef89b518ae61ca, type: 3}
+  - {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+  - {fileID: 516290018458563852, guid: 18dbdab3b289049e8bf38112eb29be1a, type: 3}
   root: {fileID: 1417256691}
   spawnY: 6
 --- !u!1 &1598293918

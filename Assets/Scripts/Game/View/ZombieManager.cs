@@ -8,17 +8,17 @@ public class ZombieManager : MonoBehaviour
 {
     public Vector2 spawnPosX; //左右
     public Vector2 spawnPosY;// 上下多少
-    private Action<ZombieBase> deadCallback;
+    private Action<SafeZombieBase> deadCallback;
     private int poolCount = 15;
     private int zombieHp;
-    public Action<ZombieBase, bool> isAutoHitTarget;
+    public Action<SafeZombieBase, bool> isAutoHitTarget;
     private PoolManager poolManager;
-    private Dictionary<ZombieBase, int> zombieHpDic = new();
-    private Dictionary<ZombieBase, Tween> zombieMoveTween = new();
-    private HashSet<ZombieBase> activeZombies = new HashSet<ZombieBase>();
+    private Dictionary<SafeZombieBase, int> zombieHpDic = new();
+    private Dictionary<SafeZombieBase, Tween> zombieMoveTween = new();
+    private HashSet<SafeZombieBase> activeZombies = new HashSet<SafeZombieBase>();
     public int managerID;
 
-    public ZombieBase InitZombie(ZombieBase zombie, int hp, Action<ZombieBase> deadCallback)
+    public SafeZombieBase InitZombie(SafeZombieBase zombie, int hp, Action<SafeZombieBase> deadCallback)
     {
         managerID = zombie.id;
         this.deadCallback = deadCallback;
@@ -28,7 +28,7 @@ public class ZombieManager : MonoBehaviour
         poolManager.RegisterPool(zombie, poolCount, poolManager.transform);
         return zombie;
     }
-    public void HitZombie(ZombieBase zombie)
+    public void HitZombie(SafeZombieBase zombie)
     {
         if (zombieHpDic.ContainsKey(zombie))
         {
@@ -44,7 +44,7 @@ public class ZombieManager : MonoBehaviour
             Debug.LogWarning("Zombie not found in dictionary.");
         }
     }
-    public void KillZombie(ZombieBase zombie)
+    public void KillZombie(SafeZombieBase zombie)
     {
         zombieMoveTween[zombie].Kill();
         AddAutoHitTarget(zombie, false);
@@ -56,7 +56,7 @@ public class ZombieManager : MonoBehaviour
         });
 
     }
-    public void ResetZombie(ZombieBase zombie)
+    public void ResetZombie(SafeZombieBase zombie)
     {
         AddAutoHitTarget(zombie, false);
         if (zombieHpDic.ContainsKey(zombie))
@@ -64,7 +64,6 @@ public class ZombieManager : MonoBehaviour
         if (zombieMoveTween.ContainsKey(zombie))
             zombieMoveTween.Remove(zombie);
         activeZombies.Remove(zombie);
-        activeBattleZombies.Remove(zombie);
         poolManager.Despawn(zombie);
     }
     public void ResetView()
@@ -80,22 +79,13 @@ public class ZombieManager : MonoBehaviour
             }
         }
 
-        foreach (var zombie in activeBattleZombies.ToArray())
-        {
-            if (zombie != null)
-            {
-                poolManager.Despawn(zombie);
-            }
-        }
-
         zombieHpDic.Clear();
         zombieMoveTween.Clear();
         activeZombies.Clear();
-        activeBattleZombies.Clear();
     }
     public void SpawnZombie()
     {
-        ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
+        SafeZombieBase zombie = poolManager.Spawn<SafeZombieBase>(poolManager.transform);
         zombie.manager = this;
         zombieHpDic.Add(zombie, zombieHp);
         activeZombies.Add(zombie);
@@ -111,7 +101,7 @@ public class ZombieManager : MonoBehaviour
         bool isFlip = GameDefine.IsFlipByWorld(xFloat[x]);
         MoveZombie(zombie, isFlip);
     }
-    public void MoveZombie(ZombieBase zombie, bool isFlip)
+    public void MoveZombie(SafeZombieBase zombie, bool isFlip)
     {
         zombie.SetFlip(isFlip);
         float speed = UnityEngine.Random.Range(10, 20f);
@@ -129,27 +119,10 @@ public class ZombieManager : MonoBehaviour
         }));
 
     }
-    public void AddAutoHitTarget(ZombieBase zombie, bool isTarget)
+    public void AddAutoHitTarget(SafeZombieBase zombie, bool isTarget)
     {
         isAutoHitTarget?.Invoke(zombie, isTarget);
         zombie.SetIsTarget(isTarget);
     }
-    private HashSet<ZombieBase> activeBattleZombies = new HashSet<ZombieBase>();
 
-    public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk)
-    {
-        ZombieBase zombie = poolManager.Spawn<ZombieBase>(poolManager.transform);
-        zombie.SetLayer("Battle");
-        zombie.manager = this;
-        zombie.hp = hp;
-        zombie.deadCallBack = (zombie) =>
-        {
-            Debug.Log("Zombie is dead.");
-        };
-        zombie.attack = atk;
-        zombie.transform.position = spawnPoint;
-        zombie.SetBattleData(campCar);
-        activeBattleZombies.Add(zombie);
-        zombie.StartMove();
-    }
 }

@@ -14,7 +14,7 @@ public class ClickHitViewMediator : IMediator
     {
         view.OnEnableClickController();
     }
-    public void OnClickZombie(ZombieBase zombie)
+    public void OnClickZombie(SafeZombieBase zombie)
     {
         clickHitProxy.HitZombie(zombie);
     }

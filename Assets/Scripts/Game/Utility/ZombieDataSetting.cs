@@ -2,26 +2,26 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class ZombieDataSetting : ScriptableObject
+public class SafeZombieDataSetting : ScriptableObject
 {
-    public ZombieData[] zombieData;
+    public SafeZombieData[] zombieData;
 }
 [Serializable]
-public class ZombieData
+public class SafeZombieData
 {
     //邏輯資料
-    public ZombieInfo zombieInfo;
+    public SafeZombieInfo zombieInfo;
     public int hp;
     public int money;
     public bool isLock;
-    
+
 }
 [Serializable]
-public class ZombieInfo
+public class SafeZombieInfo
 {
     //外觀資料
     public string name;
     public Sprite icon;
-    public ZombieBase zombieBasePrefab;
+    public SafeZombieBase zombieBasePrefab;
     public TextField description;
 }

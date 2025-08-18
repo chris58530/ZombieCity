@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class ZombieBase : MonoBehaviour, IPoolable, IHittable
+public class SafeZombieBase : MonoBehaviour, IPoolable, IHittable
 {
     public int id;
     public AnimationView animationView;
@@ -16,7 +16,7 @@ public class ZombieBase : MonoBehaviour, IPoolable, IHittable
     public float speed = 1.0f;
     public float moveDuration = 5f;
     public float startAttackDistance = 3.0f;
-    public ZombieBase GetZombie()
+    public SafeZombieBase GetZombie()
     {
         return this;
     }
@@ -81,7 +81,7 @@ public class ZombieBase : MonoBehaviour, IPoolable, IHittable
     #region Battle專用
     public bool isMoving = false;
     public IHittable chaseTarget;
-    public Action<ZombieBase> deadCallBack;
+    public Action<SafeZombieBase> deadCallBack;
     public int hp;
     public virtual void FixedUpdate()
     {

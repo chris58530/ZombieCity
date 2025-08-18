@@ -6,12 +6,12 @@ using System.Collections.Generic;
 public class BattleZombieSpawnerView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleZombieSpawnerViewMediator mediator;
-    [SerializeField] private BattleZombieSpawnData battleSetting;
+    private BattleZombieSpawnData battleSetting;
     [SerializeField] private BattleZombieLevelData zombieLevelData;
-    [SerializeField] private List<ZombieBase> zombies;
+    [SerializeField] private List<BattleZombieBase> zombies;
     [SerializeField] private GameObject root;
     [SerializeField] private float spawnY;
-    private Dictionary<int, ZombieManager> zombiesManager = new Dictionary<int, ZombieManager>();
+    private Dictionary<int, BattleZombieManager> zombiesManager = new Dictionary<int, BattleZombieManager>();
 
     private void Awake()
     {
@@ -62,7 +62,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                 Debug.Log($"ZombieManager with id {zombId} already exists. Skipping initialization.");
                 continue;
             }
-            ZombieManager manager = new GameObject("ZombieManager_" + zombId).AddComponent<ZombieManager>();
+            BattleZombieManager manager = new GameObject("ZombieManager_" + zombId).AddComponent<BattleZombieManager>();
             manager.InitZombie(zombie, 1, (zombie) =>
               {
                   //   mediator.RequestGetMoney(zombieData.money, zombie.transform);

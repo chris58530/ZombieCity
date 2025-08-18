@@ -31,11 +31,11 @@ public class ZombieSpawnerViewMediator : IMediator
     [Listener(ZombieSpawnerEvent.ON_ZOMBIE_HIT)]
     public void OnZombieHit()
     {
-        ZombieBase zombie = proxy.hitZombie;
+        SafeZombieBase zombie = proxy.hitZombie;
         view.OnZombieHit(zombie);
     }
 
-    public void AddAutoHitTarget(ZombieBase zombieBase, bool isTarget)
+    public void AddAutoHitTarget(SafeZombieBase zombieBase, bool isTarget)
     {
         if (isTarget)
             proxy.AddAutoHitTarget(zombieBase);

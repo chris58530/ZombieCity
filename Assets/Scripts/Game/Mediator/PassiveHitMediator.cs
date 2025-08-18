@@ -3,7 +3,7 @@ using Zenject;
 public class PassiveHitMediator : IMediator
 {
     [Zenject.Inject] private PassiveHitProxy proxy;
-    [Inject]private ZombieSpawnerProxy zombieSpawnerProxy;
+    [Inject] private ZombieSpawnerProxy zombieSpawnerProxy;
     private PassiveHitView view;
 
     public override void Register(IView view)
@@ -20,7 +20,7 @@ public class PassiveHitMediator : IMediator
     {
         view.SetShootStart(proxy.shootRate);
     }
-    public ZombieBase GetHitTarget()
+    public SafeZombieBase GetHitTarget()
     {
         return zombieSpawnerProxy.GetRamdomHitTarget();
     }
