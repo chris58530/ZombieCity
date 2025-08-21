@@ -51,7 +51,7 @@ public class BattleZombieManager : MonoBehaviour
         BattleZombieBase zombie = poolManager.Spawn<BattleZombieBase>(poolManager.transform);
         zombie.SetLayer("Battle");
         zombie.manager = this;
-        zombie.hp = hp;
+        zombie.maxHp = hp;
         zombie.deadCallBack = (zombie) =>
         {
             Debug.Log("Zombie is dead.");

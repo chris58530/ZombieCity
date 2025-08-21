@@ -1,9 +1,10 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 {
+    [SerializeField] private Image healthBar;
     [Header("Basic Properties")]
     public int id;
     public AnimationView animationView;
@@ -21,7 +22,8 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public bool isMoving = false;
     public IHittable chaseTarget;
     public Action<BattleZombieBase> deadCallBack;
-    public int hp;
+    public int maxHp;
+    private int currentHp;
 
     public BattleZombieBase GetZombie()
     {
@@ -69,7 +71,7 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
         isMoving = false;
         chaseTarget = null;
         deadCallBack = null;
-        hp = 0;
+        maxHp = 0;
     }
 
     public void SetLayer(string layerName)
@@ -161,9 +163,9 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public virtual void GetDamaged(int damage)
     {
-        hp -= damage;
+        maxHp -= damage;
         Hit();
-        if (hp <= 0)
+        if (maxHp <= 0)
         {
             Kill(() =>
             {
@@ -198,5 +200,9 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public Vector2 GetFixedPosition()
     {
         return transform.position;
+    }
+    public void UpdateHealthBar()
+    {
+        healthBar.fillAmount = (float)currentHp / maxHp;
     }
 }
