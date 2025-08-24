@@ -30,6 +30,39 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
         return this;
     }
 
+    public void Setup(BattleZombieManager manager, int hp, float attackValue, Vector2 spawnPoint, IHittable target, Action<BattleZombieBase> deadCallback = null)
+    {
+        this.manager = manager;
+        maxHp = hp;
+        currentHp = hp;
+        attack = attackValue;
+        transform.position = spawnPoint;
+        deadCallBack = deadCallback ?? ((zombie) => { Debug.Log("Zombie is dead."); });
+        chaseTarget = target;
+        SetLayer("Battle");
+        IsDead = false;
+        isMoving = false;
+        isFresh = true;
+
+        if (sprite != null)
+            sprite.color = Color.white;
+
+        UpdateHealthBar();
+        gameObject.SetActive(true);
+    }
+
+    public void Setup()
+    {
+        IsDead = false;
+        isMoving = false;
+        isFresh = true;
+
+        if (sprite != null)
+            sprite.color = Color.white;
+
+        gameObject.SetActive(true);
+    }
+
     public void Hit()
     {
         sprite.color = Color.red;
@@ -67,7 +100,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public void OnDespawned()
     {
         Reset();
-        // 重置 battle 相關的狀態
         isMoving = false;
         chaseTarget = null;
         deadCallBack = null;
@@ -130,9 +162,7 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public virtual void Attack()
     {
-        // 計算朝向目標的方向
         Vector2 moveDir = (chaseTarget.GetFixedPosition() - (Vector2)transform.position).normalized;
-        // 直接向前衝刺固定距離，不管目標實際位置
         Vector2 attackPos = (Vector2)transform.position + moveDir * 2f;
 
         isMoving = false;
@@ -163,9 +193,10 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public virtual void GetDamaged(int damage)
     {
-        maxHp -= damage;
+        currentHp -= damage;
+        UpdateHealthBar();
         Hit();
-        if (maxHp <= 0)
+        if (currentHp <= 0)
         {
             Kill(() =>
             {

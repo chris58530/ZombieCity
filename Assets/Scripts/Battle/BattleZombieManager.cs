@@ -49,17 +49,14 @@ public class BattleZombieManager : MonoBehaviour
     public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk)
     {
         BattleZombieBase zombie = poolManager.Spawn<BattleZombieBase>(poolManager.transform);
-        zombie.SetLayer("Battle");
-        zombie.manager = this;
-        zombie.maxHp = hp;
-        zombie.deadCallBack = (zombie) =>
+        activeBattleZombies.Add(zombie);
+
+        zombie.Setup(this, hp, atk, spawnPoint, campCar, (deadZombie) =>
         {
             Debug.Log("Zombie is dead.");
-        };
-        zombie.attack = atk;
-        zombie.transform.position = spawnPoint;
-        zombie.SetBattleData(campCar);
-        activeBattleZombies.Add(zombie);
+            activeBattleZombies.Remove(deadZombie);
+            ResetBattleZombie(deadZombie);
+        });
         zombie.StartMove();
     }
 }
