@@ -1,13 +1,13 @@
 using Zenject;
 
-public class SelectPlayerViewMediator : IMediator
+public class SelectBattleSurvivorViewMediator : IMediator
 {
-    [Inject] private SelectPlayerProxy selectPlayerProxy;
-    private SelectPlayerView view;
+    [Inject] private SelectBattleSurvivorProxy selectPlayerProxy;
+    private SelectBattleSurvivorView view;
 
     public override void Register(IView view)
     {
-        this.view = view as SelectPlayerView;
+        this.view = view as SelectBattleSurvivorView;
     }
 
     [Listener(SelectPlayerEvent.ON_SHOW_SELECT_PLAYER)]

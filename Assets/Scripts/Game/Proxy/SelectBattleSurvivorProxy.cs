@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SelectPlayerProxy : IProxy
+public class SelectBattleSurvivorProxy : IProxy
 {
     public int[] selectedPlayers;
 

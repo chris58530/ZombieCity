@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SelectPlayerIconView : MonoBehaviour
+public class SelectBattleSurvivorIconView : MonoBehaviour
 {
     [SerializeField] private SurvivorDataSetting survivorDataSetting;
     public void UpdateIcon()

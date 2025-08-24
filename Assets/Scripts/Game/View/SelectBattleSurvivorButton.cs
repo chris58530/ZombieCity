@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SelectPlayerButton : MonoBehaviour
+public class SelectBattleSurvivorButton : MonoBehaviour
 {
     [SerializeField] private GameObject isSelectImage;
     [SerializeField] private GameObject nonSelectImage;

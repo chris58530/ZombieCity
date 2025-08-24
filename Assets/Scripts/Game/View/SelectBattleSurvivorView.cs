@@ -2,9 +2,9 @@ using DG.Tweening;
 using UnityEngine;
 using Zenject;
 
-public class SelectPlayerView : MonoBehaviour, IView
+public class SelectBattleSurvivorView : MonoBehaviour, IView
 {
-    [Inject] private SelectPlayerViewMediator mediator;
+    [Inject] private SelectBattleSurvivorViewMediator mediator;
     [SerializeField] private GameObject root;
 
     [Header("開啟時移動")]
@@ -13,7 +13,7 @@ public class SelectPlayerView : MonoBehaviour, IView
     [SerializeField] private float fadeInTime;
 
     [Header("角色按鈕")]
-    [SerializeField] private SelectPlayerButton[] selectPlayerButtons;
+    [SerializeField] private SelectBattleSurvivorButton[] selectPlayerButtons;
 
     public bool isShowing;
     private void Awake()
@@ -53,7 +53,7 @@ public class SelectPlayerView : MonoBehaviour, IView
     }
 
     //UI Event
-    public void SelectPlayer(SelectPlayerButton playerButton)
+    public void SelectPlayer(SelectBattleSurvivorButton playerButton)
     {
         if (mediator.HasSelectedPlayers(playerButton.GetPlayerId()))
         {
