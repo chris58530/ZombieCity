@@ -41,13 +41,12 @@ public class BulletBase : MonoBehaviour, IPoolable
         if (pathMode == PathMode.Straight)
         {
             transform.DOMove(transform.position + transform.up * 10, 1f)
-                .SetEase(Ease.Linear);
+                .SetEase(Ease.Linear).SetId(GetHashCode());
         }
     }
 
     public virtual void OnHitTarget(IHittable hittable)
     {
-
         hittable.GetDamaged(1);
     }
 

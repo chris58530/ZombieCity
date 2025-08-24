@@ -66,7 +66,6 @@ public class SingleGunView : MonoBehaviour
 
         Action<BulletBase> onHitCallBack = bulletBase =>
         {
-            bulletBase.gameObject.SetActive(false);
             gunManager.Despawn(bulletBase);
         };
 
