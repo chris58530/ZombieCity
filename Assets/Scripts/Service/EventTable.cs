@@ -110,3 +110,12 @@ public class GunEvent
     public const string ON_GUN_START_SHOOT = "GunEvent.ON_GUN_START_SHOOT";
     public const string ON_GUN_STOP_SHOOT = "GunEvent.ON_GUN_STOP_SHOOT";
 }
+
+public class SelectPlayerEvent
+{
+    public const string ON_SHOW_SELECT_PLAYER = "SelectPlayerEvent.ON_SHOW_SELECT_PLAYER";
+    public const string ON_HIDE_SELECT_PLAYER = "SelectPlayerEvent.ON_HIDE_SELECT_PLAYER";
+    public const string ON_PLAYER_SELECTED = "SelectPlayerEvent.ON_PLAYER_SELECTED";
+    public const string ON_SELECT_PLAYER_CANCELLED = "SelectPlayerEvent.ON_SELECT_PLAYER_CANCELLED";
+    public const string ON_PLAYER_DATA_UPDATED = "SelectPlayerEvent.ON_PLAYER_DATA_UPDATED";
+}
