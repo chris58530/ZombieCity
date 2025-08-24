@@ -18,7 +18,13 @@ public class BulletBase : MonoBehaviour, IPoolable
         this.onHitCallBack = onHitCallBack;
         this.damage = damage;
     }
-
+    public void AutoReset(float time, Action recycleCallBack)
+    {
+        DOVirtual.DelayedCall(time, () =>
+        {
+            recycleCallBack?.Invoke();
+        }).SetId(GetHashCode());
+    }
     public void SetLayer(string layerName)
     {
         int layer = LayerMask.NameToLayer(layerName);
@@ -67,6 +73,7 @@ public class BulletBase : MonoBehaviour, IPoolable
         pathMode = PathMode.Straight;
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
+        DOTween.Kill(GetHashCode());
     }
 
     public void OnSpawned() { }

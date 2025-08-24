@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 public class SingleGunView : MonoBehaviour
 {
@@ -20,6 +21,7 @@ public class SingleGunView : MonoBehaviour
     public void ResetView()
     {
         gunData = null;
+        DOTween.Kill(GetHashCode());
     }
 
     public void SetGunData(GunData data, PoolManager manager)
@@ -52,18 +54,6 @@ public class SingleGunView : MonoBehaviour
 
     public void ShootAnimationEvent(int todo)
     {
-        if (gunData == null)
-        {
-            Debug.LogError("嘗試使用未設置數據的槍進行射擊");
-            return;
-        }
-
-        if (gunManager == null)
-        {
-            Debug.LogError("嘗試使用未設置管理器的槍進行射擊");
-            return;
-        }
-
         var bullet = gunManager.Spawn<BulletBase>(gunManager.transform);
         if (bullet == null)
         {
@@ -71,29 +61,29 @@ public class SingleGunView : MonoBehaviour
             return;
         }
 
-        // 設置子彈位置和旋轉
         bullet.transform.position = shootPoint.position;
         bullet.transform.rotation = shootPoint.rotation;
 
-        // 設置子彈回調
         Action<BulletBase> onHitCallBack = bulletBase =>
         {
             bulletBase.gameObject.SetActive(false);
             gunManager.Despawn(bulletBase);
         };
 
-        // 根據槍的數據計算傷害
         float damage = gunData.attackCurve != null
             ? gunData.attackCurve.Evaluate(gunData.level)
             : gunData.level;
 
-        // 啟用子彈
         bullet.gameObject.SetActive(true);
         bullet.SetUp(BulletTarget.Zombie, gunData.pathMode, damage, onHitCallBack);
         bullet.SetLayer("Battle");
         bullet.DoPathMove();
 
-        // 播放動畫（如果有）
-
+        //計時自動消失
+        float autoResetTime = 3;
+        bullet.AutoReset(autoResetTime, () =>
+        {
+            gunManager.Despawn(bullet);
+        });
     }
 }
