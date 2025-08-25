@@ -1,10 +1,13 @@
 using UnityEngine;
 using Zenject;
-public class LevelComfirmView : MonoBehaviour,IView
+public class LevelComfirmView : MonoBehaviour, IView
 {
     [Inject] private LevelComfirmViewMediator mediator;
-
     [SerializeField] private GameObject root;
+    [Header("開啟時移動")]
+    [SerializeField] private Transform startPos;
+    [SerializeField] private Transform endPos;
+    [SerializeField] private float fadeInTime;
 
     private void Awake()
     {

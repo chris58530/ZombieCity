@@ -13,7 +13,7 @@ public class SelectBattleSurvivorViewMediator : IMediator
     [Listener(SelectPlayerEvent.ON_SHOW_SELECT_PLAYER)]
     public void ShowSelectPlayer()
     {
-        view.ShowAndFadeIn();
+        view.Show();
     }
 
     [Listener(SelectPlayerEvent.ON_HIDE_SELECT_PLAYER)]
@@ -37,5 +37,9 @@ public class SelectBattleSurvivorViewMediator : IMediator
     public void RemoveAllSelectPlayers()
     {
         selectPlayerProxy.RemoveAllSelectPlayers();
+    }
+    public int[] GetSelectedPlayers()
+    {
+        return selectPlayerProxy.selectedPlayers;
     }
 }

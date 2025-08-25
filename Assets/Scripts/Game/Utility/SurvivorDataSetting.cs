@@ -1,10 +1,15 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class SurvivorDataSetting : ScriptableObject
 {
     public SurvivorData[] survivorData;
+    public SurvivorData GetSurvivorData(int id)
+    {
+        if (id < 0 || id >= survivorData.Length) return null;
+        return survivorData[id];
+    }
 
 }
 [Serializable]
@@ -17,7 +22,7 @@ public class SurvivorData //存檔設定
 public class SurvivorInfo //基本設定
 {
     public string name; //UI
-    public Sprite icon;
+    public UnityEngine.UI.Image icon;
     public SurvivorBase survivorBasePrefab;
-    public TextField description;
+    public UnityEngine.UIElements.TextField description;
 }

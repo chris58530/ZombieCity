@@ -7,10 +7,10 @@ public class SelectBattleSurvivorView : MonoBehaviour, IView
     [Inject] private SelectBattleSurvivorViewMediator mediator;
     [SerializeField] private GameObject root;
 
-    [Header("開啟時移動")]
-    [SerializeField] private Transform startPos;
-    [SerializeField] private Transform endPos;
-    [SerializeField] private float fadeInTime;
+    [Header("角色Icon")]
+    [SerializeField] private SelectBattleSurvivorIconView selectBattleSurvivorIconView;
+
+
 
     [Header("角色按鈕")]
     [SerializeField] private SelectBattleSurvivorButton[] selectPlayerButtons;
@@ -38,12 +38,10 @@ public class SelectBattleSurvivorView : MonoBehaviour, IView
         DOTween.Kill(GetHashCode());
     }
 
-    public void ShowAndFadeIn()
+    public void Show()
     {
         isShowing = true;
         root.SetActive(true);
-        root.transform.position = startPos.position;
-        root.transform.DOMove(endPos.position, fadeInTime).SetEase(Ease.OutCubic).SetId(GetHashCode());
     }
 
     //UI Event
@@ -64,6 +62,9 @@ public class SelectBattleSurvivorView : MonoBehaviour, IView
         }
         playerButton.SetSelected(true);
         mediator.SelectPlayer(playerButton.GetPlayerId());
+
+        //更新Icon
+        selectBattleSurvivorIconView.UpdateIcon(mediator.GetSelectedPlayers());
     }
 
     //UI Event
