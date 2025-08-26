@@ -16,10 +16,10 @@ public class SelectBattleSurvivorViewMediator : IMediator
         view.Show();
     }
 
-    [Listener(SelectPlayerEvent.ON_HIDE_SELECT_PLAYER)]
     public void HideSelectPlayer()
     {
-        view.ResetView();
+        //取消選取當前關卡 退出縮放 並且ResetView
+        listener.BroadCast(SelectPlayerEvent.ON_SELECT_PLAYER_CANCELLED);
     }
     public bool HasSelectedPlayers(int playerId)
     {

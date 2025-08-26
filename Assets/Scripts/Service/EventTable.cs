@@ -104,6 +104,7 @@ public class CampCarEvent
 public class SelectLevelEvent
 {
     public const string ON_SELECT_LEVEL_CLICKED = "SelectLevelEvent.ON_SELECT_LEVEL_CLICKED";
+    public const string ON_SELECT_LEVEL_CANCELLED = "SelectLevelEvent.ON_SELECT_LEVEL_CANCELLED";
 }
 public class GunEvent
 {

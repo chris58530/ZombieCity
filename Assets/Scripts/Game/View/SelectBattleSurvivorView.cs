@@ -24,6 +24,7 @@ public class SelectBattleSurvivorView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+        ResetView();
     }
 
     private void OnDisable()
@@ -47,6 +48,7 @@ public class SelectBattleSurvivorView : MonoBehaviour, IView
     //UI Event
     public void Exit()
     {
+        mediator.HideSelectPlayer();
         ResetView();
     }
 

@@ -20,6 +20,11 @@ public class SelectLevelViewMediator : IMediator
     {
         view.ShowSelectLevel();
     }
+    [Listener(SelectLevelEvent.ON_SELECT_LEVEL_CANCELLED)]
+    public void CancelSelectLevel()
+    {
+        view.CancelSelectLevel();
+    }
     public void SelectLevelClicked(BattleZombieSpawnData battleZombieSpawnData)
     {
         battleProxy.SetData(battleZombieSpawnData);
@@ -33,6 +38,10 @@ public class SelectLevelViewMediator : IMediator
     public void OnLeaveClick()
     {
         resourceInfoProxy.RequestShowResourceInfo();
+    }
+    public void OnClickCampCar()
+    {
+        listener.BroadCast(SelectPlayerEvent.ON_SHOW_SELECT_PLAYER);
     }
 
 }
