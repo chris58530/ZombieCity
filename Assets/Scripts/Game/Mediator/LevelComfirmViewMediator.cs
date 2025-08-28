@@ -30,4 +30,8 @@ public class LevelComfirmViewMediator : IMediator
     {
         view.ResetView();
     }
+    public void CancelLevel()
+    {
+        listener.BroadCast(SelectLevelEvent.ON_SELECT_LEVEL_CANCELLED);
+    }
 }

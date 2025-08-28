@@ -45,6 +45,7 @@ public class LevelComfirmView : MonoBehaviour, IView
     }
     public void CancelLevel()
     {
+        mediator.CancelLevel();
         HideLevelConfirm();
     }
     public void ResetView()

@@ -12,7 +12,9 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
     [SerializeField] private float spawnY;
     private Dictionary<int, BattleZombieManager> zombiesManager = new Dictionary<int, BattleZombieManager>();
-
+    private int totalZombieCount = 0;        // 總殭屍數量
+    private int remainingZombieCount = 0;    // 剩餘殭屍數量
+    private int deadZombieCount = 0;         // 死亡殭屍數量
     private void Awake()
     {
         InjectService.Instance.Inject(this);
