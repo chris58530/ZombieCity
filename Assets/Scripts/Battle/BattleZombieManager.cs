@@ -13,7 +13,6 @@ public class BattleZombieManager : MonoBehaviour
     public int managerID;
     private int poolCount = 15;
 
-    private Action<BattleZombieBase> deadCallback;
     public void ResetView()
     {
         foreach (var zombie in activeBattleZombies.ToArray())
@@ -29,16 +28,11 @@ public class BattleZombieManager : MonoBehaviour
     public BattleZombieBase InitZombie(BattleZombieBase zombie, int hp, Action<BattleZombieBase> deadCallback)
     {
         managerID = zombie.id;
-        this.deadCallback = deadCallback;
         this.zombieHp = hp;
         poolManager = new GameObject("ZombiePool_").AddComponent<PoolManager>();
         poolManager.transform.SetParent(transform);
         poolManager.RegisterPool(zombie, poolCount, poolManager.transform);
         return zombie;
-    }
-    public BattleZombieBase SpawnBattleZombie()
-    {
-        return poolManager.Spawn<BattleZombieBase>(zombieParent);
     }
 
     public void ResetBattleZombie(BattleZombieBase zombie)
@@ -46,14 +40,14 @@ public class BattleZombieManager : MonoBehaviour
         poolManager.Despawn(zombie);
     }
 
-    public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk)
+    public void SpawnBattleZombie(Vector2 spawnPoint, IHittable campCar, int hp, float atk, Action<BattleZombieBase> deadCallback)
     {
         BattleZombieBase zombie = poolManager.Spawn<BattleZombieBase>(poolManager.transform);
         activeBattleZombies.Add(zombie);
 
         zombie.Setup(this, hp, atk, spawnPoint, campCar, (deadZombie) =>
         {
-            Debug.Log("Zombie is dead.");
+            deadCallback?.Invoke(deadZombie);
             activeBattleZombies.Remove(deadZombie);
             ResetBattleZombie(deadZombie);
         });
