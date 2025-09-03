@@ -26,4 +26,9 @@ public class BattleZombieSpawnerViewMediator : IMediator
     {
         return battleProxy.campCar;
     }
+
+    public void RequestUpdateZombieCount(int count)
+    {
+        battleProxy.RequestZombieCountUpdate(count);
+    }
 }

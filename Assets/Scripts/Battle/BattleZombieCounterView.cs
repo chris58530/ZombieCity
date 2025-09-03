@@ -5,13 +5,11 @@ using TMPro;
 public class BattleZombieCounterView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleZombieCounterViewMediator mediator;
+    [SerializeField] private GameObject root;
+
 
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI remainingCountText;
-    [SerializeField] private TextMeshProUGUI totalCountText;
-    [SerializeField] private TextMeshProUGUI deadCountText;
-    [SerializeField] private Slider progressSlider;
-    [SerializeField] private GameObject root;
 
     private void Awake()
     {
@@ -30,7 +28,6 @@ public class BattleZombieCounterView : MonoBehaviour, IView
 
     public void ResetView()
     {
-        UpdateDisplay(0, 0, 0);
         root.SetActive(false);
     }
 
@@ -39,19 +36,10 @@ public class BattleZombieCounterView : MonoBehaviour, IView
         root.SetActive(true);
     }
 
-    public void UpdateDisplay(int remaining, int dead, int total)
+    public void UpdateDisplay(int remaining)
     {
         if (remainingCountText != null)
-            remainingCountText.text = $"剩餘: {remaining}";
-
-        if (totalCountText != null)
-            totalCountText.text = $"總數: {total}";
-
-        if (deadCountText != null)
-            deadCountText.text = $"擊殺: {dead}";
-
-        if (progressSlider != null && total > 0)
-            progressSlider.value = (float)dead / total;
+            remainingCountText.text = $"Zombie Left: {remaining}";
     }
 }
 

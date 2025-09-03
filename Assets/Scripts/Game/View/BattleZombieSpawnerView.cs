@@ -59,6 +59,8 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         // 更新UI顯示
         OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
 
+        mediator.RequestUpdateZombieCount(remainingZombieCount);
+
         // 檢查是否所有殭屍都死了
         if (remainingZombieCount <= 0)
         {
@@ -172,10 +174,4 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
             }
         }
     }
-
-
-    // 公開方法，供UI或其他系統獲取當前殭屍數量
-    public int GetRemainingZombieCount() => remainingZombieCount;
-    public int GetDeadZombieCount() => deadZombieCount;
-    public int GetTotalZombieCount() => totalZombieCount;
 }

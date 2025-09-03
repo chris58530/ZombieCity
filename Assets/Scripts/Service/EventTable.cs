@@ -120,3 +120,7 @@ public class SelectPlayerEvent
     public const string ON_SELECT_PLAYER_CANCELLED = "SelectPlayerEvent.ON_SELECT_PLAYER_CANCELLED";
     public const string ON_PLAYER_DATA_UPDATED = "SelectPlayerEvent.ON_PLAYER_DATA_UPDATED";
 }
+public class BattleEvent
+{
+    public const string REQUEST_UPDATE_ZOMBIE_COUNT = "BattleEvent.REQUEST_UPDATE_ZOMBIE_COUNT";
+}
