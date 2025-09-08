@@ -19,6 +19,7 @@ public class BattleZombieCounterView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+        ResetView();
     }
 
     private void OnDisable()
@@ -38,6 +39,9 @@ public class BattleZombieCounterView : MonoBehaviour, IView
 
     public void UpdateDisplay(int remaining)
     {
+        if (!root.activeSelf)
+            root.SetActive(true);
+
         if (remainingCountText != null)
             remainingCountText.text = $"Zombie Left: {remaining}";
     }
