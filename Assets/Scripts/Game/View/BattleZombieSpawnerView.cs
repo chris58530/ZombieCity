@@ -133,11 +133,22 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     private IEnumerator SpawnWaves()
     {
-        foreach (var wave in battleSetting.waveSettings)
+        int waveCount = battleSetting.waveSettings.Length;
+
+        for (int waveIndex = 0; waveIndex < waveCount; waveIndex++)
         {
+            var wave = battleSetting.waveSettings[waveIndex];
+
             //波次間隔時間
             float interval = wave.triggerSecond;
             yield return new WaitForSeconds(interval);
+
+            // 檢查是否為最後一波
+            bool isLastWave = (waveIndex == waveCount - 1);
+            if (isLastWave)
+            {
+                Debug.Log($"<color=red>開始生成最後一波殭屍 (第 {waveIndex + 1} 波)</color>");
+            }
 
             //開始生成殭屍
             foreach (var spawnSetting in wave.zombieSpwnSettings)
@@ -170,6 +181,51 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
                     {
                         OnZombieDead(deadZombie);
                     });
+                }
+            }
+
+            if (isLastWave)
+            {
+                Debug.Log($"<color=red>最後一波殭屍生成完成！</color>");
+            }
+        }
+    }
+
+    // 公開方法，供UI或其他系統獲取當前殭屍數量
+    public int GetRemainingZombieCount() => remainingZombieCount;
+    public int GetDeadZombieCount() => deadZombieCount;
+    public int GetTotalZombieCount() => totalZombieCount;
+
+    // 測試和驗證方法
+    [ContextMenu("Test Zombie Count Calculation")]
+    public void TestZombieCountCalculation()
+    {
+        if (battleSetting == null)
+        {
+            return;
+        }
+
+        // 使用 BattleZombieSpawnData 的方法計算
+        int calculatedTotal = battleSetting.GetAllZombieCount();
+
+        // 手動計算生成過程中的殭屍數量
+        int manualSpawnCount = 0;
+
+        if (battleSetting.waveSettings != null)
+        {
+            for (int waveIndex = 0; waveIndex < battleSetting.waveSettings.Length; waveIndex++)
+            {
+                var wave = battleSetting.waveSettings[waveIndex];
+                if (wave?.zombieSpwnSettings != null)
+                {
+                    for (int settingIndex = 0; settingIndex < wave.zombieSpwnSettings.Length; settingIndex++)
+                    {
+                        var spawnSetting = wave.zombieSpwnSettings[settingIndex];
+                        if (spawnSetting != null)
+                        {
+                            manualSpawnCount += spawnSetting.zombieCount;
+                        }
+                    }
                 }
             }
         }

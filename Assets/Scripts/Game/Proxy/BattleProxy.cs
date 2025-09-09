@@ -5,6 +5,7 @@ public class BattleProxy : IProxy
 
     //BattleZombie
     public int battleZombieCount;
+
     public void SetData(BattleZombieSpawnData data)
     {
         battleZombieSpawnData = (BattleZombieSpawnData)data;

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 032bf4937810b4e77827c583afbf1150, type: 3}
-  m_Name: BZD_Test
+  m_Name: BZD_Test_01
   m_EditorClassIdentifier: 
   spawnLimitX: {x: -1.8, y: 1.8}
   waveSettings:
