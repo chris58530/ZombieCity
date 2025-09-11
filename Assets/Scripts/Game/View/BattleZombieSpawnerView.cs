@@ -133,99 +133,34 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     private IEnumerator SpawnWaves()
     {
-        int waveCount = battleSetting.waveSettings.Length;
+        float battleStartTime = Time.time;
 
-        for (int waveIndex = 0; waveIndex < waveCount; waveIndex++)
+        foreach (var wave in battleSetting.waveSettings)
         {
-            var wave = battleSetting.waveSettings[waveIndex];
-
-            //波次間隔時間
-            float interval = wave.triggerSecond;
-            yield return new WaitForSeconds(interval);
-
-            // 檢查是否為最後一波
-            bool isLastWave = (waveIndex == waveCount - 1);
-            if (isLastWave)
+            // 等待直到遊戲總時長達到 triggerSecond
+            while (Time.time - battleStartTime < wave.triggerSecond)
             {
-                Debug.Log($"<color=red>開始生成最後一波殭屍 (第 {waveIndex + 1} 波)</color>");
+                yield return null;
             }
 
-            //開始生成殭屍
+            // 生成殭屍
             foreach (var spawnSetting in wave.zombieSpwnSettings)
             {
                 for (int i = 0; i < spawnSetting.zombieCount; i++)
                 {
-
-                    //生成位置
                     float spawnPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
                     Vector2 spawnPos = new Vector2(spawnPosX, spawnY);
 
-                    //生成ID
                     int zombieId = spawnSetting.zombieType.zombieID;
+
+                    if (!zombiesManager.ContainsKey(zombieId))
+                        continue;
+
                     int hp = zombieLevelData.GetHp(zombieId);
                     float atk = zombieLevelData.GetAttack(zombieId);
-
-                    //hit 目標
                     IHittable hittable = mediator.GetCampCar();
 
-                    // 防止字典鍵不存在的錯誤
-                    // 跳過這個殭屍的生成
-                    if (!zombiesManager.ContainsKey(zombieId))
-                    {
-                        Debug.LogWarning($"找不到 ID 為 {zombieId} 的殭屍管理器。請確保該殭屍在 zombies 列表中並正確初始化。");
-                        Debug.LogWarning($"跳過第 {i} 隻殭屍的生成");
-                        continue;
-                    }
-
-                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, (deadZombie) =>
-                    {
-                        OnZombieDead(deadZombie);
-                    });
-                }
-            }
-
-            if (isLastWave)
-            {
-                Debug.Log($"<color=red>最後一波殭屍生成完成！</color>");
-            }
-        }
-    }
-
-    // 公開方法，供UI或其他系統獲取當前殭屍數量
-    public int GetRemainingZombieCount() => remainingZombieCount;
-    public int GetDeadZombieCount() => deadZombieCount;
-    public int GetTotalZombieCount() => totalZombieCount;
-
-    // 測試和驗證方法
-    [ContextMenu("Test Zombie Count Calculation")]
-    public void TestZombieCountCalculation()
-    {
-        if (battleSetting == null)
-        {
-            return;
-        }
-
-        // 使用 BattleZombieSpawnData 的方法計算
-        int calculatedTotal = battleSetting.GetAllZombieCount();
-
-        // 手動計算生成過程中的殭屍數量
-        int manualSpawnCount = 0;
-
-        if (battleSetting.waveSettings != null)
-        {
-            for (int waveIndex = 0; waveIndex < battleSetting.waveSettings.Length; waveIndex++)
-            {
-                var wave = battleSetting.waveSettings[waveIndex];
-                if (wave?.zombieSpwnSettings != null)
-                {
-                    for (int settingIndex = 0; settingIndex < wave.zombieSpwnSettings.Length; settingIndex++)
-                    {
-                        var spawnSetting = wave.zombieSpwnSettings[settingIndex];
-                        if (spawnSetting != null)
-                        {
-                            manualSpawnCount += spawnSetting.zombieCount;
-                        }
-                    }
+                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
                 }
             }
         }
