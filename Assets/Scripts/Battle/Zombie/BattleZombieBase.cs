@@ -120,16 +120,16 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public virtual void FixedUpdate()
     {
-        if (!isMoving) return;
-        if (NotInAttackRange)
-        {
-            Move();
-        }
-        else
-        {
-            Attack();
-            return;
-        }
+        // if (!isMoving) return;
+        // if (NotInAttackRange)
+        // {
+        //     Move();
+        // }
+        // else
+        // {
+        //     Attack();
+        //     return;
+        // }
     }
 
     public void LateUpdate()
