@@ -93,20 +93,20 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [ContextMenu("Start Spawning")]
     public void StartSpawning(BattleZombieSpawnData battleZombieSpawnData)
     {
-        // battleSetting = battleZombieSpawnData;
+        battleSetting = battleZombieSpawnData;
 
-        // // 設置總殭屍數量和剩餘數量
-        // totalZombieCount = battleSetting.GetAllZombieCount();
-        // remainingZombieCount = totalZombieCount;
-        // deadZombieCount = 0;
+        // 設置總殭屍數量和剩餘數量
+        totalZombieCount = battleSetting.GetAllZombieCount();
+        remainingZombieCount = totalZombieCount;
+        deadZombieCount = 0;
 
-        // Debug.Log($"Start Spawning {totalZombieCount} Zombies for Battle");
+        Debug.Log($"Start Spawning {totalZombieCount} Zombies for Battle");
 
-        // // 通知UI更新
-        // OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
+        // 通知UI更新
+        OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
 
-        // root.SetActive(true);
-        // StartCoroutine(SpawnWaves());
+        root.SetActive(true);
+        StartCoroutine(SpawnWaves());
     }
     public void InitializeAllZombies()
     {
@@ -128,7 +128,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     public void SetCounter()
     {
-        // totalZombieCount = battleSetting.GetAllZombieCount();
+        totalZombieCount = battleSetting.GetAllZombieCount();
     }
 
     private IEnumerator SpawnWaves()
