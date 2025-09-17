@@ -93,20 +93,20 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [ContextMenu("Start Spawning")]
     public void StartSpawning(BattleZombieSpawnData battleZombieSpawnData)
     {
-        battleSetting = battleZombieSpawnData;
+        // battleSetting = battleZombieSpawnData;
 
-        // 設置總殭屍數量和剩餘數量
-        totalZombieCount = battleSetting.GetAllZombieCount();
-        remainingZombieCount = totalZombieCount;
-        deadZombieCount = 0;
+        // // 設置總殭屍數量和剩餘數量
+        // totalZombieCount = battleSetting.GetAllZombieCount();
+        // remainingZombieCount = totalZombieCount;
+        // deadZombieCount = 0;
 
-        Debug.Log($"Start Spawning {totalZombieCount} Zombies for Battle");
+        // Debug.Log($"Start Spawning {totalZombieCount} Zombies for Battle");
 
-        // 通知UI更新
-        OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
+        // // 通知UI更新
+        // OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
 
-        root.SetActive(true);
-        StartCoroutine(SpawnWaves());
+        // root.SetActive(true);
+        // StartCoroutine(SpawnWaves());
     }
     public void InitializeAllZombies()
     {
@@ -128,41 +128,42 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     public void SetCounter()
     {
-        totalZombieCount = battleSetting.GetAllZombieCount();
+        // totalZombieCount = battleSetting.GetAllZombieCount();
     }
 
     private IEnumerator SpawnWaves()
     {
-        float battleStartTime = Time.time;
+        // float battleStartTime = Time.time;
 
-        foreach (var wave in battleSetting.waveSettings)
-        {
-            // 等待直到遊戲總時長達到 triggerSecond
-            while (Time.time - battleStartTime < wave.triggerSecond)
-            {
-                yield return null;
-            }
+        // foreach (var wave in battleSetting.waveSettings)
+        // {
+        //     // 等待直到遊戲總時長達到 triggerSecond
+        //     while (Time.time - battleStartTime < wave.triggerSecond)
+        //     {
+        //         yield return null;
+        //     }
 
-            // 生成殭屍
-            foreach (var spawnSetting in wave.zombieSpwnSettings)
-            {
-                for (int i = 0; i < spawnSetting.zombieCount; i++)
-                {
-                    float spawnPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
-                    Vector2 spawnPos = new Vector2(spawnPosX, spawnY);
+        //     // 生成殭屍
+        //     foreach (var spawnSetting in wave.zombieSpwnSettings)
+        //     {
+        //         for (int i = 0; i < spawnSetting.zombieCount; i++)
+        //         {
+        //             float spawnPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
+        //             Vector2 spawnPos = new Vector2(spawnPosX, spawnY);
 
-                    int zombieId = spawnSetting.zombieType.zombieID;
+        //             int zombieId = spawnSetting.zombieType.zombieID;
 
-                    if (!zombiesManager.ContainsKey(zombieId))
-                        continue;
+        //             if (!zombiesManager.ContainsKey(zombieId))
+        //                 continue;
 
-                    int hp = zombieLevelData.GetHp(zombieId);
-                    float atk = zombieLevelData.GetAttack(zombieId);
-                    IHittable hittable = mediator.GetCampCar();
+        //             int hp = zombieLevelData.GetHp(zombieId);
+        //             float atk = zombieLevelData.GetAttack(zombieId);
+        //             IHittable hittable = mediator.GetCampCar();
 
-                    zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
-                }
-            }
-        }
+        //             zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
+        //         }
+        //     }
+        // }
+        yield return null;
     }
 }

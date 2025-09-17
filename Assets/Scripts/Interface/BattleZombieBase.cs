@@ -4,6 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 {
+    [Header("Settings")]
+    public int level; //生成時由ZombieSpawnData設定
+    public float attack;
+    public AnimationCurve attackCurve;
+    public float hp;
+    public AnimationCurve hpCurve;
+
+
     [SerializeField] private Image healthBar;
     [Header("Basic Properties")]
     public int id;
@@ -15,7 +23,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public new Collider2D collider2D;
 
     [Header("Battle Properties")]
-    public float attack;
     public float speed = 1.0f;
     public float moveDuration = 5f;
     public float startAttackDistance = 3.0f;
@@ -29,6 +36,7 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     {
         return this;
     }
+
 
     public void Setup(BattleZombieManager manager, int hp, float attackValue, Vector2 spawnPoint, IHittable target, Action<BattleZombieBase> deadCallback = null)
     {
