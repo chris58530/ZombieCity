@@ -6,15 +6,27 @@ using System.Collections.Generic;
 public class BattleZombieSpawnerView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleZombieSpawnerViewMediator mediator;
-    private BattleZombieSpawnData battleSetting;
+
+    [Header("Debug觀察用 實際透過Mediator傳入")]
+    [SerializeField] private BattleZombieSpawnData battleSetting;
     [SerializeField] private BattleZombieLevelData zombieLevelData;
     [SerializeField] private List<BattleZombieBase> zombies;
     [SerializeField] private GameObject root;
+    [Header("生成位置設定")]
     [SerializeField] private float spawnY;
+    [SerializeField] private float spawnRangeX = 7f;  // X軸生成範圍
+    [SerializeField] private bool useRandomSpawn = true;  // 是否使用隨機生成
+    [SerializeField] private float spawnSpacing = 1.5f;  // 同波次殭屍間距
     private Dictionary<int, BattleZombieManager> zombiesManager = new Dictionary<int, BattleZombieManager>();
     private int totalZombieCount = 0;        // 總殭屍數量
     private int remainingZombieCount = 0;    // 剩餘殭屍數量
     private int deadZombieCount = 0;         // 死亡殭屍數量
+
+    // 波次管理
+    private int currentWaveZombieCount = 0;  // 當前波次的殭屍數量
+    private int currentWaveDeadCount = 0;    // 當前波次已死亡的殭屍數量
+    private bool isWaveCompleted = false;    // 當前波次是否完成
+
     // 事件：當殭屍數量更新時觸發 (剩餘, 死亡, 總數)
     public event Action<int, int, int> OnZombieCountUpdated;
     private void Awake()
@@ -45,6 +57,9 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         totalZombieCount = 0;
         remainingZombieCount = 0;
         deadZombieCount = 0;
+        currentWaveZombieCount = 0;
+        currentWaveDeadCount = 0;
+        isWaveCompleted = false;
         OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
     }
 
@@ -53,13 +68,21 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     {
         deadZombieCount++;
         remainingZombieCount--;
+        currentWaveDeadCount++;
 
-        Debug.Log($"Zombie {zombie.id} is dead. Dead: {deadZombieCount}, Remaining: {remainingZombieCount}");
+        Debug.Log($"Zombie {zombie.id} is dead. Wave Dead: {currentWaveDeadCount}/{currentWaveZombieCount}, Total Dead: {deadZombieCount}, Remaining: {remainingZombieCount}");
 
         // 更新UI顯示
         OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
 
         mediator.RequestUpdateZombieCount(remainingZombieCount);
+
+        // 檢查當前波次是否完成
+        if (currentWaveDeadCount >= currentWaveZombieCount)
+        {
+            isWaveCompleted = true;
+            Debug.Log($"當前波次完成！所有 {currentWaveZombieCount} 隻殭屍已死亡");
+        }
 
         // 檢查是否所有殭屍都死了
         if (remainingZombieCount <= 0)
@@ -133,37 +156,59 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     private IEnumerator SpawnWaves()
     {
-        // float battleStartTime = Time.time;
+        if (battleSetting == null || battleSetting.WaveSettings == null)
+        {
+            Debug.LogError("[BattleSpawner] BattleZombieSpawnData 或 waveSettings 為空");
+            yield break;
+        }
 
-        // foreach (var wave in battleSetting.waveSettings)
-        // {
-        //     // 等待直到遊戲總時長達到 triggerSecond
-        //     while (Time.time - battleStartTime < wave.triggerSecond)
-        //     {
-        //         yield return null;
-        //     }
+        for (int waveIndex = 0; waveIndex < battleSetting.WaveSettings.Length; waveIndex++)
+        {
+            var wave = battleSetting.WaveSettings[waveIndex];
 
-        //     // 生成殭屍
-        //     foreach (var spawnSetting in wave.zombieSpwnSettings)
-        //     {
-        //         for (int i = 0; i < spawnSetting.zombieCount; i++)
-        //         {
-        //             float spawnPosX = UnityEngine.Random.Range(battleSetting.spawnLimitX.x, battleSetting.spawnLimitX.y);
-        //             Vector2 spawnPos = new Vector2(spawnPosX, spawnY);
+            // 重置當前波次的計數
+            currentWaveZombieCount = wave.SpawnData.Length;
+            currentWaveDeadCount = 0;
+            isWaveCompleted = false;
 
-        //             int zombieId = spawnSetting.zombieType.zombieID;
+            Debug.Log($"[BattleSpawner] 開始第 {waveIndex + 1} 波，共 {currentWaveZombieCount} 隻殭屍");
 
-        //             if (!zombiesManager.ContainsKey(zombieId))
-        //                 continue;
+            float waveStartTime = Time.time;
 
-        //             int hp = zombieLevelData.GetHp(zombieId);
-        //             float atk = zombieLevelData.GetAttack(zombieId);
-        //             IHittable hittable = mediator.GetCampCar();
+            // 為當前波次的每隻殭屍安排生成時間
+            StartCoroutine(SpawnZombiesInWave(wave, waveStartTime, waveIndex + 1));
 
-        //             zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
-        //         }
-        //     }
-        // }
-        yield return null;
+            // 等待當前波次的所有殭屍死亡
+            yield return new WaitUntil(() => isWaveCompleted);
+
+            Debug.Log($"[BattleSpawner] 第 {waveIndex + 1} 波完成！準備下一波...");
+        }
+
+        Debug.Log("[BattleSpawner] 所有波次生成完畢！戰鬥結束！");
+    }
+
+    private IEnumerator SpawnZombiesInWave(WaveSetting wave, float waveStartTime, int waveNumber)
+    {
+        foreach (var spawnData in wave.SpawnData)
+        {
+            // 等待直到達到該殭屍的生成時間
+            while (Time.time - waveStartTime < spawnData.spawnSecond)
+            {
+                yield return null;
+            }
+
+            // 生成殭屍
+            int zombieId = spawnData.zombiePrefab.id;
+            Vector2 spawnPos = new Vector2(0, spawnY);
+
+            int hp = zombieLevelData.GetHp(zombieId) * spawnData.level;
+            float atk = zombieLevelData.GetAttack(zombieId) * spawnData.level;
+
+            IHittable hittable = mediator.GetCampCar();
+
+            zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
+
+            Debug.Log($"[BattleSpawner] 第 {waveNumber} 波在 {spawnData.spawnSecond} 秒生成殭屍：ID={zombieId}, Level={spawnData.level}");
+        }
     }
 }

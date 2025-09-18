@@ -55,7 +55,16 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
         if (sprite != null)
             sprite.color = Color.white;
 
-        UpdateHealthBar();
+        // 確保 healthBar 存在且有效後再更新
+        if (healthBar != null && healthBar.rectTransform != null)
+        {
+            UpdateHealthBar();
+        }
+        else
+        {
+            Debug.LogWarning($"HealthBar is null or invalid for zombie {id}");
+        }
+
         gameObject.SetActive(true);
     }
 
@@ -202,13 +211,20 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public virtual void GetDamaged(int damage)
     {
         currentHp -= damage;
-        UpdateHealthBar();
+
+        // 安全地更新血條
+        if (healthBar != null && healthBar.rectTransform != null)
+        {
+            UpdateHealthBar();
+        }
+
         Hit();
         if (currentHp <= 0)
         {
             Kill(() =>
             {
                 deadCallBack?.Invoke(this);
+                Debug.Log("Zombie is dead.");
                 if (manager != null)
                 {
                     manager.ResetBattleZombie(this);
@@ -242,6 +258,25 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     }
     public void UpdateHealthBar()
     {
-        healthBar.fillAmount = (float)currentHp / maxHp;
+        if (healthBar != null && maxHp > 0)
+        {
+            float fillAmount = (float)currentHp / maxHp;
+            // 確保 fillAmount 在有效範圍內 [0, 1]
+            fillAmount = Mathf.Clamp01(fillAmount);
+            healthBar.fillAmount = fillAmount;
+
+            // 確保 healthBar 的 RectTransform 有效
+            if (healthBar.rectTransform != null)
+            {
+                var rect = healthBar.rectTransform.rect;
+                if (rect.width <= 0 || rect.height <= 0 ||
+                    float.IsNaN(rect.width) || float.IsNaN(rect.height) ||
+                    float.IsInfinity(rect.width) || float.IsInfinity(rect.height))
+                {
+                    Debug.LogWarning($"Invalid healthBar rect detected for zombie {id}: {rect}");
+                    return;
+                }
+            }
+        }
     }
 }
