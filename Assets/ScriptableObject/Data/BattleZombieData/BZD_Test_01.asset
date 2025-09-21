@@ -15,103 +15,103 @@ MonoBehaviour:
   waveSettings:
   - spawnData:
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.1
+      spawnSecond: 1
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.2
+      spawnSecond: 2
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.3
+      spawnSecond: 3
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.4
+      spawnSecond: 4
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.5
+      spawnSecond: 5
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.6
+      spawnSecond: 6
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.7
+      spawnSecond: 7
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.8
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    waveNote: "\u7B2C 1 \u6CE2"
-  - spawnData:
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.1
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.2
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.3
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.4
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.5
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.6
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.7
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.8
+      spawnSecond: 8
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     waveNote: "\u7B2C 1 \u6CE2"
   - spawnData:
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.1
+      spawnSecond: 1
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.2
+      spawnSecond: 2
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.3
+      spawnSecond: 3
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.4
+      spawnSecond: 4
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.5
+      spawnSecond: 5
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.6
+      spawnSecond: 6
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.7
+      spawnSecond: 7
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 0.8
+      spawnSecond: 8
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    waveNote: "\u7B2C 1 \u6CE2"
+  - spawnData:
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 1
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 2
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 3
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 4
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 5
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 6
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 7
+      level: 1
+      zombieNote: "\u65B0\u6BAD\u5C4D"
+    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+      spawnSecond: 8
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     waveNote: "\u7B2C 1 \u6CE2"

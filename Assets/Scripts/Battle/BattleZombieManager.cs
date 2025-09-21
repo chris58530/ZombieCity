@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class BattleZombieManager : MonoBehaviour
@@ -30,7 +31,8 @@ public class BattleZombieManager : MonoBehaviour
         managerID = zombie.id;
         this.zombieHp = hp;
         poolManager = new GameObject("ZombiePool_").AddComponent<PoolManager>();
-        poolManager.transform.SetParent(transform);
+        // poolManager.transform.SetParent(transform);
+        //todo 測試需求 之後復原
         poolManager.RegisterPool(zombie, poolCount, poolManager.transform);
         return zombie;
     }

@@ -18,15 +18,11 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public AnimationView animationView;
     public SpriteRenderer sprite;
     public bool isFresh;
-    public BattleZombieManager manager;
+    [HideInInspector] public BattleZombieManager manager;
     public bool IsDead { get; private set; } = false;
-    public new Collider2D collider2D;
+    public Collider2D collider;
+    public DOTweenPath tweenPath;
 
-    [Header("Battle Properties")]
-    public float speed = 1.0f;
-    public float moveDuration = 5f;
-    public float startAttackDistance = 3.0f;
-    public bool isMoving = false;
     public IHittable chaseTarget;
     public Action<BattleZombieBase> deadCallBack;
     public int maxHp;
@@ -48,8 +44,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
         deadCallBack = deadCallback ?? ((zombie) => { Debug.Log("Zombie is dead."); });
         chaseTarget = target;
         SetLayer("Battle");
-        IsDead = false;
-        isMoving = false;
         isFresh = true;
 
         if (sprite != null)
@@ -68,16 +62,12 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
         gameObject.SetActive(true);
     }
 
-    public void Setup()
+    public void StartMove()
     {
-        IsDead = false;
-        isMoving = false;
-        isFresh = true;
-
-        if (sprite != null)
-            sprite.color = Color.white;
-
-        gameObject.SetActive(true);
+        if (tweenPath != null)
+            tweenPath.DOPlay();
+        else
+            Debug.LogWarning($"TweenPath is not assigned for zombie {id}");
     }
 
     public void Hit()
@@ -117,7 +107,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     public void OnDespawned()
     {
         Reset();
-        isMoving = false;
         chaseTarget = null;
         deadCallBack = null;
         maxHp = 0;
@@ -137,71 +126,15 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public virtual void FixedUpdate()
     {
-        // if (!isMoving) return;
-        // if (NotInAttackRange)
-        // {
-        //     Move();
-        // }
-        // else
-        // {
-        //     Attack();
-        //     return;
-        // }
-    }
-
-    public void LateUpdate()
-    {
 
     }
+
 
     public void SetBattleData(IHittable hittable)
     {
         chaseTarget = hittable;
     }
 
-    public bool NotInAttackRange
-    {
-        get
-        {
-            return Vector2.Distance(transform.position, chaseTarget.GetFixedPosition()) > startAttackDistance;
-        }
-    }
-
-    public void StartMove()
-    {
-        isMoving = true;
-    }
-
-    public virtual void Move()
-    {
-        transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.position.x, -100), speed * Time.fixedDeltaTime);
-    }
-
-    public virtual void Attack()
-    {
-        Vector2 moveDir = (chaseTarget.GetFixedPosition() - (Vector2)transform.position).normalized;
-        Vector2 attackPos = (Vector2)transform.position + moveDir * 2f;
-
-        isMoving = false;
-        transform.DOMove(attackPos, speed / 5).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            if (chaseTarget != null)
-            {
-                chaseTarget.GetDamaged(1);
-            }
-            StepBack();
-        });
-    }
-
-    public void StepBack()
-    {
-        float stepDistance = speed * 3f;
-        Vector2 targetPosition = (Vector2)transform.position + Vector2.up * speed * 3f;
-        transform.DOMove(targetPosition, 3f).SetEase(Ease.Linear).OnComplete(() =>
-        {
-            isMoving = true;
-        });
-    }
 
     public virtual void Idle()
     {
@@ -212,7 +145,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     {
         currentHp -= damage;
 
-        // 安全地更新血條
         if (healthBar != null && healthBar.rectTransform != null)
         {
             UpdateHealthBar();
@@ -231,16 +163,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
                 }
             });
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-
     }
 
     public void Reset()

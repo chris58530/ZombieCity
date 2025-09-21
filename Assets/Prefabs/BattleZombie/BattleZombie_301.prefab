@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -1856936264059671328}
   - component: {fileID: 1721546718744775097}
   - component: {fileID: 5955333921819900421}
-  - component: {fileID: 372774207589453697}
   m_Layer: 0
   m_Name: BattleZombie_301
   m_TagString: Untagged
@@ -31,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1066023848274448018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.07, y: 5.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -154,11 +153,8 @@ MonoBehaviour:
   sprite: {fileID: 1531684855689379088}
   isFresh: 0
   manager: {fileID: 0}
-  collider2D: {fileID: 4845904299228209334}
-  speed: 1
-  moveDuration: 5
-  startAttackDistance: 3
-  isMoving: 0
+  collider: {fileID: 4845904299228209334}
+  tweenPath: {fileID: 5955333921819900421}
   maxHp: 0
 --- !u!95 &-1856936264059671328
 Animator:
@@ -204,7 +200,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066023848274448018}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
@@ -273,10 +269,10 @@ MonoBehaviour:
   lookAtTransform: {fileID: 0}
   lookAtPosition: {x: 0, y: 0, z: 0}
   lookAhead: 0.01
-  autoPlay: 1
+  autoPlay: 0
   autoKill: 1
   relative: 0
-  isLocal: 0
+  isLocal: 1
   isClosedPath: 0
   pathResolution: 10
   pathMode: 2
@@ -293,11 +289,11 @@ MonoBehaviour:
   path:
     wpLengths:
     - 0
-    - 4.34396
-    - 4.2154145
+    - 0.96383893
+    - 4.225009
     - 6.0503163
     wps:
-    - {x: 0, y: 0, z: 0}
+    - {x: 0.07, y: 5.28, z: 0}
     - {x: 0.11258328, y: 4.338151, z: 0}
     - {x: -0.72744286, y: 0.2724234, z: 0}
     - {x: -5.8348036, y: -2.9196773, z: 0}
@@ -309,7 +305,7 @@ MonoBehaviour:
       b: {x: 0, y: 0, z: 0}
     - a: {x: -10.942164, y: -6.111778, z: 0}
       b: {x: 0, y: 0, z: 0}
-    length: 14.604054
+    length: 11.24042
     isFinalized: 1
     timesTable:
     - 0.025
@@ -353,46 +349,46 @@ MonoBehaviour:
     - 0.975
     - 1
     lengthsTable:
-    - 0.06893648
-    - 0.2613021
-    - 0.5554317
-    - 0.929661
-    - 1.3623272
-    - 1.83177
-    - 2.3163314
-    - 2.7943609
-    - 3.2442172
-    - 3.6442795
-    - 3.9729786
-    - 4.2089014
-    - 4.331477
-    - 4.355606
-    - 4.454064
-    - 4.6314945
-    - 4.8769507
-    - 5.1788473
-    - 5.5256023
-    - 5.9058037
-    - 6.308332
-    - 6.7225084
-    - 7.1383266
-    - 7.5468125
-    - 7.9406185
-    - 8.315029
-    - 8.671866
-    - 9.043346
-    - 9.439087
-    - 9.858099
-    - 10.298196
-    - 10.756384
-    - 11.229139
-    - 11.712586
-    - 12.202624
-    - 12.695031
-    - 13.185541
-    - 13.669925
-    - 14.144066
-    - 14.604054
+    - 0.0034486365
+    - 0.013855343
+    - 0.031631395
+    - 0.057575487
+    - 0.092810184
+    - 0.13871141
+    - 0.19683905
+    - 0.2688846
+    - 0.35662848
+    - 0.46191454
+    - 0.5866282
+    - 0.7326848
+    - 0.90202004
+    - 1.0988818
+    - 1.3303409
+    - 1.5930077
+    - 1.8821483
+    - 2.1928308
+    - 2.520164
+    - 2.8594658
+    - 3.2064185
+    - 3.5572414
+    - 3.908914
+    - 4.2594485
+    - 4.608229
+    - 4.956413
+    - 5.308233
+    - 5.679713
+    - 6.0754538
+    - 6.4944654
+    - 6.9345617
+    - 7.39275
+    - 7.8655057
+    - 8.348952
+    - 8.83899
+    - 9.331397
+    - 9.821907
+    - 10.306291
+    - 10.780432
+    - 11.24042
   inspectorMode: 0
   pathType: 1
   handlesType: 0
@@ -402,37 +398,10 @@ MonoBehaviour:
   showIndexes: 1
   showWpLength: 0
   pathColor: {r: 1, g: 1, b: 1, a: 0.5}
-  lastSrcPosition: {x: 0, y: 0, z: 0}
+  lastSrcPosition: {x: 0.07, y: 5.28, z: 0}
   lastSrcRotation: {x: -0, y: -0, z: -0, w: 1}
   wpsDropdown: 1
   dropToFloorOffset: 0
---- !u!50 &372774207589453697
-Rigidbody2D:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1066023848274448018}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &2223735664814010289
 GameObject:
   m_ObjectHideFlags: 0

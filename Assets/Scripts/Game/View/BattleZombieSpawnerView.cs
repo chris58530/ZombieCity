@@ -12,11 +12,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     [SerializeField] private BattleZombieLevelData zombieLevelData;
     [SerializeField] private List<BattleZombieBase> zombies;
     [SerializeField] private GameObject root;
-    [Header("生成位置設定")]
     [SerializeField] private float spawnY;
-    [SerializeField] private float spawnRangeX = 7f;  // X軸生成範圍
-    [SerializeField] private bool useRandomSpawn = true;  // 是否使用隨機生成
-    [SerializeField] private float spawnSpacing = 1.5f;  // 同波次殭屍間距
     private Dictionary<int, BattleZombieManager> zombiesManager = new Dictionary<int, BattleZombieManager>();
     private int totalZombieCount = 0;        // 總殭屍數量
     private int remainingZombieCount = 0;    // 剩餘殭屍數量
