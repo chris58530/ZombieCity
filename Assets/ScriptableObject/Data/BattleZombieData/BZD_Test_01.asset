@@ -48,36 +48,16 @@ MonoBehaviour:
       zombieNote: "\u65B0\u6BAD\u5C4D"
     waveNote: "\u7B2C 1 \u6CE2"
   - spawnData:
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+    - zombiePrefab: {fileID: 516290018458563852, guid: 18dbdab3b289049e8bf38112eb29be1a, type: 3}
       spawnSecond: 1
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 2
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
+    - zombiePrefab: {fileID: 516290018458563852, guid: 18dbdab3b289049e8bf38112eb29be1a, type: 3}
       spawnSecond: 3
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 4
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 5
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 6
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 7
-      level: 1
-      zombieNote: "\u65B0\u6BAD\u5C4D"
-    - zombiePrefab: {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
-      spawnSecond: 8
+    - zombiePrefab: {fileID: 516290018458563852, guid: 18dbdab3b289049e8bf38112eb29be1a, type: 3}
+      spawnSecond: 3.5
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     waveNote: "\u7B2C 1 \u6CE2"
@@ -115,5 +95,5 @@ MonoBehaviour:
       level: 1
       zombieNote: "\u65B0\u6BAD\u5C4D"
     waveNote: "\u7B2C 1 \u6CE2"
-  previewInfo: "\u7E3D\u6CE2\u6B21\u6578: 3\n\u7E3D\u6BAD\u5C4D\u6578: 24\n\n\u7B2C1\u6CE2:
-    8\u96BB\u6BAD\u5C4D\n\u7B2C2\u6CE2: 8\u96BB\u6BAD\u5C4D\n\u7B2C3\u6CE2: 8\u96BB\u6BAD\u5C4D\n"
+  previewInfo: "\u7E3D\u6CE2\u6B21\u6578: 3\n\u7E3D\u6BAD\u5C4D\u6578: 19\n\n\u7B2C1\u6CE2:
+    8\u96BB\u6BAD\u5C4D\n\u7B2C2\u6CE2: 3\u96BB\u6BAD\u5C4D\n\u7B2C3\u6CE2: 8\u96BB\u6BAD\u5C4D\n"

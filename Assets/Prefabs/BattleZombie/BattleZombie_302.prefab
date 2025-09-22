@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8773473491979184185}
   - component: {fileID: 3674283241543253563}
   - component: {fileID: 516290018458563852}
+  - component: {fileID: 6039741913711995266}
   m_Layer: 0
   m_Name: BattleZombie_302
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 1066023848274448018}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.09, y: 6.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -132,19 +133,239 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d4e712c336b943729b39784c54e35c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  level: 0
+  attack: 0
+  attackCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  hp: 0
+  hpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   healthBar: {fileID: 1672782695455797242}
   id: 302
   animationView: {fileID: 3674283241543253563}
   sprite: {fileID: 1531684855689379088}
   isFresh: 0
   manager: {fileID: 0}
-  collider2D: {fileID: 547067699084382147}
-  attack: 0
-  speed: 1
-  moveDuration: 5
-  startAttackDistance: 3
-  isMoving: 0
+  collider: {fileID: 0}
+  tweenPath: {fileID: 0}
   maxHp: 0
+--- !u!114 &6039741913711995266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066023848274448018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -333801856, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  delay: 0
+  duration: 7
+  easeType: 6
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loops: 72
+  id: 
+  loopType: 0
+  orientType: 0
+  lookAtTransform: {fileID: 0}
+  lookAtPosition: {x: 0, y: 0, z: 0}
+  lookAhead: 0.01
+  autoPlay: 1
+  autoKill: 1
+  relative: 0
+  isLocal: 1
+  isClosedPath: 0
+  pathResolution: 10
+  pathMode: 2
+  lockRotation: 0
+  assignForwardAndUp: 0
+  forwardDirection: {x: 0, y: 0, z: 1}
+  upDirection: {x: 0, y: 1, z: 0}
+  tweenRigidbody: 0
+  wps:
+  - {x: 0.11258328, y: 4.338151, z: 0}
+  - {x: 0.79163617, y: 0.11418635, z: 0}
+  - {x: 6.476837, y: -0.3821873, z: 0}
+  fullWps: []
+  path:
+    wpLengths:
+    - 0
+    - 2.1847
+    - 4.409817
+    - 5.7668896
+    wps:
+    - {x: 0.09, y: 6.52, z: 0}
+    - {x: 0.11258328, y: 4.338151, z: 0}
+    - {x: 0.79163617, y: 0.11418635, z: 0}
+    - {x: 6.476837, y: -0.3821873, z: 0}
+    type: 1
+    subdivisionsXSegment: 10
+    subdivisions: 40
+    controlPoints:
+    - a: {x: 0.11258328, y: 4.338151, z: 0}
+      b: {x: 0, y: 0, z: 0}
+    - a: {x: 12.162039, y: -0.87856096, z: 0}
+      b: {x: 0, y: 0, z: 0}
+    length: 12.363959
+    isFinalized: 1
+    timesTable:
+    - 0.025
+    - 0.05
+    - 0.075
+    - 0.1
+    - 0.125
+    - 0.15
+    - 0.175
+    - 0.2
+    - 0.22500001
+    - 0.25
+    - 0.275
+    - 0.3
+    - 0.32500002
+    - 0.35
+    - 0.375
+    - 0.4
+    - 0.425
+    - 0.45000002
+    - 0.475
+    - 0.5
+    - 0.52500004
+    - 0.55
+    - 0.575
+    - 0.6
+    - 0.625
+    - 0.65000004
+    - 0.675
+    - 0.7
+    - 0.725
+    - 0.75
+    - 0.77500004
+    - 0.8
+    - 0.825
+    - 0.85
+    - 0.875
+    - 0.90000004
+    - 0.925
+    - 0.95
+    - 0.975
+    - 1
+    lengthsTable:
+    - 0.018370826
+    - 0.071491756
+    - 0.15637812
+    - 0.27005428
+    - 0.40955266
+    - 0.571918
+    - 0.7542069
+    - 0.9534924
+    - 1.1668675
+    - 1.39145
+    - 1.6243892
+    - 1.8628742
+    - 2.1041467
+    - 2.3547685
+    - 2.6410418
+    - 2.9590704
+    - 3.3017173
+    - 3.6615407
+    - 4.0310926
+    - 4.403147
+    - 4.7709417
+    - 5.1284966
+    - 5.471104
+    - 5.7960873
+    - 6.1039577
+    - 6.3999877
+    - 6.696179
+    - 7.0137777
+    - 7.362031
+    - 7.7425065
+    - 8.153434
+    - 8.591036
+    - 9.050341
+    - 9.52566
+    - 10.010876
+    - 10.499656
+    - 10.985583
+    - 11.462309
+    - 11.923685
+    - 12.363959
+  inspectorMode: 0
+  pathType: 1
+  handlesType: 0
+  livePreview: 1
+  handlesDrawMode: 0
+  perspectiveHandleSize: 0.5
+  showIndexes: 1
+  showWpLength: 0
+  pathColor: {r: 1, g: 1, b: 1, a: 0.5}
+  lastSrcPosition: {x: 0.09, y: 6.52, z: 0}
+  lastSrcRotation: {x: -0, y: -0, z: -0, w: 1}
+  wpsDropdown: 1
+  dropToFloorOffset: 0
 --- !u!1 &3478366291093549933
 GameObject:
   m_ObjectHideFlags: 0
