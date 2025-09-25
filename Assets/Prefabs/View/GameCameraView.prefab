@@ -47,7 +47,7 @@ MonoBehaviour:
   gameCamera: {fileID: 0}
   moveSpeed: 0.2
   scrollSpeed: 7.39
-  minY: -26.5
+  minY: -16.5
   maxY: -5
   openSwipe: 0
 --- !u!1 &3677581827470003238

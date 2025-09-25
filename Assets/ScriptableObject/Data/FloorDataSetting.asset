@@ -14,23 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainFloorPrefab: {fileID: 706828277366771781, guid: 69e2a5ba7ba2543ac831b333a25f9c4d, type: 3}
   startPosition: {x: 0, y: -13}
-  floorHeight: 4.2
+  floorHeight: 1
   floorData:
   - floorPrefab: {fileID: 8756793108607572294, guid: 2af9beb15581e43a080ce640d6018d42, type: 3}
     unlockPrice: 100
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: d2eb7e69e7a494ea2a2dc4b3fe6ec811, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 5c012ef9bc33344d4b840567771034f2, type: 3}
     unlockPrice: 300
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: daf970906e5f0ae4994b122ba9f5b6c9, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 49a654391108442c3a29191db196c21e, type: 3}
     unlockPrice: 600
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 42014594168641d4f8a13f04a64b6807, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: 9a40a41bb499c4e9188bb3e562385f66, type: 3}
     unlockPrice: 300
     isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 0d797bc665c650c4790df6235fd91692, type: 3}
-    unlockPrice: 300
-    isLock: 0
-  - floorPrefab: {fileID: 8756793108607572294, guid: 6e42f8d7cd72640a2868517cae31ff77, type: 3}
+  - floorPrefab: {fileID: 8756793108607572294, guid: a54a2e25625d64755ae9f973410c6d80, type: 3}
     unlockPrice: 300
     isLock: 0
