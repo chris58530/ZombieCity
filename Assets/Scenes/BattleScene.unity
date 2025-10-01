@@ -979,7 +979,7 @@ Transform:
   m_Children:
   - {fileID: 492627740}
   - {fileID: 599058543}
-  m_Father: {fileID: 972275177}
+  m_Father: {fileID: 1397199951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &766929828
 MonoBehaviour:
@@ -1175,6 +1175,7 @@ MonoBehaviour:
   battleCampCarController: {fileID: 1787207870}
   followCamera: {fileID: 0}
   gunView: {fileID: 770094080}
+  rotateController: {fileID: 0}
   gunDataSetting: {fileID: 11400000, guid: 719ce4ca8872d430c95fd3a78aeb42ad, type: 2}
   isTest: 0
   testRoot: {fileID: 0}
@@ -1240,7 +1241,7 @@ Transform:
   m_Children:
   - {fileID: 775996083}
   - {fileID: 118219609}
-  m_Father: {fileID: 972275177}
+  m_Father: {fileID: 1397199951}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945964160
 GameObject:
@@ -1359,8 +1360,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 766929827}
-  - {fileID: 817190820}
+  - {fileID: 1397199951}
   m_Father: {fileID: 1787207868}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &972275178
@@ -1496,6 +1496,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   root: {fileID: 160858229}
   remainingCountText: {fileID: 1397998067}
+--- !u!1 &1397199950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1397199951}
+  - component: {fileID: 1397199952}
+  m_Layer: 10
+  m_Name: RotateController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1397199951
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397199950}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 766929827}
+  - {fileID: 817190820}
+  m_Father: {fileID: 972275177}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1397199952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1397199950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c4630714f1304ee9ae327e322aa8e07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enabledRotate: 1
+  angleOffset: 90
 --- !u!1 &1397998065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1938,6 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f966d220ae64b24b0c13e7fbd47dc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleSetting: {fileID: 0}
   zombieLevelData: {fileID: 11400000, guid: 6c6b0865b038d4f9abab5a75ab91fb4f, type: 2}
   zombies:
   - {fileID: 8682163242441936101, guid: b831937cd0eac4327bf034d72c732aa5, type: 3}
@@ -2017,7 +2066,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787207867}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdf3de191254442b7aaf8eda9716b4bd, type: 3}
   m_Name: 

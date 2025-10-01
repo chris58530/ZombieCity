@@ -10,6 +10,8 @@ public class BattleCampCarView : MonoBehaviour, IView
     [SerializeField] private GameObject followCamera;
     [Header("Gun")]
     [SerializeField] private GunView gunView;
+
+    [SerializeField] private RotateController rotateController;
     [Header("Test")]
     [SerializeField] private GunDataSetting gunDataSetting;
     public bool isTest = false;
@@ -43,8 +45,6 @@ public class BattleCampCarView : MonoBehaviour, IView
 
     public void ResetView()
     {
-        Debug.Log("ResetView called in BattleCampCarView");
-
         gunView.ResetView();
         battleCampCarController.ResetView();
         root.SetActive(false);

@@ -116,7 +116,6 @@ public class GunView : MonoBehaviour, IView
     {
         shootTween?.Kill();
 
-        // 清空所有類型的子彈池
         foreach (var manager in bulletManagers.Values)
         {
             manager?.DespawnAll<BulletBase>();
