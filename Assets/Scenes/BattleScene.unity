@@ -1175,7 +1175,7 @@ MonoBehaviour:
   battleCampCarController: {fileID: 1787207870}
   followCamera: {fileID: 0}
   gunView: {fileID: 770094080}
-  rotateController: {fileID: 0}
+  rotateController: {fileID: 1397199952}
   gunDataSetting: {fileID: 11400000, guid: 719ce4ca8872d430c95fd3a78aeb42ad, type: 2}
   isTest: 0
   testRoot: {fileID: 0}
@@ -1542,8 +1542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c4630714f1304ee9ae327e322aa8e07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enabledRotate: 1
-  angleOffset: 90
+  enabledRotate: 0
+  angleOffset: -90
 --- !u!1 &1397998065
 GameObject:
   m_ObjectHideFlags: 0

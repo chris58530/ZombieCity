@@ -4,6 +4,7 @@ public class RotateController : MonoBehaviour
 {
     [Header("旋轉設定")]
     public bool enabledRotate = true;
+    private bool usingRotate = true;
     [SerializeField] private float angleOffset = 0f; // 角度偏移 (度)
     private void Update()
     {
@@ -17,6 +18,7 @@ public class RotateController : MonoBehaviour
 
     private void ProcessingRotate()
     {
+        if (!usingRotate) return;
         Vector3 inputPosition = Input.mousePosition;
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(inputPosition.x, inputPosition.y, Camera.main.transform.position.z));
         Vector3 direction = (worldPosition - transform.position).normalized;
@@ -25,10 +27,20 @@ public class RotateController : MonoBehaviour
         transform.rotation = Quaternion.Euler(0, 0, targetAngle);
     }
 
-    public void SetRotate(bool rotate)
+    public void SetRotate(GunState gunState)
     {
-        enabledRotate = rotate;
-        Debug.Log("[Test] RotateController SetRotate to " + rotate);
+        switch (gunState)
+        {
+            case GunState.Pressing:
+                usingRotate = true;
+                break;
+            case GunState.Releasing:
+                usingRotate = false;
+                break;
+            case GunState.None:
+                usingRotate = false;
+                break;
+        }
     }
 
 }

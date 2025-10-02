@@ -202,4 +202,9 @@ public class GunView : MonoBehaviour, IView
         Debug.Log($"已為索引 {singleGunIndex} 的槍設置了類型為 {bulletType} 的子彈管理器");
     }
 }
-
+public enum GunState
+{
+    None,
+    Pressing,
+    Releasing
+}
