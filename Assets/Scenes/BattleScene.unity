@@ -1040,7 +1040,7 @@ Transform:
   m_LocalScale: {x: 0.55804, y: 0.55804, z: 0.55804}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2066285721}
+  m_Father: {fileID: 2057960683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &770094080
 MonoBehaviour:
@@ -1054,14 +1054,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175e6295d826b4a6692fd1f7c9b6633e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseGunView: {fileID: 766929828}
-  singleGunViews:
+  carGunView: {fileID: 766929828}
+  survivorGunViews:
   - {fileID: 775996084}
   - {fileID: 118219608}
   bulletPrefabs:
   - {fileID: -5625354469149499587, guid: 679787b643c14405ebebcc63104cb34a, type: 3}
   - {fileID: 5196706981512165112, guid: d8ccd1e8bd90f48f1ab5d58be6ad190a, type: 3}
   - {fileID: 280890136207985168, guid: 52040522b3fba412aa0604d1d35278d3, type: 3}
+  isSetUp: 0
 --- !u!1 &775996082
 GameObject:
   m_ObjectHideFlags: 0
@@ -2286,6 +2287,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1787207868}
+  - {fileID: 770094079}
   m_Father: {fileID: 792348711}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2066285720
@@ -2322,7 +2324,6 @@ Transform:
   - {fileID: 1845860789}
   - {fileID: 464110635}
   - {fileID: 631218779}
-  - {fileID: 770094079}
   - {fileID: 1364743378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

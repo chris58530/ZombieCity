@@ -19,7 +19,15 @@ public class GunViewMediator : IMediator
     [Listener(GunEvent.ON_GUN_START_SHOOT)]
     public void OnStartShoot()
     {
-        GunDataSetting setting = gunProxy.gunDataSetting;
-        view.SetUpGun(setting);
+        if (!view.isSetUp)
+            view.SetUpGun(gunProxy.gunDataSetting);
+
+        view.StartShooting();
+    }
+
+    [Listener(GunEvent.ON_GUN_STOP_SHOOT)]
+    public void OnStopShoot()
+    {
+        view.StopShooting();
     }
 }

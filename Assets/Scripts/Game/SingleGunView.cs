@@ -44,12 +44,15 @@ public class SingleGunView : MonoBehaviour
         }
 
         animationView.PlayAnimation("Idle_" + gunData.ID);
-        StartShoot();
-
     }
     public void StartShoot()
     {
         animationView.PlayAnimation("Shoot_" + gunData.ID);
+    }
+
+    public void StopShooting()
+    {
+        animationView.PlayAnimation("Idle_" + gunData.ID);
     }
 
     public void ShootAnimationEvent(int todo)

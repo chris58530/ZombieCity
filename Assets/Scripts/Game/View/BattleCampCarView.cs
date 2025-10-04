@@ -25,6 +25,20 @@ public class BattleCampCarView : MonoBehaviour, IView
         ResetView();
     }
 
+    private void OnEnable()
+    {
+        mediator.Register(this);
+        mediator.RegisterHittableTarget(battleCampCarController);
+
+        OnGunStateChanged += rotateController.SetRotate;
+        OnGunStateChanged += gunView.SetGunState;
+    }
+    public void ResetView()
+    {
+        gunView.ResetView();
+        battleCampCarController.ResetView();
+        root.SetActive(false);
+    }
     private void Update()
     {
         if (Input.GetMouseButton(0))
@@ -37,14 +51,7 @@ public class BattleCampCarView : MonoBehaviour, IView
         }
     }
 
-    private void OnEnable()
-    {
-        mediator.Register(this);
-        mediator.RegisterHittableTarget(battleCampCarController);
 
-        OnGunStateChanged += rotateController.SetRotate;
-
-    }
 
     private void OnDisable()
     {
@@ -54,23 +61,16 @@ public class BattleCampCarView : MonoBehaviour, IView
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
-        battleCampCarController.MoveToMiddle(moveSpeed, () =>
+        battleCampCarController.MoveToBottom(moveSpeed, () =>
         {
             RequestStartShoot();
         });
     }
 
-
-    public void ResetView()
-    {
-        gunView.ResetView();
-        battleCampCarController.ResetView();
-        root.SetActive(false);
-    }
     private void RequestStartShoot()
     {
         //通知GunView開始射擊
-        mediator.RequestStartShoot(gunDataSetting);
+        gunView.SetUpGun(gunDataSetting);
 
         //啟動旋轉
         rotateController.enabledRotate = true;

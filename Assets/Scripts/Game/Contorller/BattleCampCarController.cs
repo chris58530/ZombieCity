@@ -98,11 +98,11 @@ public class BattleCampCarController : MonoBehaviour, IHittable
         return transform.position;
     }
 
-    public void MoveToMiddle(float moveSpeed, Action callBack = null)
+    public void MoveToBottom(float moveSpeed, Action callBack = null)
     {
         root.SetActive(true);
         transform.position = new Vector3(transform.position.x, 6.5f, transform.position.z);
-        transform.DOMoveY(-4.5f, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(() =>
+        transform.DOMoveY(-5.5f, moveSpeed).SetEase(Ease.InOutQuad).OnComplete(() =>
         {
             callBack?.Invoke();
         });

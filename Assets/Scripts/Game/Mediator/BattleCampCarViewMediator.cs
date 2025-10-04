@@ -32,8 +32,4 @@ public class BattleCampCarViewMediator : IMediator
     {
         battleProxy.campCar = hittable;
     }
-    public void RequestStartShoot(GunDataSetting gunDataSetting)
-    {
-        gunProxy.RequestStartGun(gunDataSetting);
-    }
 }

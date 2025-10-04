@@ -21,7 +21,6 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
     [HideInInspector] public BattleZombieManager manager;
     public bool IsDead { get; private set; } = false;
     public Collider2D collider;
-    public DOTweenPath tweenPath;
 
     public IHittable chaseTarget;
     public Action<BattleZombieBase> deadCallBack;
@@ -64,10 +63,8 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
 
     public void StartMove()
     {
-        if (tweenPath != null)
-            tweenPath.DOPlay();
-        else
-            Debug.LogWarning($"TweenPath is not assigned for zombie {id}");
+        transform.position = new Vector2(UnityEngine.Random.Range(-2f, 2f), transform.position.y);
+        transform.DOMoveY(-3, 10f).SetEase(Ease.Linear);
     }
 
     public void Hit()

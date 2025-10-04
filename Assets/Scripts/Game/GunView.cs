@@ -10,10 +10,10 @@ public class GunView : MonoBehaviour, IView
     [Inject] private GunViewMediator mediator;
 
     [Header("露營車砲台")]
-    [SerializeField] private SingleGunView baseGunView;
+    [SerializeField] private SingleGunView carGunView;
 
     [Header("倖存者炮台")]
-    [SerializeField] private SingleGunView[] singleGunViews;
+    [SerializeField] private SingleGunView[] survivorGunViews;
 
     [Header("子彈")]
     [SerializeField] private BulletBase[] bulletPrefabs;
@@ -21,7 +21,7 @@ public class GunView : MonoBehaviour, IView
 
     private Dictionary<BulletType, PoolManager> bulletManagers = new Dictionary<BulletType, PoolManager>();
     private Tween shootTween;
-
+    public bool isSetUp = false;
     private void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -40,88 +40,73 @@ public class GunView : MonoBehaviour, IView
 
     private void Initialize()
     {
-        // 檢查是否已經初始化
+
+        //檢查是否有初始化過
         if (bulletManagers.Count > 0)
         {
-            foreach (var manager in bulletManagers.Values)
-            {
-                if (!manager.gameObject.activeInHierarchy)
-                    manager.gameObject.SetActive(true);
-            }
+            ActivateExistingManagers();
             return;
         }
+        CreateBulletManagers();
+    }
 
-        if (bulletPrefabs == null || bulletPrefabs.Length == 0)
+    private void ActivateExistingManagers()
+    {
+        foreach (var manager in bulletManagers.Values)
         {
-            Debug.LogWarning("沒有設置子彈預製體，請在 Inspector 中設置 bulletPrefabs");
-            return;
+            if (manager != null && !manager.gameObject.activeInHierarchy)
+                manager.gameObject.SetActive(true);
         }
+    }
 
+    private void CreateBulletManagers()
+    {
         bulletManagers.Clear();
 
         foreach (var bulletPrefab in bulletPrefabs)
         {
             if (bulletPrefab == null) continue;
 
-            BulletType bulletType = bulletPrefab.bulletType;
+            BulletType bulletType = GetValidBulletType(bulletPrefab);
 
-            if (bulletType == BulletType.None)
-            {
-                Debug.LogWarning($"子彈預製體 {bulletPrefab.name} 沒有設置有效的子彈類型");
-                bulletType = BulletType.Normal;
-            }
             if (bulletManagers.ContainsKey(bulletType))
-            {
-                Debug.Log($"已經存在 {bulletType} 類型的子彈池管理器，跳過 {bulletPrefab.name}");
                 continue;
-            }
 
-            string managerName = $"{bulletType}BulletManager";
-            var existingManagers = FindObjectsByType<PoolManager>(FindObjectsSortMode.None);
-            var existingManager = existingManagers.FirstOrDefault(m => m.name == managerName);
-
-            PoolManager manager;
-            if (existingManager != null)
-            {
-                manager = existingManager;
-                Debug.Log($"使用現有的 {bulletType} 子彈池管理器");
-            }
-            else
-            {
-                manager = new GameObject(managerName).AddComponent<PoolManager>();
-                manager.transform.SetParent(transform); // 設置為 GunView 的子物體
-                Debug.Log($"為 {bulletType} 類型創建了新的子彈池管理器");
-            }
-
+            PoolManager manager = GetOrCreatePoolManager(bulletType);
             bulletManagers[bulletType] = manager;
-
             manager.RegisterPool(bulletPrefab, 30, manager.transform);
+        }
+    }
 
-            Debug.Log($"已註冊 {bulletPrefab.name} 到 {bulletType} 類型的子彈池管理器，預創建數量：20");
-        }
+    private BulletType GetValidBulletType(BulletBase bulletPrefab)
+    {
+        return bulletPrefab.bulletType == BulletType.None ? BulletType.Normal : bulletPrefab.bulletType;
+    }
 
-        // 檢查是否成功創建了至少一個管理器
-        if (bulletManagers.Count == 0)
-        {
-            Debug.LogError("沒有成功創建任何子彈池管理器");
-        }
-        else
-        {
-            Debug.Log($"共創建了 {bulletManagers.Count} 個子彈池管理器：" +
-                     string.Join(", ", bulletManagers.Keys.Select(k => k.ToString())));
-        }
+    private PoolManager GetOrCreatePoolManager(BulletType bulletType)
+    {
+        string managerName = $"{bulletType}BulletManager";
+        var existingManager = FindObjectsByType<PoolManager>(FindObjectsSortMode.None)
+                             .FirstOrDefault(m => m.name == managerName);
+
+        if (existingManager != null)
+            return existingManager;
+
+        var manager = new GameObject(managerName).AddComponent<PoolManager>();
+        manager.transform.SetParent(transform);
+        return manager;
     }
 
     public void ResetView()
     {
         shootTween?.Kill();
-
+        isSetUp = false;
         foreach (var manager in bulletManagers.Values)
         {
             manager?.DespawnAll<BulletBase>();
         }
-        baseGunView.ResetView();
-        foreach (var singleGun in singleGunViews)
+        carGunView.ResetView();
+        foreach (var singleGun in survivorGunViews)
         {
             singleGun?.ResetView();
         }
@@ -137,69 +122,83 @@ public class GunView : MonoBehaviour, IView
     public void SetUpGun(GunDataSetting gunDataSetting)
     {
         currentGunDataSetting = gunDataSetting;
+        SetupBaseGun(gunDataSetting);
+        SetupSingleGuns(gunDataSetting);
 
-        baseGunView.SetGunData(gunDataSetting.campCarGunData, bulletManagers[gunDataSetting.campCarGunData.bulletType]);
+        isSetUp = true;
+    }
 
-        for (int i = 0; i < singleGunViews.Length; i++)
+    private void SetupBaseGun(GunDataSetting gunDataSetting)
+    {
+        var gunData = gunDataSetting.campCarGunData;
+        var manager = bulletManagers[gunData.bulletType];
+        carGunView.SetGunData(gunData, manager);
+    }
+
+    private void SetupSingleGuns(GunDataSetting gunDataSetting)
+    {
+        for (int i = 0; i < survivorGunViews.Length && i < gunDataSetting.gunDatas.Length; i++)
         {
-            if (i < gunDataSetting.gunDatas.Length)
-            {
-                GunData gunData = gunDataSetting.gunDatas[i];
-                SetSingleGun(i, gunData);
-            }
-            else
-            {
-                Debug.LogWarning($"索引 {i} 處沒有對應的槍數據，請確保 gunDatas 的長度足夠");
-            }
+            SetSingleGun(i, gunDataSetting.gunDatas[i]);
         }
     }
 
     public void SetSingleGun(int singleGunIndex, GunData gunData)
     {
-        // 檢查索引是否有效
-        if (singleGunIndex < 0 || singleGunIndex >= singleGunViews.Length)
-        {
-            Debug.LogError($"無效的槍索引: {singleGunIndex}");
+        if (!IsValidGunIndex(singleGunIndex) || gunData == null)
             return;
-        }
 
-        // 獲取對應的 SingleGunView
-        SingleGunView singleGun = singleGunViews[singleGunIndex];
+        SingleGunView singleGun = survivorGunViews[singleGunIndex];
         if (singleGun == null)
-        {
-            Debug.LogError($"索引 {singleGunIndex} 處的槍視圖為空");
             return;
-        }
 
-        // 檢查槍數據
-        if (gunData == null)
-        {
-            Debug.LogError("槍數據為空");
+        PoolManager manager = GetBulletManager(gunData.bulletType);
+        if (manager == null)
             return;
-        }
 
-        // 獲取對應子彈類型的管理器
-        BulletType bulletType = gunData.bulletType;
-        if (!bulletManagers.TryGetValue(bulletType, out var manager))
-        {
-            Debug.LogWarning($"找不到類型 {bulletType} 的子彈池管理器，嘗試使用默認管理器");
-
-            // 嘗試使用第一個可用的管理器作為備選
-            if (bulletManagers.Count > 0)
-            {
-                manager = bulletManagers.Values.First();
-            }
-            else
-            {
-                Debug.LogError("沒有可用的子彈池管理器");
-                return;
-            }
-        }
-
-        // 設置槍的數據和管理器
         singleGun.SetGunData(gunData, manager);
+    }
 
-        Debug.Log($"已為索引 {singleGunIndex} 的槍設置了類型為 {bulletType} 的子彈管理器");
+    public void SetGunState(GunState gunState)
+    {
+        if (!isSetUp)
+            return;
+
+        if (gunState == GunState.Pressing)
+            StartShooting();
+        else if (gunState == GunState.Releasing)
+            StopShooting();
+    }
+
+    public void StartShooting()
+    {
+        carGunView.StartShoot();
+        foreach (var singleGun in survivorGunViews)
+        {
+            singleGun?.StartShoot();
+        }
+    }
+
+    public void StopShooting()
+    {
+        carGunView.StopShooting();
+        foreach (var singleGun in survivorGunViews)
+        {
+            singleGun?.StopShooting();
+        }
+    }
+
+    private bool IsValidGunIndex(int index)
+    {
+        return index >= 0 && index < survivorGunViews.Length;
+    }
+
+    private PoolManager GetBulletManager(BulletType bulletType)
+    {
+        if (bulletManagers.TryGetValue(bulletType, out var manager))
+            return manager;
+
+        return bulletManagers.Count > 0 ? bulletManagers.Values.First() : null;
     }
 }
 public enum GunState
