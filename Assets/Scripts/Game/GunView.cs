@@ -40,7 +40,6 @@ public class GunView : MonoBehaviour, IView
 
     private void Initialize()
     {
-
         //檢查是否有初始化過
         if (bulletManagers.Count > 0)
         {
