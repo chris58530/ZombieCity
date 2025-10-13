@@ -13,6 +13,11 @@ public class SingleGunView : MonoBehaviour
     public GunData GunData => gunData;
     public BulletType BulletType => gunData?.bulletType ?? BulletType.Normal;
     public Action<int> onShootAnimationEvent;
+
+    private GunView gunView;
+
+    public bool canShoot = true;
+
     private void OnEnable()
     {
         gunAnimationEventHandler.onShootAnimationEvent += ShootAnimationEvent;
@@ -24,10 +29,11 @@ public class SingleGunView : MonoBehaviour
         DOTween.Kill(GetHashCode());
     }
 
-    public void SetGunData(GunData data, PoolManager manager)
+    public void SetGunData(GunView gunView, GunData data, PoolManager manager)
     {
         gunManager = manager;
         gunData = data;
+        this.gunView = gunView;
 
         // 如果有槍數據，立即顯示槍
         if (data != null)
@@ -42,12 +48,14 @@ public class SingleGunView : MonoBehaviour
             Debug.LogWarning("嘗試顯示沒有設置數據的槍");
             return;
         }
-
         animationView.PlayAnimation("Idle_" + gunData.ID);
     }
     public void StartShoot()
     {
-        animationView.PlayAnimation("Shoot_" + gunData.ID);
+        string animationName = "Shoot_" + gunData.ID;
+        float speed = gunView.skill_FireRate ? 1.5f : 0.75f;
+        animationView.PlayAnimation(animationName);
+        animationView.SetAnimationSpeed(speed);
     }
 
     public void StopShooting()
@@ -57,19 +65,42 @@ public class SingleGunView : MonoBehaviour
 
     public void ShootAnimationEvent(int todo)
     {
+        if (!canShoot) return;
+
+        int bulletCount = gunView.skill_Add ? 2 : 1;
+
+        if (bulletCount == 1)
+        {
+            CreateBullet(Vector3.zero);
+        }
+        else
+        {
+            float spacing = 0.5f; // 子彈間距
+            CreateBullet(Vector3.left * spacing / 2f);   // 左邊
+            CreateBullet(Vector3.right * spacing / 2f);  // 右邊
+        }
+    }
+
+    private void CreateBullet(Vector3 positionOffset)
+    {
         var bullet = gunManager.Spawn<BulletBase>(gunManager.transform);
         if (bullet == null)
         {
-            Debug.LogError("無法生成子彈");
+            Debug.LogError("Bullet 無法生成子彈");
             return;
         }
 
-        bullet.transform.position = shootPoint.position;
+        // 應用位置偏移（相對於 shootPoint 的局部偏移）
+        Vector3 offsetPosition = shootPoint.TransformPoint(positionOffset);
+        bullet.transform.position = offsetPosition;
+
+        // 保持相同的旋轉角度
         bullet.transform.rotation = shootPoint.rotation;
 
         Action<BulletBase> onHitCallBack = bulletBase =>
         {
-            gunManager.Despawn(bulletBase);
+            if (!gunView.skill_Penetrate)
+                gunManager.Despawn(bulletBase);
         };
 
         float damage = gunData.attackCurve != null

@@ -124,3 +124,13 @@ public class BattleEvent
 {
     public const string REQUEST_UPDATE_ZOMBIE_COUNT = "BattleEvent.REQUEST_UPDATE_ZOMBIE_COUNT";
 }
+
+public class BattleSkillEvent
+{
+    public const string ON_SELECT_ADD = "BattleSkillEvent.ON_SELECT_ADD";
+    public const string ON_SELECT_PENETRATE = "BattleSkillEvent.ON_SELECT_PENETRATE";
+    public const string ON_SELECT_FIRE_RATE = "BattleSkillEvent.ON_SELECT_FIRE_RATE";
+    public const string ON_SELECT_DAMAGE = "BattleSkillEvent.ON_SELECT_DAMAGE";
+    public const string ON_SELECT_LIGHTNING = "BattleSkillEvent.ON_SELECT_LIGHTNING";
+    public const string ON_SELECT_POISON = "BattleSkillEvent.ON_SELECT_POISON";
+}

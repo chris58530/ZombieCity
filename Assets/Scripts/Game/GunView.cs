@@ -22,6 +22,11 @@ public class GunView : MonoBehaviour, IView
     private Dictionary<BulletType, PoolManager> bulletManagers = new Dictionary<BulletType, PoolManager>();
     private Tween shootTween;
     public bool isSetUp = false;
+
+    //技能系統
+    public bool skill_Add = false;
+    public bool skill_Penetrate = false;
+    public bool skill_FireRate = false;
     private void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -131,7 +136,7 @@ public class GunView : MonoBehaviour, IView
     {
         var gunData = gunDataSetting.campCarGunData;
         var manager = bulletManagers[gunData.bulletType];
-        carGunView.SetGunData(gunData, manager);
+        carGunView.SetGunData(this, gunData, manager);
     }
 
     private void SetupSingleGuns(GunDataSetting gunDataSetting)
@@ -155,7 +160,7 @@ public class GunView : MonoBehaviour, IView
         if (manager == null)
             return;
 
-        singleGun.SetGunData(gunData, manager);
+        singleGun.SetGunData(this, gunData, manager);
     }
 
     public void SetGunState(GunState gunState)

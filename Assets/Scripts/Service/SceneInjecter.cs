@@ -37,7 +37,6 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<GameStateProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<LevelComfirmViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BattleBackGroundViewMediator>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<BattleSkillViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BattleZombieSpawnerViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BattleZombieCounterViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<GunViewMediator>().AsSingle().NonLazy();
@@ -46,6 +45,8 @@ public class SceneInjecter : MonoInstaller
         Container.BindInterfacesAndSelfTo<SelectBattleSurvivorViewMediator>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<SelectBattleSurvivorProxy>().AsSingle().NonLazy();
         Container.BindInterfacesAndSelfTo<BattleSurvivorViewMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BattleSkillViewMediator>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<BattleSkillProxy>().AsSingle().NonLazy();
 
     }
 

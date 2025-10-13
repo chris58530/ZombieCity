@@ -165,6 +165,7 @@ MonoBehaviour:
     shootPoint: {fileID: 0}
     ID: 101
   shootPoint: {fileID: 796324186}
+  canShoot: 0
 --- !u!4 &118219609
 Transform:
   m_ObjectHideFlags: 0
@@ -245,6 +246,50 @@ Transform:
   - {fileID: 319636241}
   m_Father: {fileID: 1364743378}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &259608775
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 259608776}
+  - component: {fileID: 259608777}
+  m_Layer: 0
+  m_Name: 'BattleSkillView '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &259608776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259608775}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2066285721}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &259608777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259608775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de9929bca6af345efa9dcded7899493c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &261147981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,6 +1055,7 @@ MonoBehaviour:
     shootPoint: {fileID: 0}
     ID: 103
   shootPoint: {fileID: 599058543}
+  canShoot: 1
 --- !u!1 &770094078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1109,9 @@ MonoBehaviour:
   - {fileID: 5196706981512165112, guid: d8ccd1e8bd90f48f1ab5d58be6ad190a, type: 3}
   - {fileID: 280890136207985168, guid: 52040522b3fba412aa0604d1d35278d3, type: 3}
   isSetUp: 0
+  skill_Add: 0
+  skill_Penetrate: 0
+  skill_FireRate: 0
 --- !u!1 &775996082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,6 +1175,7 @@ MonoBehaviour:
     shootPoint: {fileID: 0}
     ID: 102
   shootPoint: {fileID: 1345189631}
+  canShoot: 0
 --- !u!1 &792348710
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,7 +2305,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de9929bca6af345efa9dcded7899493c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 373918098}
 --- !u!1 &2051780487
 GameObject:
   m_ObjectHideFlags: 0
@@ -2357,6 +2406,7 @@ Transform:
   - {fileID: 631218779}
   - {fileID: 1364743378}
   - {fileID: 1105301137}
+  - {fileID: 259608776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807

@@ -30,4 +30,23 @@ public class GunViewMediator : IMediator
     {
         view.StopShooting();
     }
+
+    [Listener(BattleSkillEvent.ON_SELECT_ADD)]
+    public void OnSelectAdd()
+    {
+        view.skill_Add = true;
+    }
+
+    [Listener(BattleSkillEvent.ON_SELECT_PENETRATE)]
+    public void OnSelectPenetrate()
+    {
+        view.skill_Penetrate = true;
+    }
+
+    [Listener(BattleSkillEvent.ON_SELECT_FIRE_RATE)]
+    public void OnSelectFireRate()
+    {
+        view.skill_FireRate = true;
+    }
+
 }
