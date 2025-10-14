@@ -3,6 +3,10 @@ using UnityEngine;
 public class BattleSkillView : MonoBehaviour, IView
 {
     [Zenject.Inject] private BattleSkillViewMediator mediator;
+
+    [SerializeField] private GameObject root;
+
+    [SerializeField] private SelectSkillPanelView selectSkillPanelView;
     private void Awake()
     {
         InjectService.Instance.Inject(this);
