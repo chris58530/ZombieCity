@@ -28,6 +28,12 @@ public class BattleCampCarViewMediator : IMediator
     {
         view.ResetView();
     }
+
+    public void NotifyCampCarArrive()
+    {
+        // 廣播前導動畫結束 開始遊戲了
+        listener.BroadCast(BattleEvent.ON_BATTLE_START);
+    }
     public void RegisterHittableTarget(IHittable hittable)
     {
         battleProxy.campCar = hittable;

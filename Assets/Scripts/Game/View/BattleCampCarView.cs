@@ -63,7 +63,9 @@ public class BattleCampCarView : MonoBehaviour, IView
         root.SetActive(true);
         battleCampCarController.MoveToBottom(moveSpeed, () =>
         {
-            RequestStartShoot();
+            Debug.Log("Camp Car Arrive");
+            // RequestStartShoot();
+            mediator.NotifyCampCarArrive();
         });
     }
 

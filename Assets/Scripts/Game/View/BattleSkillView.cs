@@ -7,6 +7,7 @@ public class BattleSkillView : MonoBehaviour, IView
     [SerializeField] private GameObject root;
 
     [SerializeField] private SelectSkillPanelView selectSkillPanelView;
+    [SerializeField] private SkillCounterView skillCounterView;
     private void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -15,6 +16,8 @@ public class BattleSkillView : MonoBehaviour, IView
     private void OnEnable()
     {
         mediator.Register(this);
+
+        selectSkillPanelView.onSelectSkill += OnSelectSkill;
     }
     private void OnDisable()
     {
@@ -43,6 +46,17 @@ public class BattleSkillView : MonoBehaviour, IView
     }
     public void ResetView()
     {
+        skillCounterView.ResetView();
+        selectSkillPanelView.ResetView();
+    }
+
+    public void StartSkillCoolDown()
+    {
+        skillCounterView.StartSkillCoolDown(() =>
+        {
+            selectSkillPanelView.ShowPanel();
+            mediator.RequestFreezeTimeScale();
+        });
     }
 
     public void OnSelectSkill(SkillType skillType)

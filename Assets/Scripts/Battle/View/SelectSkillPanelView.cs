@@ -1,8 +1,14 @@
+using System;
+using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class SelectSkillPanelView : MonoBehaviour
+public class SelectSkillPanelView : MonoBehaviour, IView
 {
     [SerializeField] private GameObject root;
+
+    public Action<SkillType> onSelectSkill;
+
     private void Awake()
     {
         ResetView();
@@ -10,6 +16,7 @@ public class SelectSkillPanelView : MonoBehaviour
 
     public void ShowPanel()
     {
+        //塞數值
         root.SetActive(true);
     }
     public void HidePanel()
@@ -20,4 +27,15 @@ public class SelectSkillPanelView : MonoBehaviour
     {
         root.SetActive(false);
     }
+    /// <summary>
+    ///  Sprite Event
+    /// </summary>
+    public void OnClickAddSkill(int skillType)
+    {
+        onSelectSkill?.Invoke((SkillType)skillType);
+        HidePanel();
+    }
+
+
+
 }

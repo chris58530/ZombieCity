@@ -10,15 +10,17 @@ public class BattleSkillViewMediator : IMediator
         this.view = view as BattleSkillView;
     }
 
-    [Listener(GameEvent.ON_BATTLE_STATE_START)]
-    public void ShowBattleSkills()
+    [Listener(BattleEvent.ON_BATTLE_START)]
+    public void OnBattleStart()
     {
+        view.StartSkillCoolDown();
     }
 
-    [Listener(GameEvent.ON_BATTLE_STATE_END)]
-    public void HideBattleSkills()
+    public void RequestFreezeTimeScale()
     {
-        // view.ResetView();
+        //選技能 要讓遊戲暫停
+        //殭屍暫停移動
+        //自動射擊的炮台要取消射擊
     }
 
     public void OnSelectSkill(SkillType skillType)
