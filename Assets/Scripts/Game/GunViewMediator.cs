@@ -28,6 +28,7 @@ public class GunViewMediator : IMediator
     [Listener(GunEvent.ON_GUN_STOP_SHOOT)]
     public void OnStopShoot()
     {
+        view.isLock = true;
         view.StopShooting();
     }
 

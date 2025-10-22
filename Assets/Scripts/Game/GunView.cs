@@ -22,6 +22,7 @@ public class GunView : MonoBehaviour, IView
     private Dictionary<BulletType, PoolManager> bulletManagers = new Dictionary<BulletType, PoolManager>();
     private Tween shootTween;
     public bool isSetUp = false;
+    public bool isLock = false;
 
     //技能系統
     public bool skill_Add = false;
@@ -168,12 +169,14 @@ public class GunView : MonoBehaviour, IView
         if (!isSetUp)
             return;
 
+        if (isLock)
+            return;
+
         if (gunState == GunState.Pressing)
             StartShooting();
         else if (gunState == GunState.Releasing)
             StopShooting();
     }
-
     public void StartShooting()
     {
         carGunView.StartShoot();

@@ -38,4 +38,16 @@ public class BattleCampCarViewMediator : IMediator
     {
         battleProxy.campCar = hittable;
     }
+    [Listener(BattleSkillEvent.ON_SELECT_START)]
+    public void OnStopShoot()
+    {
+        view.SetEnableShooting(false);
+
+    }
+    [Listener(BattleSkillEvent.ON_SELECT_END)]
+    public void OnReStartShoot()
+    {
+        view.SetEnableShooting(true);
+    }
+
 }

@@ -25,6 +25,11 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
     // 事件：當殭屍數量更新時觸發 (剩餘, 死亡, 總數)
     public event Action<int, int, int> OnZombieCountUpdated;
+
+    //暫停相關
+    private bool isSpawningPaused = false;
+    private float waveElapsedTime = 0f; // 當前波次已進行的時間 (可暫停)
+    private Coroutine spawningCoroutine;
     private void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -41,6 +46,10 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     public void ResetView()
     {
         StopAllCoroutines();
+        spawningCoroutine = null;
+        isSpawningPaused = false;
+        waveElapsedTime = 0f;
+
         battleSetting = null;
         ResetZombieCount();
         RecycleAll();
@@ -92,7 +101,7 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
     {
         Debug.Log("All zombies are dead! Battle completed!");
 
-        // 發送戰鬥結束事件 - 如果你有事件系統的話
+        // 發送戰鬥結束事件
         // GameEventManager.Instance.BroadCast("ON_BATTLE_COMPLETED");
 
         // 或者通過 Mediator 處理
@@ -124,9 +133,29 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         // 通知UI更新
         OnZombieCountUpdated?.Invoke(remainingZombieCount, deadZombieCount, totalZombieCount);
 
+        isSpawningPaused = false;
+        waveElapsedTime = 0f;
+
         root.SetActive(true);
-        StartCoroutine(SpawnWaves());
+
+        //安全檢查 避免多個Coroutine同時運行
+        if (spawningCoroutine != null)
+        {
+            StopCoroutine(spawningCoroutine);
+        }
+        spawningCoroutine = StartCoroutine(SpawnWaves());
     }
+
+    public void StopSpawning()
+    {
+        isSpawningPaused = true;
+    }
+
+    public void ReStartSpawning()
+    {
+        isSpawningPaused = false;
+    }
+
     public void InitializeAllZombies()
     {
         foreach (var zombie in zombies)
@@ -162,20 +191,19 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         {
             var wave = battleSetting.WaveSettings[waveIndex];
 
-            // 重置當前波次的計數
             currentWaveZombieCount = wave.SpawnData.Length;
             currentWaveDeadCount = 0;
             isWaveCompleted = false;
 
             Debug.Log($"[BattleSpawner] 開始第 {waveIndex + 1} 波，共 {currentWaveZombieCount} 隻殭屍");
 
-            float waveStartTime = Time.time;
+            waveElapsedTime = 0f;
 
-            // 為當前波次的每隻殭屍安排生成時間
-            StartCoroutine(SpawnZombiesInWave(wave, waveStartTime, waveIndex + 1));
+            StartCoroutine(SpawnZombiesInWave(wave, waveIndex + 1));
 
-            // 等待當前波次的所有殭屍死亡
             yield return new WaitUntil(() => isWaveCompleted);
+
+            yield return new WaitWhile(() => isSpawningPaused);
 
             Debug.Log($"[BattleSpawner] 第 {waveIndex + 1} 波完成！準備下一波...");
         }
@@ -183,17 +211,22 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
         Debug.Log("[BattleSpawner] 所有波次生成完畢！戰鬥結束！");
     }
 
-    private IEnumerator SpawnZombiesInWave(WaveSetting wave, float waveStartTime, int waveNumber)
+    private IEnumerator SpawnZombiesInWave(WaveSetting wave, int waveNumber)
     {
         foreach (var spawnData in wave.SpawnData)
         {
-            // 等待直到達到該殭屍的生成時間
-            while (Time.time - waveStartTime < spawnData.spawnSecond)
+            while (waveElapsedTime < spawnData.spawnSecond)
             {
+                if (!isSpawningPaused)
+                {
+                    waveElapsedTime += Time.deltaTime;
+                }
                 yield return null;
             }
 
-            // 生成殭屍
+            // 在生成之前，額外等待暫停狀態結束
+            yield return new WaitWhile(() => isSpawningPaused);
+
             int zombieId = spawnData.zombiePrefab.id;
             Vector2 spawnPos = new Vector2(0, spawnY);
 
@@ -204,7 +237,15 @@ public class BattleZombieSpawnerView : MonoBehaviour, IView
 
             zombiesManager[zombieId].SpawnBattleZombie(spawnPos, hittable, hp, atk, OnZombieDead);
 
-            Debug.Log($"[BattleSpawner] 第 {waveNumber} 波在 {spawnData.spawnSecond} 秒生成殭屍：ID={zombieId}, Level={spawnData.level}");
+            Debug.Log($"[BattleSpawner] 第 {waveNumber} 波在 {spawnData.spawnSecond} 秒 (elapsed) 生成殭屍：ID={zombieId}, Level={spawnData.level}");
+        }
+    }
+
+    public void OnFreezeAllZombie(bool isFreeze)
+    {
+        foreach (var manager in zombiesManager.Values)
+        {
+            manager.OnFreezeZombies(isFreeze);
         }
     }
 }

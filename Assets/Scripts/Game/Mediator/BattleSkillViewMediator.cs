@@ -21,10 +21,12 @@ public class BattleSkillViewMediator : IMediator
         //選技能 要讓遊戲暫停
         //殭屍暫停移動
         //自動射擊的炮台要取消射擊
+        listener.BroadCast(BattleSkillEvent.ON_SELECT_START);
     }
 
     public void OnSelectSkill(SkillType skillType)
     {
         proxy.RequestSkillUpgrade(skillType);
+        listener.BroadCast(BattleSkillEvent.ON_SELECT_END);
     }
 }

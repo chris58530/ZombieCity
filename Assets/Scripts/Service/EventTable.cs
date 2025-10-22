@@ -123,13 +123,15 @@ public class SelectPlayerEvent
 public class BattleEvent
 {
     public const string REQUEST_UPDATE_ZOMBIE_COUNT = "BattleEvent.REQUEST_UPDATE_ZOMBIE_COUNT";
-
     public const string ON_BATTLE_START = "BattleEvent.ON_BATTLE_START";
 }
 
 public class BattleSkillEvent
 {
+    public const string ON_SELECT_START = "BattleSkillEvent.ON_SELECT_START";
+    public const string ON_SELECT_END = "BattleSkillEvent.ON_SELECT_END";
     public const string ON_SELECT_ADD = "BattleSkillEvent.ON_SELECT_ADD";
+
     public const string ON_SELECT_PENETRATE = "BattleSkillEvent.ON_SELECT_PENETRATE";
     public const string ON_SELECT_FIRE_RATE = "BattleSkillEvent.ON_SELECT_FIRE_RATE";
     public const string ON_SELECT_DAMAGE = "BattleSkillEvent.ON_SELECT_DAMAGE";

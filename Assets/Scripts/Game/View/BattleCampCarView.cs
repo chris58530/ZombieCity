@@ -33,6 +33,11 @@ public class BattleCampCarView : MonoBehaviour, IView
         OnGunStateChanged += rotateController.SetRotate;
         OnGunStateChanged += gunView.SetGunState;
     }
+    private void OnDisable()
+    {
+        mediator.DeRegister(this);
+    }
+
     public void ResetView()
     {
         gunView.ResetView();
@@ -53,18 +58,13 @@ public class BattleCampCarView : MonoBehaviour, IView
 
 
 
-    private void OnDisable()
-    {
-        mediator.DeRegister(this);
-    }
-
     public void ShowBattleCampCar()
     {
         root.SetActive(true);
         battleCampCarController.MoveToBottom(moveSpeed, () =>
         {
             Debug.Log("Camp Car Arrive");
-            // RequestStartShoot();
+            RequestStartShoot();
             mediator.NotifyCampCarArrive();
         });
     }
@@ -76,6 +76,13 @@ public class BattleCampCarView : MonoBehaviour, IView
 
         //啟動旋轉
         rotateController.enabledRotate = true;
+    }
+
+    public void SetEnableShooting(bool isEnable)
+    {
+        gunView.isLock = !isEnable;
+        OnGunStateChanged?.Invoke(GunState.Releasing);
+        rotateController.enabledRotate = isEnable;
     }
 }
 

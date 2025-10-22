@@ -8,6 +8,9 @@ public class BattleSkillView : MonoBehaviour, IView
 
     [SerializeField] private SelectSkillPanelView selectSkillPanelView;
     [SerializeField] private SkillCounterView skillCounterView;
+
+    private int currentSkillIndex = -1;
+
     private void Awake()
     {
         InjectService.Instance.Inject(this);
@@ -55,12 +58,17 @@ public class BattleSkillView : MonoBehaviour, IView
         skillCounterView.StartSkillCoolDown(() =>
         {
             selectSkillPanelView.ShowPanel();
+            currentSkillIndex++;
             mediator.RequestFreezeTimeScale();
         });
     }
 
     public void OnSelectSkill(SkillType skillType)
     {
+        if (currentSkillIndex <= 3)
+        {
+            StartSkillCoolDown();
+        }
         mediator.OnSelectSkill(skillType);
     }
 }

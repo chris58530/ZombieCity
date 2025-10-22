@@ -6,12 +6,10 @@ public class SkillCounterView : MonoBehaviour
 {
     [SerializeField] private float skillTime;
     [SerializeField] private Image counterImage;
-    private int currentSkillIndex = -1;
     [SerializeField] private GameObject root;
 
     public void ResetView()
     {
-        currentSkillIndex = 0;
         root.SetActive(false);
     }
 
@@ -22,7 +20,7 @@ public class SkillCounterView : MonoBehaviour
         counterImage.DOFillAmount(0f, skillTime).SetEase(Ease.Linear).onComplete = () =>
         {
             callBack?.Invoke();
-            currentSkillIndex++;
+            root.SetActive(false);
         };
     }
 }

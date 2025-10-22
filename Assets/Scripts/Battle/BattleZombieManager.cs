@@ -55,4 +55,12 @@ public class BattleZombieManager : MonoBehaviour
         });
         zombie.StartMove();
     }
+
+    public void OnFreezeZombies(bool isFreeze)
+    {
+        foreach (var zombie in activeBattleZombies)
+        {
+            zombie.OnFreeze(isFreeze);
+        }
+    }
 }

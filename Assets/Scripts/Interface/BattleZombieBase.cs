@@ -198,4 +198,16 @@ public class BattleZombieBase : MonoBehaviour, IPoolable, IHittable
             }
         }
     }
+
+    public void OnFreeze(bool isFreeze)
+    {
+        if (isFreeze)
+        {
+            DOTween.Pause(transform);
+        }
+        else
+        {
+            DOTween.Play(transform);
+        }
+    }
 }

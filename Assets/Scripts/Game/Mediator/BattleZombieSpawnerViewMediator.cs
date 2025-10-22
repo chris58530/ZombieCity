@@ -31,4 +31,17 @@ public class BattleZombieSpawnerViewMediator : IMediator
     {
         battleProxy.RequestZombieCountUpdate(count);
     }
+
+    [Listener(BattleSkillEvent.ON_SELECT_START)]
+    public void NotifyAllZombiesFreeze()
+    {
+        view.StopSpawning();
+        view.OnFreezeAllZombie(true);
+    }
+    [Listener(BattleSkillEvent.ON_SELECT_END)]
+    public void NotifyAllZombiesUnfreeze()
+    {
+        view.ReStartSpawning();
+        view.OnFreezeAllZombie(false);
+    }
 }
