@@ -76,10 +76,17 @@ public enum SkillType
 {
     None,
 
+
+
+    //  普通跑台攻擊
     Add, //增加新子彈
     Penetrate, //貫穿子彈
     FireRate, //提升射速
 
+    //放開才會啟動的砲台特殊加成
+
+
+    //老闆技能 偏ＣＣ類型
     Damage, //提升傷害 健身房老闆技能
     Lightning, //閃電 電力老闆技能
     Poison //毒素 胡蘿波老闆技能

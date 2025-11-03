@@ -169,8 +169,8 @@ public class GunView : MonoBehaviour, IView
         if (!isSetUp)
             return;
 
-        if (isLock)
-            return;
+        // if (isLock)
+        //     return;
 
         if (gunState == GunState.Pressing)
             StartShooting();
@@ -212,5 +212,6 @@ public enum GunState
 {
     None,
     Pressing,
-    Releasing
+    Releasing,
+    Stopping
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class BattleCampCarView : MonoBehaviour, IView
@@ -46,6 +47,8 @@ public class BattleCampCarView : MonoBehaviour, IView
     }
     private void Update()
     {
+        if (gunView.isLock)
+            return;
         if (Input.GetMouseButton(0))
         {
             OnGunStateChanged?.Invoke(GunState.Pressing);
@@ -80,8 +83,9 @@ public class BattleCampCarView : MonoBehaviour, IView
 
     public void SetEnableShooting(bool isEnable)
     {
-        gunView.isLock = !isEnable;
         OnGunStateChanged?.Invoke(GunState.Releasing);
+        //to do  1023
+        gunView.isLock = !isEnable;
         rotateController.enabledRotate = isEnable;
     }
 }
